@@ -5,7 +5,8 @@
     padding: 0;
     text-decoration: none;
     font-family: "Poppins", sans-serif;
-    font-size: 28px;
+    font-size: 22px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -16,12 +17,16 @@
     --cor-div-despesa-receita: #EEEEEE;
 }
 
+html {
+    overflow: hidden;
+}
+
 body {
     background-color: var(--cor-bg);
     display: flex;
-    overflow: hidden;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 header {
@@ -48,7 +53,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     position: absolute;
     top: 40px;
     & img {
@@ -165,10 +170,6 @@ section {
 
 
 @media (max-width: 1210px) {
-    * {
-        font-size: 25px;
-    }
-
     .div-saldo {
         & .p-saldo {
             font-size: 0.8rem;
@@ -214,13 +215,54 @@ section {
 }
 
 .overlay {
-    display: none;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     height: 100vh;
     width: 100vw;
     position: absolute;
     top: 0;
     left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s ease;
+    z-index: 2;
+}
+
+.mostrar {
+    opacity: 1;
+    visibility: visible;
+}
+
+.esconder {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+
+@keyframes slideIn {
+    0% {
+        right: -100%;
+    }
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: -100%;
+    }
+}
+
+.surgir-menu {
+    animation: slideIn 0.4s forwards ease;
+}
+
+.sumir-menu {
+    animation: slideOut 0.4s forwards ease;
 }
 
 @media (max-width: 1024px) {
