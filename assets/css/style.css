@@ -13,24 +13,30 @@
     --cor-texto: #000000;
     --cor-logo: #0E4F30;
     --cor-bg: #FFFFFF;
+    --cor-div-despesa-receita: #EEEEEE;
 }
 
 body {
     background-color: var(--cor-bg);
     display: flex;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
 }
 
 header {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     position: relative;
-    gap: 50px;
+    gap: 30px;
     align-items: center;
     justify-content: center;
     height: 100vh;
     background-color: var(--cor-princ);
-    padding: 0 3vw;
+    padding: 0 50px;
     border-radius: 0 30px 30px 0;
+    width: 370px;
 }
 
 .div-logo {
@@ -82,5 +88,148 @@ nav {
         &:hover i{
             color: var(--cor-logo);
         }
+    }
+}
+
+main {
+    width: 75vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.div-saldo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    & .p-saldo {
+        font-size: 1rem;
+    }
+    & .saldo,span {
+        font-size: 3rem;
+        line-height: 3rem;
+    }
+}
+
+.div-pai {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    & .div-despesa-receita {
+        flex-direction: column;
+        display: flex;
+        gap: 20px;
+        width: 450px;
+        & div {
+            border-radius: 8px;
+            box-sizing: border-box;
+            padding: 20px 30px;
+            background-color: var(--cor-div-despesa-receita);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            & .num, span {
+                font-size: 1.5rem;
+            }
+        }
+    }
+    & .previa-historico {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        background-color: var(--cor-princ);
+        width: 300px;
+        padding: 20px;
+        border-radius: 8px;
+        & .legenda {
+            align-self: flex-start;
+        }
+    }
+}
+& .legenda {
+    font-size: 0.9rem;
+}
+
+
+@media (max-width: 1210px) {
+    * {
+        font-size: 25px;
+    }
+
+    .div-saldo {
+        & .p-saldo {
+            font-size: 0.8rem;
+        }
+        & .saldo,span {
+            font-size: 2.5rem;
+            line-height: 2.5rem;
+        }
+    }
+    
+    .div-pai {
+        & .div-despesa-receita {
+            width: 320px;
+            & div {
+                & .legenda {
+                    font-size: 0.8rem;
+                }
+                & .num, span {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+        & .previa-historico {
+            width: 240px;
+        }
+    }
+}
+
+.menu-icon {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    width: 40px;
+    cursor: pointer;
+    position: relative;
+    & div {
+        height: 5px;
+        width: 100%;
+        background-color: var(--cor-logo);
+        transition: 0.2s;
+    }
+}
+
+@media (max-width: 1024px) {
+    header {
+        width: 100%;
+        height: auto;
+        border-radius: 0;
+        padding: 30px 50px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .div-logo {
+        position: static;
+    }
+    .div-user, nav {
+        display: none;
+    }
+    body {
+        flex-direction: column;
+    }
+    main {
+        width: 100%;
+        height: 100%;
+    }
+    .menu-icon {
+        display: flex;
     }
 }

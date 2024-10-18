@@ -6,12 +6,18 @@
     <title>Meu Bolso</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" href="assets/img/logo.svg">
+    <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <div class="div-logo">
             <img src="assets/img/logo.svg" alt="">
             <p>Meu<span>Bolso</span></p>
+        </div>
+
+        <div class="menu-icon" onclick="abrirFecharMenu()">
+            <div id="linha1"></div>
+            <div id="linha2"></div>
         </div>
 
         <div class="div-user">
@@ -36,12 +42,12 @@
     </header>
     <main>
         <section>
-            <div>
+            <div class="div-saldo">
                 <p class="p-saldo">Saldo da conta:</p>
                 <p class="saldo">R$<span>999.999,00</span></p>
             </div>
-            <div>
-                <div>
+            <div class="div-pai">
+                <div class="div-despesa-receita">
                     <div>
                         <p class="legenda">Receitas</p>
                         <p class="num">R$<span>999.999,90</span></p>
@@ -52,12 +58,12 @@
                     </div>
                 </div>
                 <div class="previa-historico">
-
+                    <p class="legenda">Prévia Histórico</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 </html>
