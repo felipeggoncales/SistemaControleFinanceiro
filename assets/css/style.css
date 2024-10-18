@@ -47,8 +47,6 @@ header {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    position: relative;
-    z-index: 998;
 }
 
 .div-logo {
@@ -179,13 +177,14 @@ section {
 .menu-icon {
     display: none;
     flex-direction: column;
-    gap: 15px;
-    width: 40px;
+    gap: 5px;
+    width: 30px;
     cursor: pointer;
     position: relative;
     z-index: 999;
     & div {
-        height: 5px;
+        height: 4px;
+        border-radius: 100px;
         width: 100%;
         background-color: var(--cor-logo);
         transition: 0.2s;
@@ -201,15 +200,16 @@ section {
     z-index: 3;
     top: 0;
     left: 0;
-    transition: 0.4s ease;
+    opacity: 0;
+    transition: 0.3s ease;
 }
 
 .mostrar {
-    display: flex;
+    opacity: 1 !important;
 }
 
 .esconder {
-    display: none;
+    opacity: 0 !important;
 }
 
 @keyframes slideIn {
@@ -237,7 +237,6 @@ section {
 .sumir-menu {
     animation: slideOut 1s forwards ease;
 }
-
 
 @media (max-width: 1210px) {
     .div-saldo {
@@ -285,7 +284,8 @@ section {
         align-items: center;
         justify-content: center;
         padding: 0 50px;
-        position: absolute;
+        position: fixed;
+        z-index: 998;
         right: 0;
         top: 0;
         background-color: var(--cor-princ);
@@ -320,6 +320,7 @@ section {
     .div-pai {
         width: 80vw;
         flex-direction: column;
+        gap: 35px;
         & .div-despesa-receita {
             width: 100%;
             & div {
