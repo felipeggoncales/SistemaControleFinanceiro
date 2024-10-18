@@ -1,0 +1,140 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 22px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --cor-princ: #1ECD6A;
+    --cor-texto: #000000;
+    --cor-logo: #0E4F30;
+    --cor-bg: #FFFFFF;
+    --cor-div-despesa-receita: #EEEEEE;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+/* Cadastro */
+.double-input {
+    display: flex;
+    width: 500px;
+    gap: 4%;
+    & input {
+        width: 48%;
+    }
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8vw;
+}
+
+.pessoa-login {
+    width: auto;
+    height: 90vh;
+}
+
+.pessoa-cadastro {
+    width: auto;
+    height: 85vh;
+}
+
+.div-logo {
+    scale: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    top: 40px;
+    left: 80px;
+    & img {
+        width: 1.3rem;
+        height: auto;
+    }
+    & p {
+        color: var(--cor-logo);
+    }
+    & span {
+        font-weight: 600;
+    }
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    & h1 {
+        font-size: 1.7rem;
+        color: var(--cor-princ);
+        font-weight: 600;
+    }
+    & .div-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+        width: 500px;
+        & label {
+            font-size: 0.9rem;
+            color: var(--cor-texto);
+        }
+        & input {
+            font-size: 0.85rem;
+            width: 100%;
+            border: 1px solid var(--cor-texto);
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-sizing: border-box;
+        }
+    }
+    & .div-button {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        & button {
+            cursor: pointer;
+            background-color: var(--cor-princ);
+            padding: 10px 40px;
+            color: var(--cor-bg);
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            &:hover {
+                background-color: #15a553;
+            }
+        }
+        & p {
+            font-size: 0.8rem;
+            color: var(--cor-texto);
+            font-weight: 400;
+        }
+        & a {
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: var(--cor-princ);
+            font-weight: 600;
+            text-transform: uppercase;
+            &:hover {
+                color: var(--cor-logo);
+                text-decoration: underline;
+            }
+        }
+    }
+}

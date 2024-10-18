@@ -238,6 +238,8 @@ section {
     animation: slideOut 1s forwards ease;
 }
 
+/* Responsivo */
+
 @media (max-width: 1210px) {
     .div-saldo {
         & .p-saldo {
