@@ -1,7 +1,11 @@
-
 function abrirFecharMenu() {
     const linha1 = document.getElementById('linha1');
     const linha2 = document.getElementById('linha2');
+
+    const overlay = document.querySelector('.overlay');
+    const itensMenu = document.querySelector('.div-items-menu');
+    overlay.style.display = 'flex';
+    itensMenu.style.display = 'flex';
 
     const linhaDisplay = getComputedStyle(linha1).position;
     if (linhaDisplay === 'static') {
