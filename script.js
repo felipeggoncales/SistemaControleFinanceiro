@@ -41,3 +41,12 @@ function abrirFecharMenu() {
         },500);
     };
 };
+
+
+let meta = 1000; // Exemplo de meta
+let despesas = 500; // Exemplo de despesas atuais
+let porcentagem = (despesas / meta) * 100;
+
+document.querySelector('.wave-container').style.height = `${100 - porcentagem}%`;
+document.querySelector('.progress-text p').innerText = `${Math.round(porcentagem)}% do orçamento`;
+

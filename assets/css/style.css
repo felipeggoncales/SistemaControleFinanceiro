@@ -125,24 +125,25 @@ section {
     align-items: center;
     gap: 10px;
     & .p-saldo {
-        font-size: 1rem;
+        font-size: 0.85rem;
     }
     & .saldo,span {
-        font-size: 1.5rem;
-        line-height: 1.5rem;
+        font-size: 1.8rem;
+        line-height: 1.8rem;
     }
 }
 
 .div-pai {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     width: 100%;
     & .div-despesa-receita {
         flex-direction: column;
         display: flex;
-        gap: 20px;
+        gap: 15px;
         width: 400px;
         & div {
+            position: relative;
             border-radius: 8px;
             box-sizing: border-box;
             padding: 20px 30px;
@@ -153,6 +154,12 @@ section {
             justify-content: center;
             & .num, span {
                 font-size: 1.3rem;
+            }
+            & i {
+                cursor: pointer;
+                position: absolute;
+                top: 15px;
+                right: 15px;
             }
         }
     }
@@ -171,7 +178,7 @@ section {
     }
 }
 & .legenda {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 
@@ -264,13 +271,14 @@ section {
             font-weight: 400;
         }
         & input {
+            position: relative;
             box-sizing: border-box;
             width: 100%;
             border-radius: 5px;
             border: 1px solid black;
-            padding: 7px 15px;
+            padding: 8px 15px;
             text-align: left;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
         }
     }
     & .div-dupla {
@@ -289,11 +297,42 @@ section {
         cursor: pointer;
         font-weight: 0.85rem;
         &:hover {
-            background-color: #1ECD6A;
+            background-color: #16a052;
         }
     }
 }
 
+.div-valor {
+    position: relative;
+    & input {
+        text-align: right !important;
+        padding-right: 30px;
+    }
+    & i {
+        z-index: 2;
+        position: absolute;
+        text-decoration: none;
+        text-transform: none;
+        left: 15px; 
+        top: 71.5%;
+        transform: translateY(-50%);
+        font-style: normal;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
 
 /* Responsivo */
 
