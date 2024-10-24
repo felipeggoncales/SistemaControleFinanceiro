@@ -1,10 +1,10 @@
-function abrirFecharMenu() {
-    const linha1 = document.getElementById('linha1');
-    const linha2 = document.getElementById('linha2');
-    const linha3 = document.getElementById('linha3');
-    const overlay = document.querySelector('.overlay');
-    const itensMenu = document.querySelector('.div-items-menu');
+const linha1 = document.getElementById('linha1');
+const linha2 = document.getElementById('linha2');
+const linha3 = document.getElementById('linha3');
+const overlay = document.getElementById('overlay');
+const itensMenu = document.querySelector('.div-items-menu');
 
+function abrirFecharMenu() {
     const linhaDisplay = getComputedStyle(linha1).position;
 
     if (linhaDisplay === 'static') {
@@ -42,11 +42,7 @@ function abrirFecharMenu() {
     };
 };
 
-
-let meta = 1000; // Exemplo de meta
-let despesas = 500; // Exemplo de despesas atuais
-let porcentagem = (despesas / meta) * 100;
-
-document.querySelector('.wave-container').style.height = `${100 - porcentagem}%`;
-document.querySelector('.progress-text p').innerText = `${Math.round(porcentagem)}% do orçamento`;
-
+const limiteButton = document.getElementById('limite-button');
+limiteButton.addEventListener('click', function() {
+    alert('aaa');
+});

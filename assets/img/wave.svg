@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="1706.6667"
+   height="172"
+   viewBox="0 0 1706.6667 172"
+   sodipodi:docname="Novo Projeto.png"
+   inkscape:version="0.0"
+   inkscape:export-filename="Novo Projeto.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showguides="true"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="953.17994"
+     inkscape:cy="182.43355"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1">
+    <sodipodi:guide
+       position="-0.33203125,113.21094"
+       orientation="0,-1"
+       id="guide1"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g1">
+    <path
+       style="fill:#1fcc6a;fill-opacity:1"
+       d="M 0.00186135,115.40366 V 58.799589 L 12.335191,54.861149 C 96.967247,27.835351 196.71099,10.53007 314.66853,2.4071036 347.29194,0.16054363 469.5584,0.16098663 503.33521,2.4077876 626.74683,10.617013 723.2807,26.231029 851.33522,58.695579 c 96.6264,24.49684 157.81988,36.53476 236.66668,46.556801 77.8081,9.89001 125.4139,12.75946 211.3333,12.73811 81.1236,-0.0202 120.0414,-2.24262 188,-10.73609 71.1386,-8.890891 148.2829,-24.960621 200.8461,-41.837711 9.2654,-2.97493 18.0424,-6.62107 18.4937,-6.62107 0.4513,0 0,26.4121 0,57.212091 v 56 H 853.33522 0.00186135 Z"
+       id="path1"
+       sodipodi:nodetypes="ccsssssssssscccc" />
+  </g>
+</svg>

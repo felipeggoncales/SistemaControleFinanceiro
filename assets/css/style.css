@@ -163,23 +163,11 @@ section {
             }
         }
     }
-    & .previa-historico {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        background-color: var(--cor-princ);
-        width: 240px;
-        padding: 20px;
-        border-radius: 8px;
-        & .legenda {
-            align-self: flex-start;
-        }
+    & .legenda {
+        font-size: 0.8rem;
     }
 }
-& .legenda {
-    font-size: 0.85rem;
-}
+    
 
 
 .menu-icon {
@@ -199,13 +187,13 @@ section {
     }
 }
 
-.overlay {
+#overlay {
     display: none;
     background-color: rgba(0, 0, 0, 0.6);
     height: 100vh;
     width: 100vw;
     position: absolute;
-    z-index: 3;
+    z-index: 990;
     top: 0;
     left: 0;
     opacity: 0;
@@ -246,6 +234,96 @@ section {
     animation: slideOut 1s forwards ease;
 }
 
+/* Waves */
+.meta-gastos {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 250px;
+    border-radius: 8px;
+    & .wave {
+        position: absolute;
+        bottom: calc(70% - 30px);
+        left: 0;
+        width: 100%;
+        height: 40px;
+        background: url(../img/wave.png);
+        background-size: 1000px 40px;
+        &.wave1 {
+            animation: wave1 5s linear infinite;
+            z-index: 2;
+            opacity: 1;
+            animation-delay: 0s;
+        }       
+        &.wave2 {
+            animation: wave2 3s linear infinite;
+            z-index: 5;
+            opacity: 0.5;
+            animation-delay: -5s;
+        }
+        &.wave3{
+            animation: wave3 15s linear infinite;
+            z-index: 4;
+            opacity: 0.25;
+            animation-delay: 0s;
+        }
+    }
+    .div-loading {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: calc(70% - 30px);
+        background-color: var(--cor-princ); 
+        border-radius: 0 0 8px 8px;
+    }
+    & .div-porcentagem {
+        display: flex;
+        gap: 15px;
+        line-height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+        & .porcentagem {
+            font-size: 2.5rem;
+            color: var(--cor-texto);
+            font-weight: 500;
+        }
+        & .texto {
+            font-size: 0.65rem;
+            color: var(--cor-texto);
+            font-weight: 400;
+        }
+    }
+}
+
+@keyframes wave1 {
+    0% {
+        background-position-x: 0;
+    }
+    100% {
+        background-position: 1000px;
+    }
+}
+@keyframes wave2 {
+    0% {
+        background-position-x: 1000px;
+    }
+    100% {
+        background-position: 0;
+    }
+}
+@keyframes wave3 {
+    0% {
+        background-position-x: 1000px;
+    }
+    100% {
+        background-position: 0;
+    }
+}
 
 /* Adicionar Receita/Despesa */
 
@@ -254,39 +332,14 @@ section {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    width: 50vw;
+    width: 45vw;
     gap: 40px;
     & h2 {
         font-size: 1.4rem;
         line-height: 20px;
         font-weight: 400;
     }
-    & .div-input {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        width: 100%;
-        & p {
-            font-size: 0.9rem;
-            font-weight: 400;
-        }
-        & input {
-            position: relative;
-            box-sizing: border-box;
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid black;
-            padding: 8px 15px;
-            text-align: left;
-            font-size: 0.75rem;
-        }
-    }
-    & .div-dupla {
-        display: flex;
-        width: 100%;
-        gap: 3%;
-    }
-    & button {
+    button {
         background-color: var(--cor-princ);
         padding: 5px 20px;
         border-radius: 7px;
@@ -295,11 +348,49 @@ section {
         font-weight: 600;
         align-self: flex-end;
         cursor: pointer;
+        font-size: 0.95rem;
         font-weight: 0.85rem;
         &:hover {
             background-color: #16a052;
         }
     }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.div-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    & p {
+        font-size: 0.9rem;
+        font-weight: 400;
+    }
+    & input {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid black;
+        padding: 8px 15px;
+        text-align: left;
+        font-size: 0.65rem;
+    }
+}
+.div-dupla {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 3%;
 }
 
 .div-valor {
@@ -408,17 +499,21 @@ input[type="number"] {
         gap: 40px;
     }
     main{
-        margin-bottom: 50px;
+        margin-bottom: 80px;
     }
     .div-saldo {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
         & .saldo, span {
             line-height: 1.4rem;
+            font-size: 1.8rem;
         }
     }
     .div-pai {
-        width: 80vw;
+        width: 350px;
         flex-direction: column;
-        gap: 35px;
+        gap: 60px;
         & .div-despesa-receita {
             width: 100%;
             & div {
@@ -427,14 +522,10 @@ input[type="number"] {
                 }
             }
         }
-        & .previa-historico {
-            width: 100%;
-            height: 200px;
-        }
-    }
-    .div-saldo {
-        & .saldo, span {
-            font-size: 1.6rem;
+        & .meta-gastos {
+            width: 70%;
+            height: 220px;
+            align-self: center;
         }
     }
     .sumir-menu {

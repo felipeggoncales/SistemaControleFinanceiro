@@ -9,37 +9,39 @@
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="div-logo">
+        <img src="assets/img/logo.svg" alt="">
+        <p>Meu<span>Bolso</span></p>
+    </div>
     <div class="container">
-        <div class="div-logo">
-            <img src="assets/img/logo.svg" alt="">
-            <p>Meu<span>Bolso</span></p>
-        </div>
-        <img src="assets/img/person-cadastro.png" alt="" class="pessoa-cadastro">
+        <img src="assets/img/person-cadastro.png" alt="" class="pessoa">
         <div>
             <form>
                 <h1>Crie sua conta</h1>
-                <div class="double-input">
+                <div class="div-form">
+                    <div class="double-input">
+                        <div class="div-input">
+                            <label>Primeiro nome</label>
+                            <input type="email" placeholder="Ex: João" required>
+                        </div>
+                        <div class="div-input">
+                            <label>Sobrenome</label>
+                            <input type="email" placeholder="Ex: Silva" required>
+                        </div>
+                    </div>
+    
                     <div class="div-input">
-                        <label>Primeiro nome</label>
-                        <input type="email" placeholder="Ex: João" required>
+                        <label>E-mail</label>
+                        <input type="email" placeholder="Ex: randomperson@example.com" required>
                     </div>
                     <div class="div-input">
-                        <label>Sobrenome</label>
-                        <input type="email" placeholder="Ex: Silva" required>
+                        <label>Senha</label>
+                        <input type="password" placeholder="Ex: Senha123" required>
                     </div>
-                </div>
-
-                <div class="div-input">
-                    <label>E-mail</label>
-                    <input type="email" placeholder="Ex: randomperson@example.com" required>
-                </div>
-                <div class="div-input">
-                    <label>Senha</label>
-                    <input type="password" placeholder="Ex: Senha123" required>
                 </div>
                 <div class="div-button">
                     <button>Cadastrar-se</button>
-                    <p>Já tem uma conta? <a href="">Faça login</a></p>
+                    <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
                 </div>
             </form>
         </div>
