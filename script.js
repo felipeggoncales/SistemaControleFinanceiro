@@ -42,7 +42,7 @@ function abrirFecharMenu() {
     };
 };
 
-const limiteButton = document.getElementById('limite-button');
-limiteButton.addEventListener('click', function() {
+const gearButton = document.getElementById('limite-button');
+gearButton.addEventListener('click', function() {
     alert('aaa');
 });

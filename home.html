@@ -43,30 +43,40 @@
         </div>
     </header>
     <main>
-        <div class="container">
-            <h2>Adicionar Despesa</h2>
-            <form>
-                <div class="div-input">
-                    <p>Fonte</p>
-                    <input type="text" placeholder="~">
-                </div>
-                <div class="div-dupla">
-                    <div class="div-input div-valor">
-                        <p>Valor</p>
-                        <i>R$</i>
-                        <input type="text" placeholder="~" class="saldo-input">
+        <section>
+            <div class="div-saldo">
+                <p class="p-saldo">Meu saldo</p>
+                <p class="saldo">R$<span>999.999,90</span></p>
+            </div>
+            <div class="div-pai">
+                <div class="div-despesa-receita">
+                    <div>
+                        <p class="legenda">Receitas</p>
+                        <p class="num">R$<span>999.999,90</span></p>
+                        <i class="fa-solid fa-plus"></i>
                     </div>
-                    <div class="div-input">
-                        <p>Data</p>
-                        <input type="date">
+                    <div>
+                        <p class="legenda">Despesas</p>
+                        <p class="num">R$<span>999.999,90</span></p>
+                        <i class="fa-solid fa-plus"></i>
                     </div>
                 </div>
-            </form>
-            <button class="botao-adicionar">+ Adicionar despesa</button>
-        </div>
+                <div class="meta-gastos">
+                    <div class="div-porcentagem">
+                        <p class="porcentagem">0.5%</p>
+                        <p class="texto">do limite atingido</p>
+                    </div>
+                    <div class="div-loading"></div>
+                    <div class="wave wave1"></div>
+                    <div class="wave wave2"></div>
+                    <div class="wave wave3"></div>
+                    <i class="fa-solid fa-gear" id="gearButton"></i>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <div class="overlay"></div>
+    <div id="overlay"></div>
 
     <script src="script.js"></script>
 </body>

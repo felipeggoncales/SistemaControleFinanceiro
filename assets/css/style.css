@@ -298,6 +298,13 @@ section {
             font-weight: 400;
         }
     }
+    & i {
+        font-size: 0.9rem;
+        cursor: pointer;
+        position: absolute;
+        bottom: 15px;
+        right: 15px ;
+    }
 }
 
 @keyframes wave1 {
