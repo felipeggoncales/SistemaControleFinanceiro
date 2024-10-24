@@ -42,7 +42,33 @@ function abrirFecharMenu() {
     };
 };
 
-const gearButton = document.getElementById('limite-button');
-gearButton.addEventListener('click', function() {
-    alert('aaa');
-});
+const divDefinirLimite = document.getElementById('divDefinirLimite');
+const gearButton = document.getElementById('gearButton');
+const x = document.getElementById('fecharDivLimite');
+
+gearButton.addEventListener('click', abrirFecharDivLimite);
+x.addEventListener('click', abrirFecharDivLimite);
+    
+function abrirFecharDivLimite() {
+    const divDisplay = window.getComputedStyle(divDefinirLimite).display;
+    if (divDisplay === 'none') {
+        divDefinirLimite.style.display = 'flex';
+    } else {
+        divDefinirLimite.style.display = 'none';
+    };
+}
+
+var limiteMensal = null;
+const inputLimite = document.getElementById('limiteInput');
+const salvarLimiteButton =  document.getElementById('salvarLimite');
+salvarLimiteButton.addEventListener('click', function() {
+    limiteMensal = parseInt(inputLimite);
+    exibirMensagem();
+})
+
+const mensagemSalvo = document.getElementById('mensagemLimiteSalvo');
+const limiteValor = document.getElementById('limiteValor');
+function exibirMensagem() {
+    limiteValor.textContent = String(limiteMensal);
+    mensagemSalvo.style.display = 'flex';
+}
