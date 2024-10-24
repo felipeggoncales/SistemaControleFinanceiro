@@ -38,14 +38,14 @@ header {
     justify-content: center;
     height: 100vh;
     background-color: var(--cor-princ);
-    padding: 0 50px;
     border-radius: 0 30px 30px 0;
-    width: 370px;
+    width: 320px;
 }
 
 .div-items-menu {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 30px;
 }
 
@@ -86,10 +86,10 @@ header {
 nav {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     & div {
         display: flex;
-        gap: 20px;
+        gap: 15px;
         align-items: center;
         justify-content: start;
         cursor: pointer;
@@ -121,14 +121,15 @@ section {
 
 .div-saldo {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
     & .p-saldo {
         font-size: 1rem;
     }
     & .saldo,span {
-        font-size: 3rem;
-        line-height: 3rem;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
     }
 }
 
@@ -140,7 +141,7 @@ section {
         flex-direction: column;
         display: flex;
         gap: 20px;
-        width: 450px;
+        width: 400px;
         & div {
             border-radius: 8px;
             box-sizing: border-box;
@@ -151,7 +152,7 @@ section {
             align-items: flex-start;
             justify-content: center;
             & .num, span {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
         }
     }
@@ -161,7 +162,7 @@ section {
         justify-content: center;
         box-sizing: border-box;
         background-color: var(--cor-princ);
-        width: 300px;
+        width: 240px;
         padding: 20px;
         border-radius: 8px;
         & .legenda {
@@ -237,6 +238,62 @@ section {
 .sumir-menu {
     animation: slideOut 1s forwards ease;
 }
+
+
+/* Adicionar Receita/Despesa */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 50vw;
+    gap: 40px;
+    & h2 {
+        font-size: 1.4rem;
+        line-height: 20px;
+        font-weight: 400;
+    }
+    & .div-input {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+        & p {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+        & input {
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid black;
+            padding: 7px 15px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+    }
+    & .div-dupla {
+        display: flex;
+        width: 100%;
+        gap: 3%;
+    }
+    & button {
+        background-color: var(--cor-princ);
+        padding: 5px 20px;
+        border-radius: 7px;
+        border: none;
+        color: var(--cor-bg);
+        font-weight: 600;
+        align-self: flex-end;
+        cursor: pointer;
+        font-weight: 0.85rem;
+        &:hover {
+            background-color: #1ECD6A;
+        }
+    }
+}
+
 
 /* Responsivo */
 
