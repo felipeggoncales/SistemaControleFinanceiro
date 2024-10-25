@@ -121,6 +121,13 @@ section {
     gap: 30px;
 }
 
+h1 {    
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--cor-princ);
+    text-align: center;
+}
+
 .div-saldo {
     background: rgba(30, 205, 106, 0.25);
     border-radius: 15px;
