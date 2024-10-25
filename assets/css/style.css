@@ -30,9 +30,7 @@ body {
     height: 100vh;
     overflow-x: hidden;
 }
-
 header {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -40,6 +38,7 @@ header {
     justify-content: center;
     height: 100vh;
     background-color: var(--cor-princ);
+    padding: 0 20px;
     border-radius: 0 30px 30px 0;
     width: 320px;
 }
@@ -125,10 +124,9 @@ section {
 .div-saldo {
     background: rgba(30, 205, 106, 0.25);
     border-radius: 15px;
-    padding: 20px;
+    padding: 30px;
     backdrop-filter: blur(50px);
     border: 2px solid rgba(30, 205, 106, 0.05);
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -177,8 +175,8 @@ section {
             & i {
                 cursor: pointer;
                 position: absolute;
-                top: 15px;
-                right: 15px;
+                top: 25px;
+                right: 25px;
             }
         }
     }
@@ -253,6 +251,50 @@ section {
     animation: slideOut 1s forwards ease;
 }
 
+/* Gráficos */
+
+.div-graficos {
+    position: relative;
+    height: 100%;
+}
+.div-setas {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    gap: 50px;
+    & i {
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+}
+
+.meta-gastos2 {
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 250px;
+    border-radius: 15px;
+    height: 100%;
+    background-color: rebeccapurple;
+}
+.meta-gastos3 {
+    overflow: hidden;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 250px;
+    border-radius: 15px;
+    height: 100%;
+    background-color: #b99319;
+}
+
 /* Waves */
 .meta-gastos {
     overflow: hidden;
@@ -262,6 +304,7 @@ section {
     position: relative;
     width: 250px;
     border-radius: 15px;
+    height: 100%;
     & .wave {
         position: absolute;
         bottom: calc(70% - 30px);
@@ -373,7 +416,7 @@ section {
         text-decoration: none;
         text-transform: none;
         left: 30px; 
-        top: 68px;
+        top: 69.5px;
         transform: translateY(-50%);
         font-style: normal;
         font-size: 0.7rem;
@@ -393,7 +436,7 @@ section {
     top: 20px;
     right: 20px;
     background-color: var(--cor-mensagem);
-    border-radius: 3px;
+    border-radius: 8px;
     display: none; /* Display */
     gap: 10px;
     align-items: center;
@@ -558,6 +601,9 @@ input[type="number"] {
 /* Responsivo */
 
 @media (max-width: 1210px) {
+    header {
+        box-sizing: border-box;
+    }
     .div-saldo {
         & .p-saldo {
             font-size: 0.8rem;
@@ -627,9 +673,12 @@ input[type="number"] {
     }
     body {
         gap: 40px;
+        margin-bottom: 100px;
     }
-    main{
-        margin-bottom: 80px;
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .div-saldo {
         flex-direction: column;
@@ -645,20 +694,26 @@ input[type="number"] {
         max-width: 350px;
         flex-direction: column;
         gap: 40px;
-        height: 600px;
-        & .div-despesa-receita {
+        .div-despesa-receita {
+            height: auto; 
+            gap: 20px;
             width: 100%;
             & div {
+                height: 100px;
                 & .num, span{
                     font-size: 1.2rem;
                 }
             }
         }
     }
-    .meta-gastos {
+
+    .div-graficos {
+        height: 280px;
         width: 70%;
-        height: 500px !important;
         align-self: center;
+    }
+    .meta-gastos, .meta-gastos2, .meta-gastos3 {
+        height: 100%;
     }
     .wave {
         height: 100px;
@@ -675,7 +730,5 @@ input[type="number"] {
     .div-items-menu {
         box-sizing: border-box;
         width: 100vw;
-    }
-    .div-pai {
     }
 }
