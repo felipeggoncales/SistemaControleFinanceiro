@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico - MeuBolso</title>
-    <link rel="stylesheet" href="assets/css/historico.css">
+    <link rel="stylesheet" href="assets/css/historicos.css">
     <link rel="icon" href="assets/img/logo.svg">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
 </head>
@@ -42,11 +42,38 @@
             </nav>
         </div>
     </header>
-    <main>
         <section>
-            
+            <div class="container">
+                <h1>Movimentação mensal</h1>
+                <div class="periodo">
+                    <div>
+                        <h2>Período</h2>
+                        <p>Outubro/2024</p>                        
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="container-movement">
+                    <div class="movement">
+                        <h3>Quanto entrou</h3>
+                        <div class="container-saldo-chevron">
+                            <p>R$ <span>0000</span></p>
+                            <i class="fa-solid fa-chevron-right"></i> 
+                        </div>                       
+                    </div>
+                    <div class="movement">
+                        <h3>Quanto saiu</h3>                    
+                        <div class="container-saldo-chevron">
+                            <p>R$ <span>0000</span></p>        
+                            <i class="fa-solid fa-chevron-right"></i>          
+                        </div>                              
+                    </div>
+                </div>
+                <div class="result-movement">
+                    <h2>Etradas menos saidas <br> no <span class="color-meubolso">MeuBolso</span> este mês</h2>
+                    <p>R$ <span>0000</span></p>
+                </div>
+            </div>
         </section>
-    </main>
     <script src="script.js"></script>
 </body>
 </html>

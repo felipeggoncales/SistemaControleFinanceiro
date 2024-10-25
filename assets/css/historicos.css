@@ -15,6 +15,7 @@
     --cor-logo: #0E4F30;
     --cor-bg: #FFFFFF;
     --cor-div-despesa-receita: #EEEEEE;
+    --cor-texto-opaco: #929292;
 }
 
 html {
@@ -104,4 +105,98 @@ nav {
         }
     }
 }
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+}
 
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    & h1 {    
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--cor-princ);
+        text-align: center;
+    }
+    & .container-movement {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+.periodo{
+    display: flex;
+    padding-top: ;
+    padding-bottom: ;
+    justify-content: space-between;
+}
+.periodo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & p {
+        font-size: 18px;
+        font-weight: 300;
+    }
+    & i {
+        cursor: pointer;
+    }
+    & h2{
+        font-weight: 600;
+    }
+}
+
+.movement{
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cor-div-despesa-receita);
+    border-radius: 15px;
+    width: 550px;
+    position: relative;
+    padding: 40px 30px;
+    & .container-saldo-chevron {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        & i, p, span {
+            font-size: 0.9rem;
+            color: var(--cor-texto-opaco);
+        }
+    }
+    & h3 {
+        font-size: 1.15rem;
+        font-weight: 400;
+    }
+}
+
+.result-movement{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-between;
+    & h2 {
+        font-weight: 400;
+        font-size: 0.85rem;
+    }
+    & .color-meubolso{
+        font-size: 0.85rem;
+        color: var(--cor-princ);
+        font-weight: 600;
+    }
+    & p{
+        font-size: 0.9rem;
+        color: var(--cor-texto);
+    }
+}
