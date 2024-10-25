@@ -45,7 +45,10 @@
     <main>
         <section>
             <div class="div-saldo">
-                <p class="p-saldo">Meu saldo</p>
+                <div>
+                    <i class="fa-solid fa-dollar-sign"></i>
+                    <p class="p-saldo">Meu saldo</p>
+                </div>
                 <p class="saldo">R$<span>999.999,90</span></p>
             </div>
             <div class="div-pai">
@@ -63,8 +66,8 @@
                 </div>
                 <div class="meta-gastos">
                     <div class="div-porcentagem">
-                        <p class="porcentagem">0.5%</p>
-                        <p class="texto">do limite atingido</p>
+                        <p class="porcentagem" id="porcentagem">0.5%</p>
+                        <p class="texto" id="limiteMsg">do limite atingido</p>
                     </div>
                     <div class="div-loading"></div>
                     <div class="wave wave1"></div>
@@ -74,6 +77,19 @@
                 </div>
             </div>
         </section>
+
+        <div class="mensagemLimiteSalvo" id="mensagemLimiteSalvo">
+            <p>Limite definido para R$<span id="limiteValor"></span></p>
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div class="div-configurar-meta" id="divDefinirLimite">
+            <label>Limite mensal:</label>
+            <i class="rs">R$</i>
+            <input type="number" id="limiteInput" placeholder="~">
+            <button id="salvarLimite">salvar</button>  
+            <i class="fa-solid fa-xmark" id="fecharDivLimite"></i>
+        </div>
     </main>
 
     <div id="overlay"></div>

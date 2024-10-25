@@ -15,6 +15,8 @@
     --cor-logo: #0E4F30;
     --cor-bg: #FFFFFF;
     --cor-div-despesa-receita: #EEEEEE;
+    --cor-mensagem: #4adf8b;
+    --cor-errado: #f13d30;
 }
 
 html {
@@ -78,7 +80,7 @@ header {
         font-size: 5em;
     }
     & p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         text-align: center;
     }
 }
@@ -106,11 +108,12 @@ nav {
 }
 
 main {
-    width: 75vw;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 section {
@@ -120,31 +123,47 @@ section {
 }
 
 .div-saldo {
+    background: rgba(30, 205, 106, 0.25);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(50px);
+    border: 2px solid rgba(30, 205, 106, 0.05);
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    & .p-saldo {
-        font-size: 0.85rem;
+    & div {
+        display: flex;
+        gap: 5px;
+        & .p-saldo, i {
+            font-size: 0.85rem;
+            line-height: 100%;
+            color: var(--cor-texto);
+            font-weight: 400;
+        }
     }
     & .saldo,span {
         font-size: 1.8rem;
-        line-height: 1.8rem;
+        line-height: 100%;
     }
 }
 
 .div-pai {
     display: flex;
-    gap: 15px;
+    gap: 25px;
     width: 100%;
+    height: 280px;
     & .div-despesa-receita {
         flex-direction: column;
         display: flex;
-        gap: 15px;
+        gap: 8%;
         width: 400px;
+        height: 100%;
         & div {
+            height: 50%;
             position: relative;
-            border-radius: 8px;
+            border-radius: 15px;
             box-sizing: border-box;
             padding: 20px 30px;
             background-color: var(--cor-div-despesa-receita);
@@ -242,15 +261,16 @@ section {
     justify-content: center;
     position: relative;
     width: 250px;
-    border-radius: 8px;
+    border-radius: 15px;
     & .wave {
         position: absolute;
         bottom: calc(70% - 30px);
         left: 0;
         width: 100%;
-        height: 40px;
+        height: 40px !important;
         background: url(../img/wave.png);
-        background-size: 1000px 40px;
+        background-size: 1000px 40px !important;
+        transition: 1s;
         &.wave1 {
             animation: wave1 5s linear infinite;
             z-index: 2;
@@ -275,8 +295,8 @@ section {
         bottom: 0;
         width: 100%;
         height: calc(70% - 30px);
-        background-color: var(--cor-princ); 
-        border-radius: 0 0 8px 8px;
+        background-color: var(--cor-princ);
+        transition: 1s;
     }
     & .div-porcentagem {
         display: flex;
@@ -302,8 +322,111 @@ section {
         font-size: 0.9rem;
         cursor: pointer;
         position: absolute;
+        z-index: 51;
         bottom: 15px;
         right: 15px ;
+        color: var(--cor-texto);
+    }
+}
+
+.div-configurar-meta {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: absolute;
+    z-index: 100;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--cor-div-despesa-receita);
+    padding: 20px;
+    border-radius: 15px;
+    gap: 10px;
+    & label {
+        font-size: 0.7rem;
+    }
+    & input {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        padding: 5px 10px;
+        font-size: 0.65rem;
+        text-align: right;
+    }
+    & button {
+        background-color: var(--cor-princ);
+        font-weight: 600;
+        color: var(--cor-bg);
+        text-transform: uppercase;
+        border: none;
+        padding: 4px 10px;
+        font-size: 0.6rem;
+        border-radius: 5px;
+        cursor: pointer;
+        align-self: flex-end;
+    }
+    & .rs {
+        z-index: 2;
+        position: absolute;
+        text-decoration: none;
+        text-transform: none;
+        left: 30px; 
+        top: 68px;
+        transform: translateY(-50%);
+        font-style: normal;
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+    & .fa-xmark {
+        font-size: 0.8rem;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+}
+
+.mensagemLimiteSalvo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--cor-mensagem);
+    border-radius: 3px;
+    display: none; /* Display */
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    & p, i, span {
+        line-height: 15px;
+        color: var(--cor-texto);
+        font-weight: 600;
+        font-size: 0.7rem;
+    }
+}
+
+.mensagemSurgir {
+    animation: mensagemSurgir 0.5s ease;
+}
+@keyframes mensagemSurgir {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.mensagemSumir {
+    animation: mensagemSumir 0.5s ease;
+}
+@keyframes mensagemSumir {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
@@ -386,7 +509,7 @@ form {
         box-sizing: border-box;
         width: 100%;
         border-radius: 5px;
-        border: 1px solid black;
+        border: 1px solid rgba(0,0,0,0.4);
         padding: 8px 15px;
         text-align: left;
         font-size: 0.65rem;
@@ -518,9 +641,11 @@ input[type="number"] {
         }
     }
     .div-pai {
-        width: 350px;
+        width: 85vw;
+        max-width: 350px;
         flex-direction: column;
-        gap: 60px;
+        gap: 40px;
+        height: 600px;
         & .div-despesa-receita {
             width: 100%;
             & div {
@@ -529,25 +654,28 @@ input[type="number"] {
                 }
             }
         }
-        & .meta-gastos {
-            width: 70%;
-            height: 220px;
-            align-self: center;
-        }
+    }
+    .meta-gastos {
+        width: 70%;
+        height: 500px !important;
+        align-self: center;
+    }
+    .wave {
+        height: 100px;
+    }
+    .div-loading {
+        height: 500px;
     }
     .sumir-menu {
         animation: slideOut 0.5s forwards ease;
     }
 }
 
-@media (max-width: 350px) {
-    .div-saldo {
-        & .saldo, span {
-            font-size: 1.3rem;
-        }
-    }
+@media (max-width: 385px) {
     .div-items-menu {
         box-sizing: border-box;
         width: 100vw;
+    }
+    .div-pai {
     }
 }
