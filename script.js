@@ -48,7 +48,7 @@ function abrirFecharMenu() {
 /* Gráfico de limite de gastos */
 
 var limiteMensal = null;
-let gastos = 902 // Variável a ser trocada quando a função de cadastar despesas for implemantada
+let gastos = 700; // Variável a ser trocada quando a função de cadastar despesas for implemantada
 var porcentagemLimiteConcluido = 75;
 
 const limiteTexto = document.getElementById('porcentagem');
@@ -75,9 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 })
 
-
 function alterarGraficoLimite() {
-    porcentagemLimiteConcluido = ((gastos / parseInt(limiteMensal))*100).toFixed(1); // Ainda não existe, precisa fazer o banco SQL
+    porcentagemLimiteConcluido = ((gastos / parseFloat(limiteMensal))*100).toFixed(1); // Ainda não existe, precisa fazer o banco SQL
     porcentagemTexto.textContent = `${porcentagemLimiteConcluido}%`;
     Array.from(waves).forEach(wave => {
         if (porcentagemLimiteConcluido < 100) {
@@ -127,8 +126,8 @@ function abrirFecharDivLimite() {
 }
 
 salvarLimiteButton.addEventListener('click', function() {
-    if (inputLimite.value) {
-        limiteMensal = parseInt(inputLimite.value);
+    if (inputLimite.value && inputLimite.value > 0) {
+        limiteMensal = parseFloat(inputLimite.value);
         exibirMensagem(limiteMensal);
         storageLimite(limiteMensal);
         alterarGraficoLimite();
@@ -145,7 +144,7 @@ function exibirMensagem(mensagem) {
     
     animacaoAtiva = true;
 
-    limiteValor.textContent = mensagem;
+    limiteValor.textContent = formatarNumero(mensagem);
     mensagemSalvo.classList.add('mensagemSurgir');
     mensagemSalvo.style.display = 'flex';
 
@@ -159,8 +158,55 @@ function exibirMensagem(mensagem) {
     }, 5000);
 }
 
-/* Função para salvar o limite definido pelo usuario no local storage */
+/* Função para formatar número para o formato do real */
+function formatarNumero(num) {
+    const numeroDecimal = parseFloat(num.toString().replace(',', '.'));
+    if (isNaN(numeroDecimal)) {
+        return "Valor inválido";
+    }
+    return numeroDecimal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 
+/* Função para passar para o lado os gráficos */
+
+const setaRight = document.getElementById('chevron-right');
+const setaLeft = document.getElementById('chevron-left');
+const divGraficos = document.getElementById('div-graficos');
+const divGraficosArray = Array.from(divGraficos.children);
+
+setaLeft.addEventListener('click', () => {
+    let indDiv = divGraficosArray.findIndex((div) => {
+        return getComputedStyle(div).display === 'flex';
+    });
+    if (indDiv > 0) {
+        indDiv--;
+    } else {
+        indDiv = divGraficosArray.length - 2
+    }
+    divGraficosArray.forEach((div) => {
+        div.style.display = 'none';
+    })
+    divGraficosArray[indDiv].style.display = 'flex';
+    divGraficosArray[divGraficosArray.length-1].style.display = 'flex';
+});
+
+setaRight.addEventListener('click', () => {
+    let indDiv = divGraficosArray.findIndex((div) => {
+        return getComputedStyle(div).display === 'flex';
+    });
+    if (indDiv < divGraficosArray.length - 2) {
+        indDiv++;
+    } else {
+        indDiv = 0;
+    }
+    divGraficosArray.forEach((div) => {
+        div.style.display = 'none';
+    })
+    divGraficosArray[indDiv].style.display = 'flex';
+    divGraficosArray[divGraficosArray.length-1].style.display = 'flex';
+});
+
+/* Função para salvar o limite definido pelo usuario no local storage */
 function storageLimite(valor) {
     localStorage.setItem('limite', valor)
 }
