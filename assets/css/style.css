@@ -124,10 +124,9 @@ section {
 .div-saldo {
     background: rgba(30, 205, 106, 0.25);
     border-radius: 15px;
-    padding: 20px;
+    padding: 30px;
     backdrop-filter: blur(50px);
     border: 2px solid rgba(30, 205, 106, 0.05);
-
     display: flex;
     justify-content: space-between;
     align-items: center;
