@@ -577,15 +577,15 @@ form {
     position: relative;
     & input {
         text-align: right !important;
-        padding-right: 30px;
     }
     & i {
         z-index: 2;
         position: absolute;
         text-decoration: none;
         text-transform: none;
-        left: 15px; 
-        top: 71.5%;
+        left: 13px; 
+        top: 56px;
+        line-height: 100%;
         transform: translateY(-50%);
         font-style: normal;
         font-size: 0.8rem;

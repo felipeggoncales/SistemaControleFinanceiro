@@ -225,16 +225,16 @@ section {
         padding: 20px;
         &:hover {
             background-color: #e4e4e4;
-        }  
-        & img {
-            width: 1.8rem;
         }
         & .div-grupo-fonte {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            .div-fonte {
+            gap: 15px;  
+            & img {
+                width: 1.5rem;
+            }
+            & .div-fonte {
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
