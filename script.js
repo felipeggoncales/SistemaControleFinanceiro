@@ -249,11 +249,20 @@ function mouseMove(event, item) {
 
 /* Função escolher mês do ano */
 
+// Function chevron
 function toggleDropdown() {
     const dropdown = document.getElementById('dropdownPeriodo');
-    dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'block';
+    dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    
+    const setaFiltro = document.getElementById('setaFiltro');
+    if (setaFiltro.style.transform !== 'rotate(90deg)') {
+        setaFiltro.style.transform = 'rotate(90deg)';
+    } else {
+        setaFiltro.style.transform = 'none';
+    };
 };
 
+// Function botão aplicar
 function aplicarPeriodo() {
     const mesSelect = document.getElementById('mes');
     const anoSelect = document.getElementById('ano');
@@ -265,11 +274,7 @@ function aplicarPeriodo() {
     periodoSelecionado.textContent = `${mes}/${ano}`;
     
     document.getElementById('dropdownPeriodo').style.display = 'none';
-};
 
-window.onclick = function(event) {
-    const dropdown = document.getElementById('dropdownPeriodo');
-    if (!event.target.matches('.fa-chevron-down') && !dropdown.contains(event.target)) {
-        dropdown.style.display = 'none';
-    }
-};
+    const setaFiltro = document.getElementById('setaFiltro');
+    setaFiltro.style.transform = 'none';
+}
