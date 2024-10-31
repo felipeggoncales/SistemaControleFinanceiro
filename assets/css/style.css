@@ -293,8 +293,14 @@ h1 {
     width: 250px;
     border-radius: 15px;
     height: 100%;
-    background-color: rebeccapurple;
 }
+
+.meta-gastos2 canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 600px; /* Opcional: definir um tamanho máximo para o gráfico */
+}
+
 .meta-gastos3 {
     overflow: hidden;
     display: none;
