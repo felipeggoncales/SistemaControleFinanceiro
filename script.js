@@ -48,7 +48,7 @@ function abrirFecharMenu() {
 /* Gráfico de limite de gastos */
 
 var limiteMensal = null;
-let gastos = 700; // Variável a ser trocada quando a função de cadastar despesas for implemantada
+let gastos = 1500; // Variável a ser trocada quando a função de cadastar despesas for implemantada
 var porcentagemLimiteConcluido = 75;
 
 const limiteTexto = document.getElementById('porcentagem');
@@ -210,3 +210,66 @@ setaRight.addEventListener('click', () => {
 function storageLimite(valor) {
     localStorage.setItem('limite', valor)
 }
+
+/* Mostrar tooltip ao passar o mouse sobre o gráfico */
+const toolTip = document.getElementById('tooltipGastos');
+const divLoading = document.querySelector('.div-loading');
+const divWaves = document.querySelectorAll('.wave');
+
+const listaWaves = Array.from(divWaves);
+
+listaWaves.forEach((wave) => {
+    wave.addEventListener('mouseenter', () => mouseEnter(toolTip));
+    
+    wave.addEventListener('mouseleave', () => mouseLeave(toolTip));
+
+    wave.addEventListener('mousemove', (event) => mouseMove(event, toolTip));
+});
+
+divLoading.addEventListener('mouseenter', () => mouseEnter(toolTip));
+
+divLoading.addEventListener('mouseleave', () => mouseLeave(toolTip));
+
+divLoading.addEventListener('mousemove', (event) => mouseMove(event, toolTip));
+
+function mouseEnter(item) {
+    item.style.display = 'block';
+    item.textContent = `R$ ${formatarNumero(gastos)}`;
+}
+function mouseLeave(item) {
+    item.style.display = 'none';
+}
+function mouseMove(event, item) {
+    let mouseX = event.clientX;
+    let mouseY = event.clientY;
+
+    item.style.left = `${mouseX}px`;
+    item.style.top = `${mouseY - 30}px`;
+}
+
+/* Função escolher mês do ano */
+
+function toggleDropdown() {
+    const dropdown = document.getElementById('dropdownPeriodo');
+    dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'block';
+};
+
+function aplicarPeriodo() {
+    const mesSelect = document.getElementById('mes');
+    const anoSelect = document.getElementById('ano');
+    const periodoSelecionado = document.getElementById('periodoSelecionado');
+    
+    const mes = mesSelect.options[mesSelect.selectedIndex].text;
+    const ano = anoSelect.value;
+    
+    periodoSelecionado.textContent = `${mes}/${ano}`;
+    
+    document.getElementById('dropdownPeriodo').style.display = 'none';
+};
+
+window.onclick = function(event) {
+    const dropdown = document.getElementById('dropdownPeriodo');
+    if (!event.target.matches('.fa-chevron-down') && !dropdown.contains(event.target)) {
+        dropdown.style.display = 'none';
+    }
+};

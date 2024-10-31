@@ -180,10 +180,15 @@ h1 {
                 font-size: 1.3rem;
             }
             & i {
+                color: var(--cor-texto);
                 cursor: pointer;
                 position: absolute;
                 top: 25px;
                 right: 25px;
+                padding: 3px;
+                &:hover{
+                    color: var(--cor-princ);
+                }
             }
         }
     }
@@ -377,6 +382,20 @@ h1 {
         right: 15px ;
         color: var(--cor-texto);
     }
+}
+
+.tooltip {
+    position: fixed;
+    background-color: var(--cor-texto);
+    color: var(--cor-bg);
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.55rem;
+    display: none;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
 }
 
 .div-configurar-meta {
@@ -611,15 +630,8 @@ input[type="number"] {
     header {
         box-sizing: border-box;
     }
-    .div-saldo {
-        & .p-saldo {
-            font-size: 0.8rem;
-        }
-        & .saldo,span {
-            font-size: 2.5rem;
-            line-height: 2.5rem;
-        }
-    }
+
+
     
     .div-pai {
         & .div-despesa-receita {
@@ -668,26 +680,30 @@ input[type="number"] {
     }
     main {
         width: 100%;
+        height: auto;
+        margin: 50px 0 80px 0;
     }
     .menu-icon {
         display: flex;
     }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 690px) {
     header {
         padding: 30px;
     }
     body {
         gap: 40px;
-        margin-bottom: 100px;
     }
     main {
         display: flex;
         align-items: center;
         justify-content: center;
+        height: auto;
+        margin-bottom: 100px;
     }
     .div-saldo {
+        box-sizing: border-box;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
@@ -699,8 +715,8 @@ input[type="number"] {
     .div-pai {
         width: 85vw;
         max-width: 350px;
+        height: auto;
         flex-direction: column;
-        gap: 40px;
         .div-despesa-receita {
             height: auto; 
             gap: 20px;
@@ -712,12 +728,10 @@ input[type="number"] {
                 }
             }
         }
-    }
-
-    .div-graficos {
-        height: 280px;
-        width: 70%;
-        align-self: center;
+        & .div-graficos {
+            height: 280px;
+            align-self: center;
+        }
     }
     .meta-gastos, .meta-gastos2, .meta-gastos3 {
         height: 100%;
@@ -731,11 +745,23 @@ input[type="number"] {
     .sumir-menu {
         animation: slideOut 0.5s forwards ease;
     }
+    .div-setas {
+        & i {
+            font-size: 1.3rem;
+        }
+    }
 }
 
-@media (max-width: 385px) {
+@media (max-width: 390px) {
+    * {
+        font-size: 18px;
+    }
+    .div-saldo {
+        & .saldo, span {
+            font-size: 1.75rem;
+        }
+    }
     .div-items-menu {
-        box-sizing: border-box;
-        width: 100vw;
+        box-sizing: border-box; 
     }
 }

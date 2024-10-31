@@ -14,10 +14,11 @@
     --cor-texto: #000000;
     --cor-logo: #0E4F30;
     --cor-bg: #FFFFFF;
-    --cor-div-despesa-receita: #EEEEEE;
+    --cor-div-despesa-receita: #f1f1f1;
     --cor-mensagem: #4adf8b;
     --cor-errado: #f13d30;
     --cor-texto-opaco: #929292;
+    --cor-hover: #e4e4e4;
 }
 
 html {
@@ -147,6 +148,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     & p {
         font-size: 18px;
         font-weight: 300;
@@ -158,6 +160,32 @@ section {
         font-weight: 600;
     }
 }
+
+.dropdown {
+    display: none;
+    flex-direction: column;
+    gap: 30px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 30px;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown select {
+    margin-bottom: 5px;
+    width: 100%;
+    font-size: 0.7rem;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
 
 .movement{
     box-sizing: border-box;
@@ -183,6 +211,10 @@ section {
     & h3 {
         font-size: 1.15rem;
         font-weight: 400;
+        color: var(--cor-texto);
+    }
+    &:hover {
+        background-color: var(--cor-hover);
     }
 }
 
@@ -222,9 +254,9 @@ section {
         width: 100%;
         justify-content: space-between;
         align-items: center;
-        padding: 20px;
+        padding: 25px;
         &:hover {
-            background-color: #e4e4e4;
+            background-color: var(--cor-hover);
         }
         & .div-grupo-fonte {
             display: flex;
