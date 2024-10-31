@@ -303,7 +303,9 @@ new Chart("myChart", {
     maintainAspectRatio: false,
     title: {
       display: true,
-      text: "World Wide Wine Production 2018"
+      text: "Gastos no último mês",
+      fontColor: "#000000",
+      fontSize: 20
     }
   }
 });
