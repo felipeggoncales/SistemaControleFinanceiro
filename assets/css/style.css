@@ -7,6 +7,7 @@
     font-family: "Poppins", sans-serif;
     font-size: 22px;
     -webkit-tap-highlight-color: transparent;
+    line-height: 100%;
 }
 
 :root {
@@ -87,7 +88,7 @@ header {
 nav {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     & div {
         display: flex;
         gap: 15px;
@@ -194,10 +195,10 @@ h1 {
     }
     & .legenda {
         font-size: 0.8rem;
+        color: var(--cor-texto);
+        margin-bottom: 10px;
     }
 }
-    
-
 
 .menu-icon {
     display: none;
@@ -538,26 +539,11 @@ h1 {
     align-items: flex-start;
     justify-content: center;
     width: 45vw;
-    gap: 40px;
+    gap: 30px;
     & h2 {
         font-size: 1.4rem;
         line-height: 20px;
         font-weight: 400;
-    }
-    button {
-        background-color: var(--cor-princ);
-        padding: 5px 20px;
-        border-radius: 7px;
-        border: none;
-        color: var(--cor-bg);
-        font-weight: 600;
-        align-self: flex-end;
-        cursor: pointer;
-        font-size: 0.95rem;
-        font-weight: 0.85rem;
-        &:hover {
-            background-color: #16a052;
-        }
     }
 }
 
@@ -568,6 +554,23 @@ form {
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.botao-adicionar{
+    background-color: var(--cor-princ);
+    padding: 15px 20px;
+    border-radius: 7px;
+    border: none;
+    color: var(--cor-bg);
+    font-weight: 600;
+    align-self: flex-end;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 15px;
+    &:hover {
+        background-color: #16a052;
+    }
 }
 
 .div-input {
@@ -609,7 +612,7 @@ form {
         text-decoration: none;
         text-transform: none;
         left: 13px; 
-        top: 56px;
+        top: 2.05rem;
         line-height: 100%;
         transform: translateY(-50%);
         font-style: normal;
@@ -628,6 +631,11 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+
+.add-input {
+    line-height: 1rem;
 }
 
 /* Responsivo */
@@ -714,7 +722,6 @@ input[type="number"] {
         align-items: flex-start;
         justify-content: center;
         & .saldo, span {
-            line-height: 1.4rem;
             font-size: 1.8rem;
         }
     }

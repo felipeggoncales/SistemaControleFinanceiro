@@ -250,7 +250,7 @@ function mouseMove(event, item) {
 /* Função escolher mês do ano */
 
 // Function chevron
-function toggleDropdown() {
+function toggleDropdown() {    
     const dropdown = document.getElementById('dropdownPeriodo');
     dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
     
