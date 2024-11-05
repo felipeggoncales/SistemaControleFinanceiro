@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeuBolso</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="icon" href="assets/img/logo.svg">
+    <link rel="icon" href="assets/img/icon.png">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
@@ -105,8 +105,10 @@
 
         <div class="div-configurar-meta" id="divDefinirLimite">
             <label>Limite mensal:</label>
-            <i class="rs">R$</i>
-            <input type="number" id="limiteInput" placeholder="~">
+            <div class="div-input">
+                <input type="number" id="limiteInput" placeholder="~">
+                <i class="rs">R$</i>
+            </div>
             <button id="salvarLimite">salvar</button>  
             <i class="fa-solid fa-xmark" id="fecharDivLimite"></i>
         </div>

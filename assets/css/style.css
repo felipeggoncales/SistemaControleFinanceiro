@@ -18,6 +18,7 @@
     --cor-div-despesa-receita: #EEEEEE;
     --cor-mensagem: #4adf8b;
     --cor-errado: #f13d30;
+    --hover-button: #16a052;
 }
 
 html {
@@ -421,15 +422,30 @@ h1 {
     & label {
         font-size: 0.7rem;
     }
-    & input {
+    & .div-input {
         position: relative;
-        box-sizing: border-box;
-        width: 100%;
-        border-radius: 5px;
-        border: none;
-        padding: 5px 10px;
-        font-size: 0.65rem;
-        text-align: right;
+        & .rs {
+            z-index: 2;
+            position: absolute;
+            text-decoration: none;
+            text-transform: none;
+            left: 10px; 
+            top: 53%;
+            transform: translateY(-50%);
+            font-style: normal;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        & input {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            padding: 5px 10px;
+            font-size: 0.65rem;
+            text-align: right;
+        }
     }
     & button {
         background-color: var(--cor-princ);
@@ -437,23 +453,14 @@ h1 {
         color: var(--cor-bg);
         text-transform: uppercase;
         border: none;
-        padding: 4px 10px;
-        font-size: 0.6rem;
+        padding: 7px 10px;
+        font-size: 0.55rem;
         border-radius: 5px;
         cursor: pointer;
         align-self: flex-end;
-    }
-    & .rs {
-        z-index: 2;
-        position: absolute;
-        text-decoration: none;
-        text-transform: none;
-        left: 30px; 
-        top: 69.5px;
-        transform: translateY(-50%);
-        font-style: normal;
-        font-size: 0.7rem;
-        font-weight: 600;
+        &:hover{
+            background-color: var(--hover-button);
+        }
     }
     & .fa-xmark {
         font-size: 0.8rem;
@@ -569,7 +576,7 @@ form {
     font-weight: 600;
     margin-top: 15px;
     &:hover {
-        background-color: #16a052;
+        background-color: #;
     }
 }
 

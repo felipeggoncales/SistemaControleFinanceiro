@@ -131,6 +131,8 @@ salvarLimiteButton.addEventListener('click', function() {
         exibirMensagem(limiteMensal);
         storageLimite(limiteMensal);
         alterarGraficoLimite();
+
+        divDefinirLimite.style.display = 'none';
     }
 })
 
@@ -155,7 +157,7 @@ function exibirMensagem(mensagem) {
             mensagemSalvo.classList.remove('mensagemSumir');
             animacaoAtiva = false;
         }, 500);
-    }, 5000);
+    }, 3000);
 }
 
 /* Função para formatar número para o formato do real */
@@ -244,7 +246,7 @@ function mouseMove(event, item) {
     let mouseY = event.clientY;
 
     item.style.left = `${mouseX}px`;
-    item.style.top = `${mouseY - 30}px`;
+    item.style.top = `${mouseY - 25}px`;
 }
 
 /* Função escolher mês do ano */
