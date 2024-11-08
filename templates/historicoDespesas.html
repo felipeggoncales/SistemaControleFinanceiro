@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeuBolso</title>
     <link rel="stylesheet" href="../assets/css/historicos.css">
-    <link rel="icon" href="assets/img/logo.svg">
+    <link rel="icon" href="../assets/img/logo.svg">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <div class="div-logo">
-            <img src="assets/img/logo.svg" alt="logo MeuBolso">
+            <img src="../assets/img/logo.svg" alt="logo MeuBolso">
             <p>Meu<span>Bolso</span></p>
         </div>
 
@@ -56,8 +56,8 @@
                         <p id="periodoSelecionado">Outubro/2024</p> <!-- ID para manipulação com JavaScript -->                       
                     </div>
                     <i class="fa-solid fa-chevron-right" id="setaFiltro" onclick="toggleDropdown()"></i>
-                    <div id="dropdownPeriodo" class="dropdown">
-                        <select id="mes">
+                    <form action="" id="dropdownPeriodo" class="dropdown">
+                        <select id="mes" name="">
                             <option value="01">Janeiro</option>
                             <option value="02">Fevereiro</option>
                             <option value="03">Março</option>
@@ -71,18 +71,18 @@
                             <option value="11">Novembro</option>
                             <option value="12">Dezembro</option>
                         </select>
-                        <select id="ano">
+                        <select id="ano" name="">
                             <option value="2024">2024</option>
                             <option value="2023">2023</option>
                             <option value="2022">2022</option>
                         </select>
-                        <button onclick="aplicarPeriodo()">Aplicar</button>
-                    </div>
+                        <button type="submit">Aplicar</button>
+                    </form>
                 </div>
                 <div class="container-historico">
                     <div class="div-historico div-primeira">
                         <div class="div-grupo-fonte">
-                            <img src="assets/img/coin-decrease.svg" alt="ícone de moeda">
+                            <img src="../assets/img/coin-decrease.svg" alt="ícone de moeda">
                             <div class="div-fonte">
                                 <p class="fonte">Fonte</p>
                                 <p class="legenda">Transferência enviada</p>
@@ -96,7 +96,7 @@
 
                     <div class="div-historico">
                         <div class="div-grupo-fonte">
-                            <img src="assets/img/coin-decrease.svg" alt="ícone de moeda">
+                            <img src="../assets/img/coin-decrease.svg" alt="ícone de moeda">
                             <div class="div-fonte">
                                 <p class="fonte">Fonte</p>
                                 <p class="legenda">Transferência enviada</p>
@@ -110,7 +110,7 @@
 
                     <div class="div-historico">
                         <div class="div-grupo-fonte">
-                            <img src="assets/img/coin-decrease.svg" alt="ícone de moeda">
+                            <img src="../assets/img/coin-decrease.svg" alt="ícone de moeda">
                             <div class="div-fonte">
                                 <p class="fonte">Fonte</p>
                                 <p class="legenda">Transferência enviada</p>
@@ -124,7 +124,7 @@
 
                     <div class="div-historico">
                         <div class="div-grupo-fonte">
-                            <img src="assets/img/coin-decrease.svg" alt="ícone de moeda">
+                            <img src="../assets/img/coin-decrease.svg" alt="ícone de moeda">
                             <div class="div-fonte">
                                 <p class="fonte">Fonte</p>
                                 <p class="legenda">Transferência enviada</p>
@@ -138,7 +138,7 @@
 
                     <div class="div-historico div-ultima">
                         <div class="div-grupo-fonte">
-                            <img src="assets/img/coin-decrease.svg" alt="ícone de moeda">
+                            <img src="../assets/img/coin-decrease.svg" alt="ícone de moeda">
                             <div class="div-fonte">
                                 <p class="fonte">Fonte</p>
                                 <p class="legenda">Transferência enviada</p>
