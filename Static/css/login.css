@@ -1,0 +1,148 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 22px;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 100%;
+}
+
+:root {
+    --cor-princ: #1ECD6A;
+    --cor-texto: #000000;
+    --cor-logo: #0E4F30;
+    --cor-bg: #FFFFFF;
+    --cor-div-despesa-receita: #EEEEEE;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+/* Cadastro */
+.double-input {
+    display: flex;
+    width: 420px;;
+    gap: 4%;
+    & input {
+        width: 48%;
+    }
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5vw;
+    height: 100%;
+}
+
+.pessoa {
+    width: auto;
+    height: 95vh;
+    align-self: flex-end;
+}
+
+.div-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    & img {
+        width: 1.3rem;
+        height: auto;
+    }
+    & p {
+        color: var(--cor-logo);
+    }
+    & span {
+        font-weight: 600;
+    }
+}
+
+.div-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    & h1 {
+        font-size: 1.5rem;
+        line-height: 100%;
+        color: var(--cor-princ);
+        font-weight: 600;
+    }
+    & .div-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+        width: 420px;
+        & label {
+            font-size: 0.75rem;
+            color: var(--cor-texto);
+        }
+        & input {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid rgba(0,0,0,0.2);
+            padding: 8px 15px;
+            text-align: left;
+            font-size: 0.65rem;
+        }
+    }
+    & .div-button {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        & button {
+            font-size: 0.85rem;
+            cursor: pointer;
+            background-color: var(--cor-princ);
+            padding: 10px 40px;
+            color: var(--cor-bg);
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            &:hover {
+                background-color: #15a553;
+            }
+        }
+        & p {
+            font-size: 0.7rem;
+            color: var(--cor-texto);
+            font-weight: 400;
+        }
+        & a {
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: var(--cor-princ);
+            font-weight: 600;
+            text-transform: uppercase;
+            &:hover {
+                color: var(--cor-logo);
+                text-decoration: underline;
+            }
+        }
+    }
+}

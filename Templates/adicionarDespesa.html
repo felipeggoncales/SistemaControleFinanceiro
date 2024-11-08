@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeuBolso</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="icon" href="static/img/logo.svg">
+    <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="div-logo">
+            <img src="../static/img/logo.svg" alt="logo MeuBolso">
+            <p>Meu<span>Bolso</span></p>
+        </div>
+
+        <div class="menu-icon" onclick="abrirFecharMenu()">
+            <div id="linha1"></div>
+            <div id="linha2"></div>
+            <div id="linha3"></div>
+        </div>
+
+        <div class="div-items-menu">
+            <div class="div-user">
+                <i class="fa-solid fa-circle-user"></i>
+                <p>Nome Sobrenome</p>
+            </div>
+            <nav>
+                <div>
+                    <i class="fa-solid fa-wallet"></i>
+                    <a href="home.html">Home</a>
+                </div>
+                <div>
+                    <i class="fa-solid fa-sack-dollar"></i>
+                    <a href="adicionarReceita.html">Adicionar Receita</a>
+                </div>
+                <div>
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <a href="adicionarDespesa.html">Adicionar Despesa</a>
+                </div>
+                <div>
+                    <i class="fa-solid fa-file"></i>
+                    <a href="historico.html">Histórico</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Adicionar Despesa</h2>
+            <form>
+                <div class="div-input">
+                    <p>Fonte</p>
+                    <input type="text" placeholder="~" class="add-input" required>
+                </div>
+                <div class="div-dupla">
+                    <div class="div-input div-valor">
+                        <p>Valor</p>
+                        <i>R$</i>
+                        <input type="text" placeholder="~" class="saldo-input add-input" required>
+                    </div>
+                    <div class="div-input">
+                        <p>Data</p>
+                        <input type="date" class="add-input" required>
+                    </div>
+                </div>
+                <button class="botao-adicionar">+ Adicionar despesa</button>
+            </form>
+        </div>
+    </main>
+
+    <div class="overlay"></div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

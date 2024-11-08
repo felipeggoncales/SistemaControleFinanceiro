@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar-se - MeuBolso</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="icon" href="static/img/logo.svg">
+    <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="div-logo">
+        <img src="../static/img/logo.svg" alt="">
+        <p>Meu<span>Bolso</span></p>
+    </div>
+    <div class="container">
+        <img src="../static/img/person-cadastro.png" alt="" class="pessoa">
+        <div>
+            <form>
+                <h1>Crie sua conta</h1>
+                <div class="div-form">
+                    <div class="double-input">
+                        <div class="div-input">
+                            <label>Primeiro nome</label>
+                            <input type="text" placeholder="Ex: João" required>
+                        </div>
+                        <div class="div-input">
+                            <label>Sobrenome</label>
+                            <input type="text" placeholder="Ex: Silva" required>
+                        </div>
+                    </div>
+    
+                    <div class="div-input">
+                        <label>E-mail</label>
+                        <input type="email" placeholder="Ex: randomperson@example.com" required>
+                    </div>
+                    <div class="div-input">
+                        <label>Senha</label>
+                        <input type="password" placeholder="Ex: Senha123" required>
+                    </div>
+                </div>
+                <div class="div-button">
+                    <button>Cadastrar-se</button>
+                    <p>Já tem uma conta? <a href="{{ url_for('index') }}">Faça login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>
