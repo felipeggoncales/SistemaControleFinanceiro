@@ -7,6 +7,7 @@
     font-family: "Poppins", sans-serif;
     font-size: 22px;
     -webkit-tap-highlight-color: transparent;
+    line-height: 100%;
 }
 
 :root {
@@ -17,6 +18,7 @@
     --cor-div-despesa-receita: #EEEEEE;
     --cor-mensagem: #4adf8b;
     --cor-errado: #f13d30;
+    --hover-button: #16a052;
 }
 
 html {
@@ -87,7 +89,7 @@ header {
 nav {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     & div {
         display: flex;
         gap: 15px;
@@ -180,19 +182,24 @@ h1 {
                 font-size: 1.3rem;
             }
             & i {
+                color: var(--cor-texto);
                 cursor: pointer;
                 position: absolute;
                 top: 25px;
                 right: 25px;
+                padding: 3px;
+                &:hover{
+                    color: var(--cor-princ);
+                }
             }
         }
     }
     & .legenda {
         font-size: 0.8rem;
+        color: var(--cor-texto);
+        margin-bottom: 10px;
     }
 }
-    
-
 
 .menu-icon {
     display: none;
@@ -288,8 +295,14 @@ h1 {
     width: 250px;
     border-radius: 15px;
     height: 100%;
-    background-color: rebeccapurple;
 }
+
+.meta-gastos2 canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 600px; /* Opcional: definir um tamanho máximo para o gráfico */
+}
+
 .meta-gastos3 {
     overflow: hidden;
     display: none;
@@ -379,6 +392,20 @@ h1 {
     }
 }
 
+.tooltip {
+    position: fixed;
+    background-color: var(--cor-texto);
+    color: var(--cor-bg);
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.55rem;
+    display: none;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+}
+
 .div-configurar-meta {
     display: none;
     flex-direction: column;
@@ -395,15 +422,30 @@ h1 {
     & label {
         font-size: 0.7rem;
     }
-    & input {
+    & .div-input {
         position: relative;
-        box-sizing: border-box;
-        width: 100%;
-        border-radius: 5px;
-        border: none;
-        padding: 5px 10px;
-        font-size: 0.65rem;
-        text-align: right;
+        & .rs {
+            z-index: 2;
+            position: absolute;
+            text-decoration: none;
+            text-transform: none;
+            left: 10px; 
+            top: 53%;
+            transform: translateY(-50%);
+            font-style: normal;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        & input {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            padding: 5px 10px;
+            font-size: 0.65rem;
+            text-align: right;
+        }
     }
     & button {
         background-color: var(--cor-princ);
@@ -411,23 +453,14 @@ h1 {
         color: var(--cor-bg);
         text-transform: uppercase;
         border: none;
-        padding: 4px 10px;
-        font-size: 0.6rem;
+        padding: 7px 10px;
+        font-size: 0.55rem;
         border-radius: 5px;
         cursor: pointer;
         align-self: flex-end;
-    }
-    & .rs {
-        z-index: 2;
-        position: absolute;
-        text-decoration: none;
-        text-transform: none;
-        left: 30px; 
-        top: 69.5px;
-        transform: translateY(-50%);
-        font-style: normal;
-        font-size: 0.7rem;
-        font-weight: 600;
+        &:hover{
+            background-color: var(--hover-button);
+        }
     }
     & .fa-xmark {
         font-size: 0.8rem;
@@ -513,26 +546,11 @@ h1 {
     align-items: flex-start;
     justify-content: center;
     width: 45vw;
-    gap: 40px;
+    gap: 30px;
     & h2 {
         font-size: 1.4rem;
         line-height: 20px;
         font-weight: 400;
-    }
-    button {
-        background-color: var(--cor-princ);
-        padding: 5px 20px;
-        border-radius: 7px;
-        border: none;
-        color: var(--cor-bg);
-        font-weight: 600;
-        align-self: flex-end;
-        cursor: pointer;
-        font-size: 0.95rem;
-        font-weight: 0.85rem;
-        &:hover {
-            background-color: #16a052;
-        }
     }
 }
 
@@ -543,6 +561,23 @@ form {
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.botao-adicionar{
+    background-color: var(--cor-princ);
+    padding: 15px 20px;
+    border-radius: 7px;
+    border: none;
+    color: var(--cor-bg);
+    font-weight: 600;
+    align-self: flex-end;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 15px;
+    &:hover {
+        background-color: #;
+    }
 }
 
 .div-input {
@@ -584,7 +619,7 @@ form {
         text-decoration: none;
         text-transform: none;
         left: 13px; 
-        top: 56px;
+        top: 2.05rem;
         line-height: 100%;
         transform: translateY(-50%);
         font-style: normal;
@@ -605,21 +640,19 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
+
+.add-input {
+    line-height: 1rem;
+}
+
 /* Responsivo */
 
 @media (max-width: 1210px) {
     header {
         box-sizing: border-box;
     }
-    .div-saldo {
-        & .p-saldo {
-            font-size: 0.8rem;
-        }
-        & .saldo,span {
-            font-size: 2.5rem;
-            line-height: 2.5rem;
-        }
-    }
+
+
     
     .div-pai {
         & .div-despesa-receita {
@@ -668,39 +701,42 @@ input[type="number"] {
     }
     main {
         width: 100%;
+        height: auto;
+        margin: 50px 0 80px 0;
     }
     .menu-icon {
         display: flex;
     }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 690px) {
     header {
         padding: 30px;
     }
     body {
         gap: 40px;
-        margin-bottom: 100px;
     }
     main {
         display: flex;
         align-items: center;
         justify-content: center;
+        height: auto;
+        margin-bottom: 100px;
     }
     .div-saldo {
+        box-sizing: border-box;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
         & .saldo, span {
-            line-height: 1.4rem;
             font-size: 1.8rem;
         }
     }
     .div-pai {
         width: 85vw;
         max-width: 350px;
+        height: auto;
         flex-direction: column;
-        gap: 40px;
         .div-despesa-receita {
             height: auto; 
             gap: 20px;
@@ -712,12 +748,10 @@ input[type="number"] {
                 }
             }
         }
-    }
-
-    .div-graficos {
-        height: 280px;
-        width: 70%;
-        align-self: center;
+        & .div-graficos {
+            height: 280px;
+            align-self: center;
+        }
     }
     .meta-gastos, .meta-gastos2, .meta-gastos3 {
         height: 100%;
@@ -731,11 +765,23 @@ input[type="number"] {
     .sumir-menu {
         animation: slideOut 0.5s forwards ease;
     }
+    .div-setas {
+        & i {
+            font-size: 1.3rem;
+        }
+    }
 }
 
-@media (max-width: 385px) {
+@media (max-width: 390px) {
+    * {
+        font-size: 18px;
+    }
+    .div-saldo {
+        & .saldo, span {
+            font-size: 1.75rem;
+        }
+    }
     .div-items-menu {
-        box-sizing: border-box;
-        width: 100vw;
+        box-sizing: border-box; 
     }
 }

@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeuBolso</title>
+<<<<<<< HEAD:templates/home.html
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="icon" href="assets/img/logo.svg">
+=======
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/img/icon.png">
+>>>>>>> d23488433196ec4634edfb596d9a25988a7775dd:home.html
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
     <header>
@@ -39,6 +45,10 @@
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                     <a href="adicionarDespesa.html">Adicionar Despesa</a>
                 </div>
+                <div>
+                    <i class="fa-solid fa-file"></i>
+                    <a href="historico.html">Histórico</a>
+                </div>
             </nav>
         </div>
     </header>
@@ -57,12 +67,12 @@
                     <div>
                         <p class="legenda">Receitas</p>
                         <p class="num">R$<span>999.999,90</span></p>
-                        <i class="fa-solid fa-plus"></i>
+                        <a href="adicionarReceita.html"><i class="fa-solid fa-plus"></i></a>
                     </div>
                     <div>
                         <p class="legenda">Despesas</p>
                         <p class="num">R$<span>999.999,90</span></p>
-                        <i class="fa-solid fa-plus"></i>
+                        <a href="adicionarDespesa.html"><i class="fa-solid fa-plus"></i></a>
                     </div>
                 </div>
                 <div class="div-graficos" id="div-graficos">
@@ -72,16 +82,17 @@
                             <p class="texto" id="limiteMsg">do limite atingido</p>
                         </div>
                         <div class="div-loading"></div>
+                        <div class="tooltip" id="tooltipGastos">R$ 700,00</div>
                         <div class="wave wave1"></div>
                         <div class="wave wave2"></div>
                         <div class="wave wave3"></div>
                         <i class="fa-solid fa-gear" id="gearButton"></i>
                     </div>
                     <div class="meta-gastos2">
-                        
+                        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
                     </div>
                     <div class="meta-gastos3">
-
+                        
                     </div>
 
                     <div class="div-setas">
@@ -99,8 +110,10 @@
 
         <div class="div-configurar-meta" id="divDefinirLimite">
             <label>Limite mensal:</label>
-            <i class="rs">R$</i>
-            <input type="number" id="limiteInput" placeholder="~">
+            <div class="div-input">
+                <input type="number" id="limiteInput" placeholder="~">
+                <i class="rs">R$</i>
+            </div>
             <button id="salvarLimite">salvar</button>  
             <i class="fa-solid fa-xmark" id="fecharDivLimite"></i>
         </div>

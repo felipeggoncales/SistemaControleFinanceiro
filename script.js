@@ -48,7 +48,7 @@ function abrirFecharMenu() {
 /* Gráfico de limite de gastos */
 
 var limiteMensal = null;
-let gastos = 700; // Variável a ser trocada quando a função de cadastar despesas for implemantada
+let gastos = 1500; // Variável a ser trocada quando a função de cadastar despesas for implemantada
 var porcentagemLimiteConcluido = 75;
 
 const limiteTexto = document.getElementById('porcentagem');
@@ -131,6 +131,8 @@ salvarLimiteButton.addEventListener('click', function() {
         exibirMensagem(limiteMensal);
         storageLimite(limiteMensal);
         alterarGraficoLimite();
+
+        divDefinirLimite.style.display = 'none';
     }
 })
 
@@ -155,7 +157,7 @@ function exibirMensagem(mensagem) {
             mensagemSalvo.classList.remove('mensagemSumir');
             animacaoAtiva = false;
         }, 500);
-    }, 5000);
+    }, 3000);
 }
 
 /* Função para formatar número para o formato do real */
@@ -210,3 +212,102 @@ setaRight.addEventListener('click', () => {
 function storageLimite(valor) {
     localStorage.setItem('limite', valor)
 }
+
+/* Mostrar tooltip ao passar o mouse sobre o gráfico */
+const toolTip = document.getElementById('tooltipGastos');
+const divLoading = document.querySelector('.div-loading');
+const divWaves = document.querySelectorAll('.wave');
+
+const listaWaves = Array.from(divWaves);
+
+listaWaves.forEach((wave) => {
+    wave.addEventListener('mouseenter', () => mouseEnter(toolTip));
+    
+    wave.addEventListener('mouseleave', () => mouseLeave(toolTip));
+
+    wave.addEventListener('mousemove', (event) => mouseMove(event, toolTip));
+});
+
+divLoading.addEventListener('mouseenter', () => mouseEnter(toolTip));
+
+divLoading.addEventListener('mouseleave', () => mouseLeave(toolTip));
+
+divLoading.addEventListener('mousemove', (event) => mouseMove(event, toolTip));
+
+function mouseEnter(item) {
+    item.style.display = 'block';
+    item.textContent = `R$ ${formatarNumero(gastos)}`;
+}
+function mouseLeave(item) {
+    item.style.display = 'none';
+}
+function mouseMove(event, item) {
+    let mouseX = event.clientX;
+    let mouseY = event.clientY;
+
+    item.style.left = `${mouseX}px`;
+    item.style.top = `${mouseY - 25}px`;
+}
+
+/* Função escolher mês do ano */
+
+// Function chevron
+function toggleDropdown() {    
+    const dropdown = document.getElementById('dropdownPeriodo');
+    dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    
+    const setaFiltro = document.getElementById('setaFiltro');
+    if (setaFiltro.style.transform !== 'rotate(90deg)') {
+        setaFiltro.style.transform = 'rotate(90deg)';
+    } else {
+        setaFiltro.style.transform = 'none';
+    };
+};
+
+// Function botão aplicar
+function aplicarPeriodo() {
+    const mesSelect = document.getElementById('mes');
+    const anoSelect = document.getElementById('ano');
+    const periodoSelecionado = document.getElementById('periodoSelecionado');
+    
+    const mes = mesSelect.options[mesSelect.selectedIndex].text;
+    const ano = anoSelect.value;
+    
+    periodoSelecionado.textContent = `${mes}/${ano}`;
+    
+    document.getElementById('dropdownPeriodo').style.display = 'none';
+
+    const setaFiltro = document.getElementById('setaFiltro');
+    setaFiltro.style.transform = 'none';
+}
+
+var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+var yValues = [55, 49, 44, 24, 15];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    title: {
+      display: true,
+      text: "Gastos no último mês",
+      fontColor: "#000000",
+      fontSize: 20
+    }
+  }
+});
