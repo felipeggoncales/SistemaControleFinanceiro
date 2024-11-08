@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - MeuBolso</title>
+    <link rel="stylesheet" href="../assets/css/historicos.css">
+    <link rel="icon" href="assets/img/logo.svg">
+    <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="div-logo">
+            <img src="assets/img/logo.svg" alt="">
+            <p>Meu<span>Bolso</span></p>
+        </div>
+
+        <div class="menu-icon" onclick="abrirFecharMenu()">
+            <div id="linha1"></div>
+            <div id="linha2"></div>
+            <div id="linha3"></div>
+        </div>
+
+        <div class="div-items-menu">
+            <div class="div-user">
+                <i class="fa-solid fa-circle-user"></i>
+                <p>Nome Sobrenome</p>
+            </div>
+            <nav>
+                <div>
+                    <i class="fa-solid fa-wallet"></i>
+                    <a href="home.html">Home</a>
+                </div>
+                <div>
+                    <i class="fa-solid fa-sack-dollar"></i>
+                    <a href="adicionarReceita.html">Adicionar Receita</a>
+                </div>
+                <div>
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <a href="adicionarDespesa.html">Adicionar Despesa</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+        <section>
+            <div class="container">
+                <h1>Movimentação mensal</h1>
+                <div class="periodo">
+                    <div>
+                        <h2>Período</h2>
+                        <p>Outubro/2024</p>                        
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="container-movement">
+                    <div class="movement">
+                        <h3>Quanto entrou</h3>
+                        <div class="container-saldo-chevron">
+                            <p>R$ <span>0000</span></p>
+                            <i class="fa-solid fa-chevron-right"></i> 
+                        </div>                       
+                    </div>
+                    <div class="movement">
+                        <h3>Quanto saiu</h3>                    
+                        <div class="container-saldo-chevron">
+                            <p>R$ <span>0000</span></p>        
+                            <i class="fa-solid fa-chevron-right"></i>          
+                        </div>                              
+                    </div>
+                </div>
+                <div class="result-movement">
+                    <h2>Entradas menos saídas no<br><span class="color-meubolso"> MeuBolso</span> este mês</h2>
+                    <p>R$ <span>0000</span></p>
+                </div>
+            </div>
+        </section>
+    <script src="../script.js"></script>
+</body>
+</html>

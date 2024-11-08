@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histórico - MeuBolso</title>
-    <link rel="stylesheet" href="assets/css/historicos.css">
+    <title>MeuBolso</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="icon" href="assets/img/logo.svg">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
 </head>
@@ -42,38 +42,32 @@
             </nav>
         </div>
     </header>
-        <section>
-            <div class="container">
-                <h1>Movimentação mensal</h1>
-                <div class="periodo">
-                    <div>
-                        <h2>Período</h2>
-                        <p>Outubro/2024</p>                        
-                    </div>
-                    <i class="fa-solid fa-chevron-down"></i>
+    <main>
+        <div class="container">
+            <h2>Adicionar Despesa</h2>
+            <form>
+                <div class="div-input">
+                    <p>Fonte</p>
+                    <input type="text" placeholder="~">
                 </div>
-                <div class="container-movement">
-                    <div class="movement">
-                        <h3>Quanto entrou</h3>
-                        <div class="container-saldo-chevron">
-                            <p>R$ <span>0000</span></p>
-                            <i class="fa-solid fa-chevron-right"></i> 
-                        </div>                       
+                <div class="div-dupla">
+                    <div class="div-input div-valor">
+                        <p>Valor</p>
+                        <i>R$</i>
+                        <input type="text" placeholder="~" class="saldo-input">
                     </div>
-                    <div class="movement">
-                        <h3>Quanto saiu</h3>                    
-                        <div class="container-saldo-chevron">
-                            <p>R$ <span>0000</span></p>        
-                            <i class="fa-solid fa-chevron-right"></i>          
-                        </div>                              
+                    <div class="div-input">
+                        <p>Data</p>
+                        <input type="date">
                     </div>
                 </div>
-                <div class="result-movement">
-                    <h2>Entradas menos saídas no<br><span class="color-meubolso"> MeuBolso</span> este mês</h2>
-                    <p>R$ <span>0000</span></p>
-                </div>
-            </div>
-        </section>
-    <script src="script.js"></script>
+            </form>
+            <button class="botao-adicionar">+ Adicionar despesa</button>
+        </div>
+    </main>
+
+    <div class="overlay"></div>
+
+    <script src="../script.js"></script>
 </body>
 </html>
