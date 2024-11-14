@@ -68,75 +68,71 @@ def historico():
 @app.route('/historicoReceita')
 def historicoReceita():
     cursor = con.cursor()
-    cursor.execute('SELECT valor, data, fonte FROM Receitas')
+    cursor.execute('SELECT valor, data, fonte FROM RECEITAS')
     receitas = cursor.fetchall()
     cursor.close()
     return render_template('historicoReceita.html', receitas=receitas)
-
 
 # Historico Despesas
 @app.route('/historicoDespesas')
 def historicoDespesas():
     cursor = con.cursor()
-    cursor.execute('SELECT valor, data, fonte FROM Despesas')
+    cursor.execute('SELECT valor, data, fonte FROM DESPESAS')
     despesas = cursor.fetchall()
     cursor.close()
     return render_template('historicoDespesas.html', despesas=despesas)
-
 
 # Abrir pagina 'adicionarReceita'
 @app.route('/abrirReceita')
 def abrirReceita():
     return render_template('adicionarReceita.html', titulo='Nova receita')
 
-
 @app.route('/addReceita', methods=['POST'])
 def addReceita():
-    valor = request.form['valor']
+    valor = float(request.form['valor'])
     data = request.form['data']
     fonte = request.form['fonte']
 
     cursor = con.cursor()
     try:
-        if not isinstance(valor, (int, float)) or valor <= 0:
+        if valor <= 0:
             flash('Erro: Coloque um valor maior que 0', 'error')
-        cursor.execute("INSERT INTO receitas (valor, data, fonte) VALUES (?, ?, ?)",
-                       (valor, data, fonte))
-        con.commit()
+        else:
+            cursor.execute("INSERT INTO RECEITAS (valor, data, fonte) VALUES (?, ?, ?)", (valor, data, fonte))
+            con.commit()
+            flash('Sua receita foi adicionada com sucesso')
     finally:
         cursor.close()
-    flash('Sua receita foi adicionada com sucesso')
-    return redirect(url_for('index'))
 
+    return redirect(url_for('index'))
 
 # Editar receita
 @app.route('/atualizarReceita')
 def atualizarReceita():
     return render_template('atualizarReceita.html', Receita='Editar receita')
 
-
 @app.route('/editarReceita/<int:id>', methods=['GET', 'POST'])
 def editarReceita(id):
     cursor = con.cursor()
-    cursor.execute("SELECT id_receita, valor, fonte, data FROM receietas WHERE id_receita = ?", (id,))
+    cursor.execute("SELECT id_receita, valor, fonte, data FROM RECEITAS WHERE id_receita = ?", (id,))
     receita = cursor.fetchone()
 
     if not receita:
-        flash("Receita não encontrado.")
-        return redirect(url_for('index')) #Trocar Arrumar
+        flash("Receita não encontrada.")
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
-        valor = request.form['valor']
+        valor = float(request.form['valor'])
         fonte = request.form['fonte']
         data = request.form['data']
 
-        cursor.execute("UPDATE receitas SET valor = ?, fonte = ?, data = ? WHERE id_receita = ?",
+        cursor.execute("UPDATE RECEITAS SET valor = ?, fonte = ?, data = ? WHERE id_receita = ?",
                        (valor, fonte, data, id))
         con.commit()
-        flash("Receita atualizado com sucesso")
+        flash("Receita atualizada com sucesso")
         return redirect(url_for('index'))
     cursor.close()
     return render_template('atualizarReceita.html', receita=receita, titulo='Editar receita')
-
 
 # Abrir pagina 'adicionarDespesa'
 @app.route('/abrirDespesa')
@@ -145,50 +141,50 @@ def abrirDespesa():
 
 @app.route('/addDespesa', methods=['POST'])
 def addDespesa():
-    valor = request.form['valor']
+    valor = float(request.form['valor'])
     data = request.form['data']
     fonte = request.form['fonte']
 
     cursor = con.cursor()
     try:
-        if not isinstance(valor, (int, float)) or valor <= 0:
+        if valor <= 0:
             flash('Erro: Coloque um valor maior que 0', 'error')
-        cursor.execute("INSERT INTO receietas (valor, data, fonte) VALUES (?, ?, ?)",
-                       (valor, data, fonte))
-        con.commit()
+        else:
+            cursor.execute("INSERT INTO DESPESAS (valor, data, fonte) VALUES (?, ?, ?)", (valor, data, fonte))
+            con.commit()
+            flash('Sua despesa foi adicionada com sucesso')
     finally:
         cursor.close()
-    flash('Sua despesa foi adicionada com sucesso')
 
+    return redirect(url_for('index'))
 
 # Editar despesa
 @app.route('/atualizarDespesa')
 def atualizarDespesa():
     return render_template('atualizarDespesa.html', titulo='Editar despesa')
 
-
 @app.route('/editarDespesa/<int:id>', methods=['GET', 'POST'])
 def editarDespesa(id):
     cursor = con.cursor()
-    cursor.execute("SELECT id_despesa, valor, fonte, data FROM receietas WHERE id_despesa = ?", (id,))
+    cursor.execute("SELECT id_despesa, valor, fonte, data FROM DESPESAS WHERE id_despesa = ?", (id,))
     despesas = cursor.fetchone()
 
     if not despesas:
-        flash("Despesa não encontrado.")
+        flash("Despesa não encontrada.")
         return redirect(url_for('index'))
+
     if request.method == 'POST':
-        valor = request.form['valor']
+        valor = float(request.form['valor'])
         fonte = request.form['fonte']
         data = request.form['data']
 
-        cursor.execute("UPDATE despesas SET valor = ?, fonte = ?, data = ? WHERE id_despesa = ?",
+        cursor.execute("UPDATE DESPESAS SET valor = ?, fonte = ?, data = ? WHERE id_despesa = ?",
                        (valor, fonte, data, id))
         con.commit()
-        flash("Despesa atualizado com sucesso")
+        flash("Despesa atualizada com sucesso")
         return redirect(url_for('index'))
     cursor.close()
     return render_template('atualizarDespesa.html', despesas=despesas, titulo='Editar despesa')
-
 
 # Abrir pagina 'cadastro'
 @app.route('/abrirUsuario')
@@ -208,7 +204,9 @@ def addUsuario():
             flash(
                 'Erro: Insira uma senha com pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
                 'error')
-        cursor.execute("INSERT INTO usuario (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)",
+            return redirect(url_for('abrirUsuario'))
+
+        cursor.execute("INSERT INTO USUARIO (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)",
                        (nome, sobrenome, email, senha))
         con.commit()
         flash('Sua conta foi cadastrada com sucesso', 'success')
@@ -217,5 +215,7 @@ def addUsuario():
     finally:
         cursor.close()
 
-if __name__==('__main__'):
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
     app.run(debug=True)
