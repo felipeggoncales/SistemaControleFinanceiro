@@ -6,11 +6,10 @@ app = Flask(__name__)
 app.secret_key = 'logisticBanco'
 
 host = 'localhost'
-database = r'C:\Users\Aluno\Downloads\BANCO\BANCO.FDB'
+database = r'C:\Users\Aluno\PycharmProjects\MeuBolso\BANCO.FDB'
 user = 'sysdba'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
-
 
 class Usuario:
     def __init__(self, id_usuario, nome, sobrenome, email, senha):
@@ -23,7 +22,7 @@ class Usuario:
 
 class Receitas:
     def __init__(self, id_receita, id_usuario, valor, data, fonte):
-        self.id_receita= id_receita
+        self.id_receita = id_receita
         self.id_usuario = id_usuario
         self.valor = valor
         self.data = data
@@ -41,9 +40,11 @@ class Despesas:
 @app.route('/')
 def index():
     return render_template('index.html')
+
 @app.route('/home')
 def home():
     return render_template('home.html')
+
 @app.route('/historico')
 def historico():
     return render_template('historico.html')
@@ -84,7 +85,7 @@ def addReceita():
     try:
         if not isinstance(valor, (int, float)) or valor <= 0:
             flash('Erro: Coloque um valor maior que 0', 'error')
-        cursor.execute("INSERT INTO receietas (valor, data, fonte) VALUES (?, ?, ?)",
+        cursor.execute("INSERT INTO receitas (valor, data, fonte) VALUES (?, ?, ?)",
                        (valor, data, fonte))
         con.commit()
     finally:
@@ -107,7 +108,7 @@ def editarReceita(id):
 
     if not receita:
         flash("Receita não encontrado.")
-        return redirect(url_for('index'))
+        return redirect(url_for('index')) #Trocar Arrumar
     if request.method == 'POST':
         valor = request.form['valor']
         fonte = request.form['fonte']
