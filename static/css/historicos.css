@@ -453,6 +453,9 @@ section {
     .menu-icon {
         display: flex;
     }
+    .container {
+        margin: 50px 0;
+    }
 }
 
 @media (max-width: 769px) {
@@ -464,7 +467,6 @@ section {
     }
     .container {
         width: 85vw;
-        margin: 50px 0;
     }
 }
 
@@ -498,5 +500,8 @@ section {
         & p, span {
             font-size: 0.85rem;
         }
+    }
+    .div-historico img {
+        display: none;
     }
 }
