@@ -146,3 +146,44 @@ form {
         }
     }
 }
+
+@media (max-width: 769px) {
+    .pessoa {
+        display: none;
+    }
+    .div-logo {
+        position: static;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+    }
+    .container {
+        height: auto;
+    }
+    .double-input {
+        width: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: inherit;
+    }
+}
+
+@media (max-width: 475px) {
+    form {
+        & .div-input {
+            width: 80vw !important;
+        }
+    }
+    input {
+        font-size: 0.6rem !important;
+        padding: 6px 10px !important;
+    }
+    h1 {
+        font-size: 1.2rem !important;
+    }
+}

@@ -62,12 +62,12 @@
                     <div>
                         <p class="legenda">Receitas</p>
                         <p class="num">R$<span>{{receitas}}</span></p>
-                        <a href="adicionarReceita.html"><i class="fa-solid fa-plus"></i></a>
+                        <a href="{{ url_for('abrirReceita') }}"><i class="fa-solid fa-plus"></i></a>
                     </div>
                     <div>
                         <p class="legenda">Despesas</p>
                         <p class="num">R$<span>{{despesas}}</span></p>
-                        <a href="adicionarDespesa.html"><i class="fa-solid fa-plus"></i></a>
+                        <a href="{{ url_for('abrirDespesa') }}"><i class="fa-solid fa-plus"></i></a>
                     </div>
                 </div>
                 <div class="div-graficos" id="div-graficos">
@@ -102,17 +102,17 @@
             <p>Limite definido para R$<span id="limiteValor"></span></p>
             <i class="fa-solid fa-circle-check"></i>
         </div>
-
-        <div class="div-configurar-meta" id="divDefinirLimite">
-            <label>Limite mensal:</label>
-            <div class="div-input">
-                <input type="number" id="limiteInput" placeholder="~">
-                <i class="rs">R$</i>
-            </div>
-            <button id="salvarLimite">salvar</button>  
-            <i class="fa-solid fa-xmark" id="fecharDivLimite"></i>
-        </div>
     </main>
+
+    <div class="div-configurar-meta" id="divDefinirLimite">
+        <label>Limite mensal:</label>
+        <div class="div-input">
+            <input type="number" id="limiteInput" placeholder="~">
+            <i class="rs">R$</i>
+        </div>
+        <button id="salvarLimite">salvar</button>  
+        <i class="fa-solid fa-xmark" id="fecharDivLimite"></i>
+    </div>
 
     <div id="overlay"></div>
 

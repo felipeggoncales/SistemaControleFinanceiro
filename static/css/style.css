@@ -651,9 +651,6 @@ input[type="number"] {
     header {
         box-sizing: border-box;
     }
-
-
-    
     .div-pai {
         & .div-despesa-receita {
             width: 320px;
@@ -709,19 +706,25 @@ input[type="number"] {
     }
 }
 
-@media (max-width: 690px) {
+@media (max-width: 769px) {
     header {
         padding: 30px;
+    }
+    .container {
+        width: 80vw !important;
     }
     body {
         gap: 40px;
     }
     main {
+        margin-top: 0;
         display: flex;
         align-items: center;
         justify-content: center;
         height: auto;
         margin-bottom: 100px;
+        align-self: center;
+        justify-self: center;
     }
     .div-saldo {
         box-sizing: border-box;
@@ -770,18 +773,45 @@ input[type="number"] {
             font-size: 1.3rem;
         }
     }
+    .div-configurar-meta {
+        bottom: 20px;
+        right: 20px;
+    }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 450px) {
     * {
         font-size: 18px;
+    }
+    main {
+        align-self: center;
     }
     .div-saldo {
         & .saldo, span {
             font-size: 1.75rem;
         }
     }
+    .div-valor {
+        & i {
+            top: 40px;
+        }
+    }
     .div-items-menu {
         box-sizing: border-box; 
+    }
+    .meta-gastos {
+        max-width: 250px !important;
+        width: 70vw !important;
+    }
+    .div-dupla {
+        flex-direction: column;
+        gap: inherit;
+    }
+    .container {
+        justify-content: center;
+        align-items: center;
+    }
+    .botao-adicionar {
+        align-self: center;
     }
 }

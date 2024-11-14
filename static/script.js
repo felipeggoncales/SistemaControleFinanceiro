@@ -8,7 +8,7 @@ const itensMenu = document.querySelector('.div-items-menu');
 
 function abrirFecharMenu() {
     const linhaDisplay = getComputedStyle(linha1).position;
-
+     
     if (linhaDisplay === 'static') {
         linha1.style.position = 'absolute';
         linha1.style.transform = 'rotate(-45deg)';
