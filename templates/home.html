@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeuBolso</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="icon" href="../assets/img/logo.svg">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="icon" href="../static/img/logo.svg">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
     <header>
         <div class="div-logo">
-            <img src="../assets/img/logo.svg" alt="logo MeuBolso">
+            <img src="../static/img/logo.svg" alt="logo MeuBolso">
             <p>Meu<span>Bolso</span></p>
         </div>
 
@@ -30,19 +30,20 @@
             <nav>
                 <div>
                     <i class="fa-solid fa-wallet"></i>
-                    <a href="home.html">Home</a>
+                    <a href="{{ url_for('home') }}">Home</a>
+
                 </div>
                 <div>
                     <i class="fa-solid fa-sack-dollar"></i>
-                    <a href="adicionarReceita.html">Adicionar Receita</a>
+                    <a href="{{ url_for('abrirReceita') }}">Adicionar Receita</a>
                 </div>
                 <div>
                     <i class="fa-solid fa-hand-holding-dollar"></i>
-                    <a href="adicionarDespesa.html">Adicionar Despesa</a>
+                    <a href="{{ url_for('abrirDespesa')">Adicionar Despesa</a>
                 </div>
                 <div>
                     <i class="fa-solid fa-file"></i>
-                    <a href="historico.html">Histórico</a>
+                    <a href="{{ url_for('historico')">Histórico</a>
                 </div>
             </nav>
         </div>
