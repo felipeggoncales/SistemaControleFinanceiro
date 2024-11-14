@@ -147,6 +147,16 @@ form {
     }
 }
 
+.flash-messages {
+    list-style-type: none;
+    & li {
+        color: rgb(214, 6, 6);
+        font-size: 0.65rem;
+        line-height: 150%;
+        text-align: left;
+    }
+}
+
 @media (max-width: 769px) {
     .pessoa {
         display: none;
@@ -185,5 +195,8 @@ form {
     }
     h1 {
         font-size: 1.2rem !important;
+    }
+    .flash-messages li {
+            font-size: 0.55rem;
     }
 }

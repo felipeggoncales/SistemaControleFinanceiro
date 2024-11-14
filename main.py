@@ -200,9 +200,13 @@ def addUsuario():
 
     cursor = con.cursor()
     try:
+        cursor.execute('SELECT 1 FROM USUARIO WHERE email = ?', (email,))
+        if cursor.fetchone():
+            flash('Email já cadastrado', 'error')
+            return redirect(url_for('abrirUsuario'))
         # Validação de senha (8 caracteres, 1 letra maiúscula, 1 número, 1 caractere especial)
         if not re.fullmatch(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$', senha):
-            flash('Erro: Insira uma senha com pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.', 'error')
+            flash('A senha deve ter ao menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.', 'error')
             return redirect(url_for('abrirUsuario'))  # Certifique-se de retornar após flash
 
         # Inserção de novo usuário

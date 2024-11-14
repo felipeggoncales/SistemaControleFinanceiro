@@ -37,6 +37,15 @@
                     <div class="div-input">
                         <label>Senha</label>
                         <input type="password" name="senha" placeholder="Ex: Senha123" required>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <ul class="flash-messages">
+                                    {% for category, message in messages %}
+                                        <li class="alert {{ category }}">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
                     </div>
                 </div>
                 <div class="div-button">
@@ -46,7 +55,5 @@
             </form>            
         </div>
     </div>
-
-    <script src="../script.js"></script>
 </body>
 </html>
