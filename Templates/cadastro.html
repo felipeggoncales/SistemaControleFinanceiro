@@ -16,34 +16,34 @@
     <div class="container">
         <img src="../static/img/person-cadastro.png" alt="" class="pessoa">
         <div>
-            <form>
+            <form method="POST" action="{{ url_for('addUsuario') }}">
                 <h1>Crie sua conta</h1>
                 <div class="div-form">
                     <div class="double-input">
                         <div class="div-input">
                             <label>Primeiro nome</label>
-                            <input type="text" placeholder="Ex: João" required>
+                            <input type="text" name="nome" placeholder="Ex: João" required>
                         </div>
                         <div class="div-input">
                             <label>Sobrenome</label>
-                            <input type="text" placeholder="Ex: Silva" required>
+                            <input type="text" name="sobrenome" placeholder="Ex: Silva" required>
                         </div>
                     </div>
-    
+            
                     <div class="div-input">
                         <label>E-mail</label>
-                        <input type="email" placeholder="Ex: randomperson@example.com" required>
+                        <input type="email" name="email" placeholder="Ex: randomperson@example.com" required>
                     </div>
                     <div class="div-input">
                         <label>Senha</label>
-                        <input type="password" placeholder="Ex: Senha123" required>
+                        <input type="password" name="senha" placeholder="Ex: Senha123" required>
                     </div>
                 </div>
                 <div class="div-button">
-                    <button>Cadastrar-se</button>
+                    <button type="submit">Cadastrar-se</button>
                     <p>Já tem uma conta? <a href="{{ url_for('index') }}">Faça login</a></p>
                 </div>
-            </form>
+            </form>            
         </div>
     </div>
 

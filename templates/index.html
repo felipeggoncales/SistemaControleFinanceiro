@@ -16,21 +16,21 @@
     <div class="container">
         <img src="../static/img/person-login.png" alt="" class="pessoa">
         <div>
-            <form>
+            <form method="POST" action="{{ url_for('login') }}">
                 <h1>Acesse sua conta</h1>
                 <div class="div-input">
                     <label>E-mail</label>
-                    <input type="email" placeholder="Ex: randomperson@example.com" required>
+                    <input type="email" name="email" placeholder="Ex: randomperson@example.com" required>
                 </div>
                 <div class="div-input">
                     <label>Senha</label>
-                    <input type="password" placeholder="Ex: Senha123" required>
+                    <input type="password" name="senha" placeholder="Ex: Senha123" required>
                 </div>
                 <div class="div-button">
-                    <button>Entrar</button>
+                    <button type="submit">Entrar</button>
                     <p>Novo por aqui? <a href="{{ url_for('abrirUsuario') }}">Cadastre-se</a></p>
                 </div>
-            </form>
+            </form>            
         </div>
     </div>
 

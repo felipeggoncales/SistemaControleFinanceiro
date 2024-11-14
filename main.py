@@ -7,7 +7,7 @@ app.secret_key = 'logisticBanco'
 
 host = 'localhost'
 database = r'C:\Users\Aluno\Documents\GitHub\SistemaControleFinanceiro\BANCO.FDB'
-user = 'sysdba'
+user = 'SYSDBA'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
 
@@ -200,22 +200,40 @@ def addUsuario():
 
     cursor = con.cursor()
     try:
+        # Validação de senha (8 caracteres, 1 letra maiúscula, 1 número, 1 caractere especial)
         if not re.fullmatch(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$', senha):
-            flash(
-                'Erro: Insira uma senha com pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
-                'error')
-            return redirect(url_for('abrirUsuario'))
+            flash('Erro: Insira uma senha com pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.', 'error')
+            return redirect(url_for('abrirUsuario'))  # Certifique-se de retornar após flash
 
+        # Inserção de novo usuário
         cursor.execute("INSERT INTO USUARIO (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)",
                        (nome, sobrenome, email, senha))
         con.commit()
         flash('Sua conta foi cadastrada com sucesso', 'success')
+        return redirect(url_for('index'))  # Redireciona após o sucesso
     except Exception as e:
         flash(f'Erro ao cadastrar a conta: {e}', 'error')
+        return redirect(url_for('abrirUsuario'))  # Redireciona após erro
     finally:
-        cursor.close()
+        cursor.close()  # Fecha o cursor mesmo em caso de exceção
 
-    return redirect(url_for('index'))
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form['email']
+    senha = request.form['senha']
+
+    cursor = con.cursor()
+    cursor.execute("SELECT email, senha FROM USUARIO WHERE email = ?", (email,))
+    usuario = cursor.fetchone()
+    cursor.close()
+
+    if usuario and usuario[1] == senha:
+        flash('Login realizado com sucesso', 'success')
+        return redirect(url_for('home'))
+    else:
+        flash('E-mail ou senha incorretos', 'error')
+        return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
