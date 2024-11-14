@@ -53,9 +53,9 @@ def historico():
 def historicoReceita():
     cursor = con.cursor()
     cursor.execute('SELECT valor, data, fonte FROM Receitas')
-    Receitas = cursor.fetchall()
+    receitas = cursor.fetchall()
     cursor.close()
-    return render_template('historicoReceita.html', Receitas=Receitas)
+    return render_template('historicoReceita.html', receitas=receitas)
 
 
 # Historico Despesas
@@ -63,9 +63,9 @@ def historicoReceita():
 def historicoDespesas():
     cursor = con.cursor()
     cursor.execute('SELECT valor, data, fonte FROM Despesas')
-    Despesas = cursor.fetchall()
+    despesas = cursor.fetchall()
     cursor.close()
-    return render_template('historicoDespesas.html', Despesas=Despesas)
+    return render_template('historicoDespesas.html', despesas=despesas)
 
 
 # Abrir pagina 'adicionarReceita'
@@ -125,7 +125,7 @@ def editarReceita(id):
 # Abrir pagina 'adicionarDespesa'
 @app.route('/abrirDespesa')
 def abrirDespesa():
-    return render_template('adiconarDespesa.html', titulo='Nova despesa')
+    return render_template('adicionarDespesa.html', titulo='Nova despesa')
 
 @app.route('/addDespesa', methods=['POST'])
 def addDespesa():
