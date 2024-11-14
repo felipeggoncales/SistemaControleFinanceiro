@@ -354,7 +354,7 @@ section {
     width: 100%;
     background-color: var(--cor-div-despesa-receita);
     border-radius: 15px;
-    border-radius: 30px;
+    border-radius: 20px;
     overflow-y: hidden;
     & p {
        line-height: 100%; 
