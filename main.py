@@ -43,7 +43,22 @@ def index():
 
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    despesas = 0
+    receitas = 0
+
+    cursor = con.cursor()
+    cursor.execute('SELECT VALOR FROM DESPESAS')
+    for valor in cursor.fetchall():
+        despesas += valor[0]
+    cursor.close()
+
+    cursor = con.cursor()
+    cursor.execute('SELECT VALOR FROM RECEITAS')
+    for valor in cursor.fetchall():
+        receitas += valor[0]
+    cursor.close()
+
+    return render_template('home.html', despesas=despesas, receitas=receitas)
 
 @app.route('/historico')
 def historico():

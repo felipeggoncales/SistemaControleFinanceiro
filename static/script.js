@@ -48,7 +48,7 @@ function abrirFecharMenu() {
 /* Gráfico de limite de gastos */
 
 var limiteMensal = null;
-let gastos = 1500; // Variável a ser trocada quando a função de cadastar despesas for implemantada
+//let gastos = 1500; // Variável a ser trocada quando a função de cadastar despesas for implemantada
 var porcentagemLimiteConcluido = 75;
 
 const limiteTexto = document.getElementById('porcentagem');
@@ -93,14 +93,14 @@ function alterarGraficoLimite() {
 
 function porcentagemAcimaDoLimite() {
     Array.from(waves).forEach(wave => {
-        wave.style.background = `url(assets/img/wave-acima-limite.png)`;
+        wave.style.background = `url(static/img/wave-acima-limite.png)`;
     });
     loadingBar.style.backgroundColor = `var(--cor-errado)`;
 }
 
 function porcentagemAbaixoDoLimite() {
     Array.from(waves).forEach(wave => {
-        wave.style.background = `url(assets/img/wave.png)`;
+        wave.style.background = `url(static/img/wave.png)`;
     });
     loadingBar.style.backgroundColor = `var(--cor-princ)`;
 }

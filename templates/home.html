@@ -55,18 +55,18 @@
                     <i class="fa-solid fa-dollar-sign"></i>
                     <p class="p-saldo">Meu saldo</p>
                 </div>
-                <p class="saldo">R$<span>999.999,90</span></p>
+                <p class="saldo">R$<span>{{receitas-despesas}}</span></p>
             </div>
             <div class="div-pai">
                 <div class="div-despesa-receita">
                     <div>
                         <p class="legenda">Receitas</p>
-                        <p class="num">R$<span>999.999,90</span></p>
+                        <p class="num">R$<span>{{receitas}}</span></p>
                         <a href="adicionarReceita.html"><i class="fa-solid fa-plus"></i></a>
                     </div>
                     <div>
                         <p class="legenda">Despesas</p>
-                        <p class="num">R$<span>999.999,90</span></p>
+                        <p class="num">R$<span>{{despesas}}</span></p>
                         <a href="adicionarDespesa.html"><i class="fa-solid fa-plus"></i></a>
                     </div>
                 </div>
@@ -116,6 +116,9 @@
 
     <div id="overlay"></div>
 
-    <script src="../script.js"></script>
+    <script>
+        let gastos = {{despesas}}
+    </script>
+    <script src="../static/script.js"></script>
 </body>
 </html>
