@@ -645,6 +645,13 @@ input[type="number"] {
     line-height: 1rem;
 }
 
+.main-adicionar {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+}
+
 /* Responsivo */
 
 @media (max-width: 1210px) {
@@ -678,6 +685,9 @@ input[type="number"] {
         flex-direction: row;
         justify-content: space-between;
     }
+    .container {
+        width: 80vw !important;
+    }
     .div-logo {
         position: static;
     }
@@ -710,14 +720,8 @@ input[type="number"] {
     header {
         padding: 30px;
     }
-    .container {
-        width: 80vw !important;
-    }
-    body {
-        gap: 40px;
-    }
     main {
-        margin-top: 0;
+        margin-top: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
