@@ -47,6 +47,7 @@ def home():
 @app.route('/historico')
 def historico():
     return render_template('historico.html')
+
 # Historico Receitas
 @app.route('/historicoReceita')
 def historicoReceita():
