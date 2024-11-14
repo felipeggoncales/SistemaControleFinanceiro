@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.secret_key = 'logisticBanco'
 
 host = 'localhost'
-database = r'C:\Users\Aluno\PycharmProjects\MeuBolso\BANCO.FDB'
+database = r'C:\Users\Aluno\Downloads\BANCO\BANCO.FDB'
 user = 'sysdba'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
