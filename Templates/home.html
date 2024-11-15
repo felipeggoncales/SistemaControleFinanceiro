@@ -25,7 +25,7 @@
         <div class="div-items-menu">
             <div class="div-user">
                 <i class="fa-solid fa-circle-user"></i>
-                <p>Nome Sobrenome</p>
+                <p>{{session.get('nome')}} {{session.get('sobrenome')}}</p>
             </div>
             <nav>
                 <div>
@@ -55,7 +55,7 @@
                     <i class="fa-solid fa-dollar-sign"></i>
                     <p class="p-saldo">Meu saldo</p>
                 </div>
-                <p class="saldo">R$<span>{{receitas-despesas}}</span></p>
+                <p class="saldo">R$<span>{{receitas - despesas}}</span></p>
             </div>
             <div class="div-pai">
                 <div class="div-despesa-receita">

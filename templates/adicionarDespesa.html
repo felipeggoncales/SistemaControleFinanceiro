@@ -24,7 +24,7 @@
         <div class="div-items-menu">
             <div class="div-user">
                 <i class="fa-solid fa-circle-user"></i>
-                <p>Nome Sobrenome</p>
+                <p>{{session.get('nome')}} {{session.get('sobrenome')}}</p>
             </div>
             <nav>
                 <div>
@@ -49,20 +49,20 @@
     <main class="main-adicionar">
         <div class="container">
             <h2>Adicionar Despesa</h2>
-            <form>
+            <form method="POST" action="{{ url_for('addDespesa') }}">
                 <div class="div-input">
                     <p>Fonte</p>
-                    <input type="text" placeholder="~" class="add-input" required>
+                    <input type="text" name="fonte" placeholder="~" class="add-input" required>
                 </div>
                 <div class="div-dupla">
                     <div class="div-input div-valor">
                         <p>Valor</p>
                         <i>R$</i>
-                        <input type="text" placeholder="~" class="saldo-input add-input" required>
+                        <input type="number" name="valor" placeholder="~" class="saldo-input add-input" step="0.01" min="0" required>
                     </div>
                     <div class="div-input">
                         <p>Data</p>
-                        <input type="date" class="add-input" required>
+                        <input type="date" name="data" class="add-input" required>
                     </div>
                 </div>
                 <button class="botao-adicionar">+ Adicionar despesa</button>

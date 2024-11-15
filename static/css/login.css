@@ -150,10 +150,15 @@ form {
 .flash-messages {
     list-style-type: none;
     & li {
-        color: rgb(214, 6, 6);
         font-size: 0.65rem;
         line-height: 150%;
         text-align: left;
+        &.error {
+            color: rgb(214, 6, 6);
+        }
+        &.success {
+            color: #15a553;
+        }
     }
 }
 

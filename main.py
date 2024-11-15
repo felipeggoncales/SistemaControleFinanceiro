@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, url_for, redirect
+from flask import Flask, render_template, request, flash, url_for, redirect, get_flashed_messages, session
 import fdb
 import re
 
@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.secret_key = 'logisticBanco'
 
 host = 'localhost'
-database = r'C:\Users\Aluno\Documents\GitHub\SistemaControleFinanceiro\BANCO.FDB'
+database = r'C:\Users\felip\OneDrive\Documentos\GitHub\SistemaControleFinanceiro\BANCO.FDB'
 user = 'SYSDBA'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
@@ -18,7 +18,6 @@ class Usuario:
         self.sobrenome = sobrenome
         self.email = email
         self.senha = senha
-
 
 class Receitas:
     def __init__(self, id_receita, id_usuario, valor, data, fonte):
@@ -39,7 +38,17 @@ class Despesas:
 
 @app.route('/')
 def index():
+    mensagens = get_flashed_messages()
+    
+    # Verificar se existe alguma mensagem e se é diferente de "Sua conta foi cadastrada com sucesso"
+    if mensagens:
+        if mensagens[0] != "Sua conta foi cadastrada com sucesso":
+            # Se for diferente, limpa as mensagens (elas já são apagadas automaticamente)
+            pass  # Aqui você pode adicionar alguma lógica extra se quiser limpar manualmente
+    
+    # Renderiza o template
     return render_template('index.html')
+
 
 @app.route('/home')
 def home():
@@ -47,13 +56,13 @@ def home():
     receitas = 0
 
     cursor = con.cursor()
-    cursor.execute('SELECT VALOR FROM DESPESAS')
+    cursor.execute('SELECT VALOR FROM DESPESAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
     for valor in cursor.fetchall():
         despesas += valor[0]
     cursor.close()
 
     cursor = con.cursor()
-    cursor.execute('SELECT VALOR FROM RECEITAS')
+    cursor.execute('SELECT VALOR FROM RECEITAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
     for valor in cursor.fetchall():
         receitas += valor[0]
     cursor.close()
@@ -62,7 +71,22 @@ def home():
 
 @app.route('/historico')
 def historico():
-    return render_template('historico.html')
+    despesas = 0
+    receitas = 0
+
+    cursor = con.cursor()
+    cursor.execute('SELECT VALOR FROM DESPESAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
+    for valor in cursor.fetchall():
+        despesas += valor[0]
+    cursor.close()
+
+    cursor = con.cursor()
+    cursor.execute('SELECT VALOR FROM RECEITAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
+    for valor in cursor.fetchall():
+        receitas += valor[0]
+    cursor.close()
+
+    return render_template('historico.html', despesas=despesas, receitas=receitas)
 
 # Historico Receitas
 @app.route('/historicoReceita')
@@ -89,22 +113,24 @@ def abrirReceita():
 
 @app.route('/addReceita', methods=['POST'])
 def addReceita():
-    valor = float(request.form['valor'])
-    data = request.form['data']
-    fonte = request.form['fonte']
+     if request.method == 'POST':
+        try:
+            valor = float(request.form['valor'])
+            data = request.form['data']
+            fonte = request.form['fonte']
 
-    cursor = con.cursor()
-    try:
-        if valor <= 0:
-            flash('Erro: Coloque um valor maior que 0', 'error')
-        else:
-            cursor.execute("INSERT INTO RECEITAS (valor, data, fonte) VALUES (?, ?, ?)", (valor, data, fonte))
-            con.commit()
-            flash('Sua receita foi adicionada com sucesso')
-    finally:
-        cursor.close()
+            if valor <= 0:
+                flash('Coloque um valor maior que 0', 'error')
+            else:
+                cursor = con.cursor()
+                cursor.execute("INSERT INTO RECEITAS (id_usuario, valor, data, fonte) VALUES (?, ?, ?, ?)", (session.get('id_usuario'), valor, data, fonte))
+                con.commit()
+                cursor.close()
+                flash('Sua receita foi adicionada com sucesso')
+        except ValueError:
+            flash('O valor informado não é válido. Por favor, insira um número válido.', 'error')
 
-    return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
 # Editar receita
 @app.route('/atualizarReceita')
@@ -141,22 +167,25 @@ def abrirDespesa():
 
 @app.route('/addDespesa', methods=['POST'])
 def addDespesa():
-    valor = float(request.form['valor'])
-    data = request.form['data']
-    fonte = request.form['fonte']
+    if request.method == 'POST':
+        try:
+            valor = float(request.form['valor'])
+            data = request.form['data']
+            fonte = request.form['fonte']
 
-    cursor = con.cursor()
-    try:
-        if valor <= 0:
-            flash('Erro: Coloque um valor maior que 0', 'error')
-        else:
-            cursor.execute("INSERT INTO DESPESAS (valor, data, fonte) VALUES (?, ?, ?)", (valor, data, fonte))
-            con.commit()
-            flash('Sua despesa foi adicionada com sucesso')
-    finally:
-        cursor.close()
+            if valor <= 0:
+                flash('Coloque um valor maior que 0', 'error')
+            else:
+                cursor = con.cursor()
+                cursor.execute("INSERT INTO DESPESAS (id_usuario, valor, data, fonte) VALUES (?, ?, ?, ?)", (session.get('id_usuario'),valor, data, fonte))
+                con.commit()
+                cursor.close()
+                flash('Sua despesa foi adicionada com sucesso!')
+        except ValueError:
+            flash('O valor informado não é válido. Por favor, insira um número válido.', 'error')
 
-    return redirect(url_for('index'))
+        return redirect(url_for('home'))
+
 
 # Editar despesa
 @app.route('/atualizarDespesa')
@@ -189,6 +218,7 @@ def editarDespesa(id):
 # Abrir pagina 'cadastro'
 @app.route('/abrirUsuario')
 def abrirUsuario():
+    get_flashed_messages()
     return render_template('cadastro.html', titulo='Novo usuario')
 
 @app.route('/addUsuario', methods=['POST'])
@@ -208,7 +238,6 @@ def addUsuario():
         if not re.fullmatch(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$', senha):
             flash('A senha deve ter ao menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.', 'error')
             return redirect(url_for('abrirUsuario'))  # Certifique-se de retornar após flash
-
         # Inserção de novo usuário
         cursor.execute("INSERT INTO USUARIO (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)",
                        (nome, sobrenome, email, senha))
@@ -227,17 +256,26 @@ def login():
     senha = request.form['senha']
 
     cursor = con.cursor()
-    cursor.execute("SELECT email, senha FROM USUARIO WHERE email = ?", (email,))
+    cursor.execute("SELECT id_usuario, email, senha FROM USUARIO WHERE email = ?", (email,))
     usuario = cursor.fetchone()
-    cursor.close()
 
-    if usuario and usuario[1] == senha:
+    if usuario and usuario[2] == senha:
         flash('Login realizado com sucesso', 'success')
-        return redirect(url_for('home'))
+        session['id_usuario'] = usuario[0]
+        # Obter nome e sobrenome do usuário
+        cursor.execute("SELECT nome, sobrenome FROM USUARIO WHERE email = ?", (email,))
+        resultado = cursor.fetchone()  # fetchone() retorna uma única linha como uma tupla
+        cursor.close()
+        if resultado:
+            nome, sobrenome = resultado  # Desempacotando a tupla
+            session['nome'] = nome
+            session['sobrenome'] = sobrenome
+            # Passar nome e sobrenome como parâmetros para a rota 'home'
+            return redirect(url_for('home'))
     else:
+        cursor.close()
         flash('E-mail ou senha incorretos', 'error')
         return redirect(url_for('index'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)

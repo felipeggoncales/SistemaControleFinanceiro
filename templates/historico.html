@@ -24,7 +24,7 @@
         <div class="div-items-menu">
             <div class="div-user">
                 <i class="fa-solid fa-circle-user"></i>
-                <p>Nome Sobrenome</p>
+                <p>{{session.get('nome')}} {{session.get('sobrenome')}}</p>
             </div>
             <nav>
                 <div>
@@ -53,7 +53,7 @@
                 <div class="periodo">
                     <div class="div-mes-ano">
                         <h2>Período</h2>
-                        <p id="periodoSelecionado">Outubro/2024</p> <!-- ID para manipulação com JavaScript -->                       
+                        <p id="periodoSelecionado">Novembro/2024</p> <!-- ID para manipulação com JavaScript -->                       
                     </div>
                     <i class="fa-solid fa-chevron-right" id="setaFiltro" onclick="toggleDropdown()"></i>
                     <div id="dropdownPeriodo" class="dropdown">
@@ -84,7 +84,7 @@
                         <div class="movement">
                             <h3>Quanto entrou</h3>
                             <div class="container-saldo-chevron">
-                                <p>R$ <span>0000</span></p>
+                                <p>R$ <span>{{receitas}}</span></p>
                                 <i class="fa-solid fa-chevron-right"></i> 
                             </div>                       
                         </div>
@@ -93,14 +93,14 @@
                         <div class="movement">
                             <h3>Quanto saiu</h3>                    
                             <div class="container-saldo-chevron">
-                                <p>R$ <span>0000</span></p>        
+                                <p>R$ <span>{{despesas}}</span></p>        
                                 <i class="fa-solid fa-chevron-right"></i>          
                             </div>                              
                         </div>
                     </a>
                 </div>
                 <div class="result-movement">
-                    <h2>Entradas menos saídas no<br><span class="color-meubolso"> MeuBolso</span> esse mês</h2>
+                    <h2>Entradas menos saídas no<br><span class="color-meubolso"> MeuBolso</span> nos últimos 30 dias</h2>
                     <p>R$ <span>0000</span></p>
                 </div>
             </div>

@@ -53,7 +53,6 @@ function abrirFecharMenu() {
 /* Gráfico de limite de gastos */
 
 var limiteMensal = null;
-//let gastos = 1500; // Variável a ser trocada quando a função de cadastar despesas for implemantada
 var porcentagemLimiteConcluido = 75;
 
 const limiteTexto = document.getElementById('porcentagem');
@@ -82,7 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function alterarGraficoLimite() {
     porcentagemLimiteConcluido = ((gastos / parseFloat(limiteMensal))*100).toFixed(1); // Ainda não existe, precisa fazer o banco SQL
-    porcentagemTexto.textContent = `${porcentagemLimiteConcluido}%`;
+    if (porcentagemLimiteConcluido >= 1000) {
+        porcentagemTexto.textContent = `+1000%`;
+    } else {
+        porcentagemTexto.textContent = `${porcentagemLimiteConcluido}%`;
+    }
     Array.from(waves).forEach(wave => {
         if (porcentagemLimiteConcluido < 100) {
             wave.style.bottom = `calc(${porcentagemLimiteConcluido}% - 30px)`;
