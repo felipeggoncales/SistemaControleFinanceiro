@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MeuBolso - Adicionar Despesa</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="icon" href="../static/img/logo.svg">
+    <title>MeuBolso - Adicionar Receita</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.svg') }}">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <div class="div-logo">
-            <img src="../static/img/logo.svg" alt="logo MeuBolso">
+            <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="logo MeuBolso">
             <p>Meu<span>Bolso</span></p>
         </div>
 
@@ -54,24 +54,32 @@
     </header>
     <main class="main-adicionar">
         <div class="container">
-            <h2>Adicionar Despesa</h2>
-            <form method="POST" action="{{ url_for('addDespesa') }}">
+            <h2>Editar {{receitaOuDespesa}}</h2>
+            <form method="POST" action="{{ url_for('salvarAlteracoes', id=mensagem[0], tipo=receitaOuDespesa) }}">
                 <div class="div-input">
                     <p>Fonte</p>
-                    <input type="text" name="fonte" placeholder="~" class="add-input" required>
+                    <input type="text" placeholder="~" class="add-input" name="fonte" value="{{ mensagem[3] }}" required>
                 </div>
                 <div class="div-dupla">
                     <div class="div-input div-valor">
                         <p>Valor</p>
                         <i>R$</i>
-                        <input type="number" name="valor" placeholder="~" class="saldo-input add-input" step="0.01" min="0" required>
+                        <input type="number" placeholder="~" class="saldo-input add-input" name="valor" value="{{ mensagem[1] }}" required>
                     </div>
                     <div class="div-input">
                         <p>Data</p>
-                        <input type="date" name="data" class="add-input" required>
+                        <input type="date"class="add-input" name="data" value="{{ mensagem[2] }}" required>
                     </div>
                 </div>
-                <button class="botao-adicionar">+ Adicionar despesa</button>
+                <div class="div-salvar-excluir">
+                    <a href="{{ url_for('excluir', id=mensagem[0], tipo=receitaOuDespesa) }}">
+                        <div>
+                            <i class="fa-solid fa-trash-can"></i>
+                            <p>Excluir</p>
+                        </div>
+                    </a>
+                    <button class="botao-adicionar" type="submit">Salvar alterações</button>                 
+                </div>
             </form>
         </div>
     </main>

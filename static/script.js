@@ -1,3 +1,13 @@
+function aplicarPeriodo() {
+    const mes = document.getElementById("mes").value;
+    const ano = document.getElementById("ano").value;
+
+    // Enviar os dados para o backend via URL
+    const url = `/historico?mes=${mes}&ano=${ano}`;
+    window.location.href = url;
+}
+
+
 /* Abrir e fecar Menu */
 
 const linha1 = document.getElementById('linha1');

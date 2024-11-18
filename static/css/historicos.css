@@ -51,7 +51,27 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 30px;
+    & .div-logout {
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 6px;
+        position: absolute;
+        bottom: 40px;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: var(--cor-errado);
+        & i, p {
+            font-size: 1rem;
+        }
+        &:hover {
+            color: #ad261c;
+        }
+    }
 }
 
 .div-logo {
@@ -347,6 +367,7 @@ section {
     }
 }
 
+
 /* Histórico */
 
 .container-historico {
@@ -355,7 +376,8 @@ section {
     background-color: var(--cor-div-despesa-receita);
     border-radius: 15px;
     border-radius: 20px;
-    overflow-y: hidden;
+    overflow-x: hidden;
+    max-height: 480px;
     & p {
        line-height: 100%; 
     }
@@ -366,6 +388,7 @@ section {
         justify-content: space-between;
         align-items: center;
         padding: 25px;
+        height: 80px;
         &:hover {
             background-color: var(--cor-hover);
         }
@@ -391,18 +414,32 @@ section {
                 }
             }
         }
-        & .div-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            align-items: center;
-            justify-content: center;
-            & .valor, span {
-                font-size: 0.9rem;
+        & .div-data-editar-icon {
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 10px;
+            & .div-info {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: center;
+                justify-content: center;
+                & .valor, span {
+                    font-size: 0.9rem;
+                }
+                & .data {
+                    font-size: 0.75rem;
+                    font-weight: 300;
+                }
             }
-            & .data {
-                font-size: 0.75rem;
-                font-weight: 300;
+            & i {
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: var(--cor-texto);
+                &:hover {
+                    color: var(--cor-texto-opaco);
+                }
             }
         }
     }

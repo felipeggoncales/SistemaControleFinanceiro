@@ -44,6 +44,12 @@
                     <a href="{{ url_for('historico') }}">Histórico</a>
                 </div>
             </nav>
+            <a href="{{ url_for('logout') }}"> 
+                <div class="div-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>Sair</p>
+                </div>
+            </a>            
         </div>
     </header>
     <main>
@@ -53,7 +59,13 @@
                 <div class="periodo">
                     <div class="div-mes-ano">
                         <h2>Período</h2>
-                        <p id="periodoSelecionado">Novembro/2024</p> <!-- ID para manipulação com JavaScript -->                       
+                        <p id="periodoSelecionado">
+                            {% if mes and ano %}
+                                {{ mes }}/{{ ano }}
+                            {% else %}
+                                Últimos 30 dias
+                            {% endif %}
+                        </p>                                        
                     </div>
                     <i class="fa-solid fa-chevron-right" id="setaFiltro" onclick="toggleDropdown()"></i>
                     <div id="dropdownPeriodo" class="dropdown">
@@ -101,7 +113,7 @@
                 </div>
                 <div class="result-movement">
                     <h2>Entradas menos saídas no<br><span class="color-meubolso"> MeuBolso</span> nos últimos 30 dias</h2>
-                    <p>R$ <span>0000</span></p>
+                    <p>R$ <span>{{receitas - despesas}}</span></p>
                 </div>
             </div>
         </section>

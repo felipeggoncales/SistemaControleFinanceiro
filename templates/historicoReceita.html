@@ -44,6 +44,12 @@
                     <a href="{{ url_for('historico') }}">Histórico</a>
                 </div>
             </nav>
+            <a href="{{ url_for('logout') }}"> 
+                <div class="div-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>Sair</p>
+                </div>
+            </a>            
         </div>
     </header>
     <main>
@@ -80,75 +86,24 @@
                     </div>
                 </div>
                 <div class="container-historico">
-                    <div class="div-historico div-primeira">
-                        <div class="div-grupo-fonte">
-                            <img src="../static/img/despesa.svg" alt="ícone de moeda">
-                            <div class="div-fonte">
-                                <p class="fonte">Fonte</p>
-                                <p class="legenda">Transferência recebida</p>
+                    {% for receita in receitas %}
+                        <div class="div-historico">
+                            <div class="div-grupo-fonte">
+                                <img src="../static/img/despesa.svg" alt="ícone de moeda">
+                                <div class="div-fonte">
+                                    <p class="fonte">{{ receita[3] }}</p>
+                                    <p class="legenda">Transferência recebida</p>
+                                </div>
+                            </div>
+                            <div class="div-data-editar-icon">
+                                <div class="div-info">
+                                    <p class="valor">R$<span>{{ receita[1] }}</span></p>
+                                    <p class="data">{{ receita[2].strftime("%d %b") }}</p>
+                                </div>
+                                <a href="{{ url_for('editar', id=receita[0], tipo='receita') }}"><i class="fa-solid fa-pen-to-square"></i></a>
                             </div>
                         </div>
-                        <div class="div-info">
-                            <p class="valor">R$<span>346,00</span></p>
-                            <p class="data">20/OUT</p>
-                        </div>
-                    </div>
-
-                    <div class="div-historico">
-                        <div class="div-grupo-fonte">
-                            <img src="../static/img/despesa.svg" alt="ícone de moeda">
-                            <div class="div-fonte">
-                                <p class="fonte">Fonte</p>
-                                <p class="legenda">Transferência recebida</p>
-                            </div>
-                        </div>
-                        <div class="div-info">
-                            <p class="valor">R$<span>346,00</span></p>
-                            <p class="data">20/OUT</p>
-                        </div>
-                    </div>
-
-                    <div class="div-historico">
-                        <div class="div-grupo-fonte">
-                            <img src="../static/img/despesa.svg" alt="ícone de moeda">
-                            <div class="div-fonte">
-                                <p class="fonte">Fonte</p>
-                                <p class="legenda">Transferência recebida</p>
-                            </div>
-                        </div>
-                        <div class="div-info">
-                            <p class="valor">R$<span>346,00</span></p>
-                            <p class="data">20/OUT</p>
-                        </div>
-                    </div>
-
-                    <div class="div-historico">
-                        <div class="div-grupo-fonte">
-                            <img src="../static/img/despesa.svg" alt="ícone de moeda">
-                            <div class="div-fonte">
-                                <p class="fonte">Fonte</p>
-                                <p class="legenda">Transferência recebida</p>
-                            </div>
-                        </div>
-                        <div class="div-info">
-                            <p class="valor">R$<span>346,00</span></p>
-                            <p class="data">20/OUT</p>
-                        </div>
-                    </div>
-
-                    <div class="div-historico div-ultima">
-                        <div class="div-grupo-fonte">
-                            <img src="../static/img/despesa.svg" alt="ícone de moeda">
-                            <div class="div-fonte">
-                                <p class="fonte">Fonte</p>
-                                <p class="legenda">Transferência recebida</p>
-                            </div>
-                        </div>
-                        <div class="div-info">
-                            <p class="valor">R$<span>346,00</span></p>
-                            <p class="data">20/OUT</p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <a href="{{ url_for('historico') }}" class="btn-voltar-historico">Voltar</a>
             </div>
