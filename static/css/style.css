@@ -493,6 +493,7 @@ h1 {
 
 .mensagemLimiteSalvo {
     position: absolute;
+    z-index: 99999;
     top: 20px;
     right: 20px;
     background-color: var(--cor-mensagem);
@@ -586,6 +587,7 @@ form {
         justify-content: space-between; 
         align-items: center; 
         width: 100%;
+        margin-top: 10px;
         & div {
             display: flex;
             gap: 5px;
@@ -614,7 +616,6 @@ form {
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
-    margin-top: 15px;
     &:hover {
         background-color: var(--hover-button);
     }

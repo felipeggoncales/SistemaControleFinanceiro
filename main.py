@@ -68,8 +68,19 @@ def historico():
     mes = request.args.get('mes', None)
     ano = request.args.get('ano', None)
 
+    if mes == None:
+        mes = session.get('mes')
+
+    if ano == None:
+        ano = session.get('ano')
+
+    session['mes'] = mes
+    session['ano'] = ano
+
+    mensagem = None
     if mes and ano:
         mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
+        mensagem = 'em '+datetime.strptime(mes, "%m").strftime("%B")
     else:
         mes_convertido = None
         mensagem = 'nos últimos 30 dias'
@@ -115,6 +126,15 @@ def historicoReceita():
     mes = request.args.get('mes', None)
     ano = request.args.get('ano', None)
 
+    if mes == None:
+        mes = session.get('mes')
+
+    if ano == None:
+        ano = session.get('ano')
+
+    session['mes'] = mes
+    session['ano'] = ano
+
     if mes and ano:
         mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
     else:
@@ -142,6 +162,15 @@ def historicoReceita():
 def historicoDespesas():
     mes = request.args.get('mes', None)
     ano = request.args.get('ano', None)
+
+    if mes == None:
+        mes = session.get('mes')
+
+    if ano == None:
+        ano = session.get('ano')
+
+    session['mes'] = mes
+    session['ano'] = ano
 
     if mes and ano:
         mes_convertido = datetime.strptime(mes, "%m").strftime("%b")

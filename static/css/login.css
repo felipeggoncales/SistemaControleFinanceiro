@@ -162,10 +162,13 @@ form {
     }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 1150px) {
     .pessoa {
         display: none;
     }
+}
+
+@media (max-width: 769px) {
     .div-logo {
         position: static;
     }
