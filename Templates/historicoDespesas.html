@@ -56,14 +56,20 @@
         <section>
             <div class="container">
                 <h1>Saídas</h1>
-                <div class="periodo">
+                <form class="periodo" action="{{ url_for('historicoDespesas') }}" method="get">
                     <div class="div-mes-ano">
                         <h2>Período</h2>
-                        <p id="periodoSelecionado">Outubro/2024</p> <!-- ID para manipulação com JavaScript -->                       
+                        <p id="periodoSelecionado">
+                            {% if mes and ano %}
+                                {{ mes }}/{{ ano }}
+                            {% else %}
+                                Últimos 30 dias
+                            {% endif %}
+                        </p>                                        
                     </div>
                     <i class="fa-solid fa-chevron-right" id="setaFiltro" onclick="toggleDropdown()"></i>
-                    <form action="" id="dropdownPeriodo" class="dropdown">
-                        <select id="mes" name="">
+                    <div id="dropdownPeriodo" class="dropdown">
+                        <select id="mes" name="mes">
                             <option value="01">Janeiro</option>
                             <option value="02">Fevereiro</option>
                             <option value="03">Março</option>
@@ -77,33 +83,41 @@
                             <option value="11">Novembro</option>
                             <option value="12">Dezembro</option>
                         </select>
-                        <select id="ano" name="">
+                        <select id="ano" name="ano">
                             <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
                         </select>
                         <button type="submit">Aplicar</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
                 <div class="container-historico">
-                    {% for despesa in despesas %}
-                        <div class="div-historico">
-                            <div class="div-grupo-fonte">
-                                <img src="../static/img/coin-decrease.svg" alt="ícone de moeda">
-                                <div class="div-fonte">
-                                    <p class="fonte">{{ despesa[3] }}</p>
-                                    <p class="legenda">Transferência enviada</p>
+                    {% if despesas %}
+                        {% for despesa in despesas %}
+                            <div class="div-historico">
+                                <div class="div-grupo-fonte">
+                                    <img src="../static/img/coin-decrease.svg" alt="ícone de moeda">
+                                    <div class="div-fonte">
+                                        <p class="fonte">{{ despesa[3] }}</p>
+                                        <p class="legenda">Transferência recebida</p>
+                                    </div>
+                                </div>
+                                <div class="div-data-editar-icon">
+                                    <div class="div-info">
+                                        <p class="valor">R$<span>{{ despesa[1] }}</span></p>
+                                        <p class="data">{{ despesa[2].strftime("%d %b") }}</p>
+                                    </div>
+                                    <a href="{{ url_for('editar', id=despesa[0], tipo='despesa') }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="div-data-editar-icon">
-                                <div class="div-info">
-                                    <p class="valor">R$<span>{{ despesa[1] }}</span></p>
-                                    <p class="data">{{ despesa[2].strftime("%d %b") }}</p>
-                                </div>
-                                <a href="{{ url_for('editar', id=despesa[0], tipo='despesa') }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="div-nada">
+                            <p>Nada foi encontrado.</p>
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
                 <a href="{{ url_for('historico') }}" class="btn-voltar-historico">Voltar</a>
             </div>

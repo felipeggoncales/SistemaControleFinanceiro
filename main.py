@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, flash, url_for, redirect, get_flashed_messages, session
+from datetime import datetime
 import fdb
 import re
+import locale
+
+locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 
 app = Flask(__name__)
 app.secret_key = 'logisticBanco'
@@ -64,6 +68,12 @@ def historico():
     mes = request.args.get('mes', None)
     ano = request.args.get('ano', None)
 
+    if mes and ano:
+        mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
+    else:
+        mes_convertido = None
+        mensagem = 'nos últimos 30 dias'
+
     despesas = 0
     receitas = 0
 
@@ -71,13 +81,14 @@ def historico():
     if mes and ano:
         cursor.execute('''
             SELECT VALOR FROM DESPESAS 
-            WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = ? AND EXTRACT(YEAR FROM DATA) = ?
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
         ''', (session.get('id_usuario'), mes, ano))
     else:
         cursor.execute('''
             SELECT VALOR FROM DESPESAS 
-            WHERE ID_USUARIO = ? AND (DATA BETWEEN CURRENT_DATE - 30 AND CURRENT_DATE)
+            WHERE (ID_USUARIO = ?) AND (DATA BETWEEN (CURRENT_DATE - 30) AND CURRENT_DATE)
         ''', (session.get('id_usuario'),))
+        
     for valor in cursor.fetchall():
         despesas += valor[0]
     cursor.close()
@@ -97,24 +108,62 @@ def historico():
         receitas += valor[0]
     cursor.close()
 
-    return render_template('historico.html', despesas=despesas, receitas=receitas, mes=mes, ano=ano)
+    return render_template('historico.html', despesas=despesas, receitas=receitas, mes=mes_convertido, ano=ano, mensagem=mensagem)
 
 @app.route('/historicoReceita')
 def historicoReceita():
+    mes = request.args.get('mes', None)
+    ano = request.args.get('ano', None)
+
+    if mes and ano:
+        mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
+    else:
+        mes_convertido = None
+
     cursor = con.cursor()
-    cursor.execute('SELECT id_receita, valor, data, fonte FROM RECEITAS WHERE ID_USUARIO = ? ORDER BY data DESC', (session.get('id_usuario'), ))
+    if mes and ano:
+        cursor.execute('''
+            SELECT id_receita, valor, data, fonte FROM RECEITAS WHERE ID_USUARIO = ? 
+            AND EXTRACT(MONTH FROM DATA) = ? AND EXTRACT(YEAR FROM DATA) = ? ORDER BY data DESC
+        ''', (session.get('id_usuario'), mes, ano))
+    else:
+        cursor.execute('''
+            SELECT id_receita, valor, data, fonte FROM RECEITAS 
+            WHERE (ID_USUARIO = ?) AND (DATA BETWEEN (CURRENT_DATE - 30) AND CURRENT_DATE)
+        ''', (session.get('id_usuario'),))
+
     receitas = cursor.fetchall()
     cursor.close()
-    return render_template('historicoReceita.html', receitas=receitas)
+
+    return render_template('historicoReceita.html', receitas=receitas, mes=mes_convertido, ano=ano)
 
 
 @app.route('/historicoDespesas')
 def historicoDespesas():
+    mes = request.args.get('mes', None)
+    ano = request.args.get('ano', None)
+
+    if mes and ano:
+        mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
+    else:
+        mes_convertido = None
+
     cursor = con.cursor()
-    cursor.execute('SELECT id_despesa, valor, data, fonte FROM DESPESAS WHERE ID_USUARIO = ? ORDER BY data DESC', (session.get('id_usuario'),))
+    if mes and ano:
+        cursor.execute('''
+            SELECT id_despesa, valor, data, fonte FROM DESPESAS WHERE ID_USUARIO = ? 
+            AND EXTRACT(MONTH FROM DATA) = ? AND EXTRACT(YEAR FROM DATA) = ? ORDER BY data DESC
+        ''', (session.get('id_usuario'), mes, ano))
+    else:
+        cursor.execute('''
+            SELECT id_despesa, valor, data, fonte FROM DESPESAS 
+            WHERE (ID_USUARIO = ?) AND (DATA BETWEEN (CURRENT_DATE - 30) AND CURRENT_DATE)
+        ''', (session.get('id_usuario'),))
+
     despesas = cursor.fetchall()
     cursor.close()
-    return render_template('historicoDespesas.html', despesas=despesas)
+
+    return render_template('historicoDespesas.html', despesas=despesas, mes=mes_convertido, ano=ano)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -293,6 +342,13 @@ def salvarAlteracoes(id,tipo):
         con.commit()
         cursor.close()
         return redirect(url_for('historicoDespesas'))
+    
+@app.route('/filtroHistorico')
+def filtroHistorico():
+    mes = request.args.get('mes')
+    ano = request.args.get('ano')
+    print(f"Mes: {mes}, Ano: {ano}")  # Verifique se os parâmetros aparecem no log
+    return redirect(url_for('historico', mes=mes, ano=ano))
     
 if __name__ == '__main__':
     app.run(debug=True)

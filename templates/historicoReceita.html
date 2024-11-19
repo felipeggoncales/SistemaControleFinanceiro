@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeuBolso</title>
-    <link rel="stylesheet" href="../static/css/historicos.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/historicos.css') }}">
     <link rel="icon" href="../static/img/logo.svg">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
 </head>
@@ -56,14 +56,20 @@
         <section>
             <div class="container">
                 <h1>Entradas</h1>
-                <div class="periodo">
+                <form class="periodo" action="{{ url_for('historicoReceita') }}" method="get">
                     <div class="div-mes-ano">
                         <h2>Período</h2>
-                        <p id="periodoSelecionado">Outubro/2024</p> <!-- ID para manipulação com JavaScript -->                       
+                        <p id="periodoSelecionado">
+                            {% if mes and ano %}
+                                {{ mes }}/{{ ano }}
+                            {% else %}
+                                Últimos 30 dias
+                            {% endif %}
+                        </p>                                        
                     </div>
                     <i class="fa-solid fa-chevron-right" id="setaFiltro" onclick="toggleDropdown()"></i>
                     <div id="dropdownPeriodo" class="dropdown">
-                        <select id="mes">
+                        <select id="mes" name="mes">
                             <option value="01">Janeiro</option>
                             <option value="02">Fevereiro</option>
                             <option value="03">Março</option>
@@ -77,34 +83,42 @@
                             <option value="11">Novembro</option>
                             <option value="12">Dezembro</option>
                         </select>
-                        <select id="ano">
+                        <select id="ano" name="ano">
                             <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
                         </select>
-                        <button onclick="aplicarPeriodo()">Aplicar</button>
+                        <button type="submit">Aplicar</button>
                     </div>
-                </div>
+                </form>
                 <div class="container-historico">
-                    {% for receita in receitas %}
-                        <div class="div-historico">
-                            <div class="div-grupo-fonte">
-                                <img src="../static/img/despesa.svg" alt="ícone de moeda">
-                                <div class="div-fonte">
-                                    <p class="fonte">{{ receita[3] }}</p>
-                                    <p class="legenda">Transferência recebida</p>
+                    {% if receitas %}
+                        {% for receita in receitas %}
+                            <div class="div-historico">
+                                <div class="div-grupo-fonte">
+                                    <img src="../static/img/despesa.svg" alt="ícone de moeda">
+                                    <div class="div-fonte">
+                                        <p class="fonte">{{ receita[3] }}</p>
+                                        <p class="legenda">Transferência recebida</p>
+                                    </div>
+                                </div>
+                                <div class="div-data-editar-icon">
+                                    <div class="div-info">
+                                        <p class="valor">R$<span>{{ receita[1] }}</span></p>
+                                        <p class="data">{{ receita[2].strftime("%d %b") }}</p>
+                                    </div>
+                                    <a href="{{ url_for('editar', id=receita[0], tipo='receita') }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="div-data-editar-icon">
-                                <div class="div-info">
-                                    <p class="valor">R$<span>{{ receita[1] }}</span></p>
-                                    <p class="data">{{ receita[2].strftime("%d %b") }}</p>
-                                </div>
-                                <a href="{{ url_for('editar', id=receita[0], tipo='receita') }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="div-nada">
+                            <p>Nada foi encontrado.</p>
                         </div>
-                    {% endfor %}
-                </div>
+                    {% endif %}
+                </div>                
                 <a href="{{ url_for('historico') }}" class="btn-voltar-historico">Voltar</a>
             </div>
         </section>

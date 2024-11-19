@@ -434,21 +434,23 @@ section {
                 }
             }
             & i {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                padding: 5px;
                 cursor: pointer;
                 color: var(--cor-texto);
-                &:hover {
-                    color: var(--cor-texto-opaco);
-                }
             }
         }
     }
 }
-.div-primeira {   
-    border-radius: 15px 15px 0 0;
-}
-.div-ultima {   
-    border-radius: 0 0 15px 15px;
+.div-nada {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & p {
+        color: var(--cor-texto-opaco);
+        font-size: 0.9rem;
+    }
 }
 
 
