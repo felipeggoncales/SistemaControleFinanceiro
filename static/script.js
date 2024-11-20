@@ -314,6 +314,7 @@ document.getElementById('fecharDivLimite').addEventListener('click', function() 
 });
 // Seremos substituídos por robo, dá não
 
+//chart js 1
 var barColors = [
     "#1ECD6A",
     "#159F5C",
@@ -342,4 +343,35 @@ new Chart("myChart", {
       fontSize: 20
     }
   }
+});
+
+//chart js 2
+document.addEventListener("DOMContentLoaded", () => {
+    // Pegue os valores de receitas e despesas a partir dos atributos do canvas
+    const canvas = document.getElementById("myChart2");
+    const receitas = parseFloat(canvas.getAttribute("data-receitas"));
+    const despesas = parseFloat(canvas.getAttribute("data-despesas"));
+
+    // Configure o gráfico com os valores dinâmicos
+    var xValues = ["Receita", "Despesa"];
+    var yValues = [receitas, despesas];
+    var barColors = ["green", "red"];
+
+    new Chart(canvas, {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: "Receitas e Despesas"
+            }
+        }
+    });
 });
