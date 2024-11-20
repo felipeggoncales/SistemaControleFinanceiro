@@ -575,7 +575,7 @@ h1 {
     }
 }
 
-form {
+.form-add {
     display: flex;
     flex-direction: column;
     gap: 15px;

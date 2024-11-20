@@ -110,20 +110,27 @@
         <i class="fa-solid fa-circle-check"></i>
     </div>
 
-    <div class="div-configurar-meta" id="divDefinirLimite">
+    <form class="div-configurar-meta" id="divDefinirLimite" method="post" action="{{ url_for('definirGrafico') }}">
         <label>Limite mensal:</label>
         <div class="div-input">
-            <input type="number" id="limiteInput" placeholder="~">
+            <input type="number" id="limiteInput" name="limiteInput" placeholder="~">
             <i class="rs">R$</i>
         </div>
-        <button id="salvarLimite">salvar</button>  
+        <button type="submit" id="salvarLimite">salvar</button>
         <i class="fa-solid fa-xmark" id="fecharDivLimite"></i>
-    </div>
+    </form>
 
     <div id="overlay"></div>
 
     <script>
         let gastos = {{despesas}}
+        var limiteMensal = {% if limite == 0 %}
+            null
+        {% else %}
+            {{ limite }}
+        {% endif %};
+
+        console.log(limiteMensal)
     </script>
     <script src="../static/script.js"></script>
 </body>

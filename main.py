@@ -69,31 +69,67 @@ def historico():
     ano = request.args.get('ano', None)
 
     if mes == None:
-        mes = session.get('mes')
-
+        if session.get('mes'):
+            mes = session.get('mes')
+        else:
+            mes = str(datetime.now().month)
     if ano == None:
-        ano = session.get('ano')
+        if session.get('ano'):
+            ano = session.get('ano')
+        else:
+            ano = str(datetime.now().year)
 
     session['mes'] = mes
-    session['ano'] = ano
+    session['ano'] = ano    
 
     mensagem = None
-    if mes and ano:
+    mes_convertido = None
+    if mes and ano and mes != '13':
         mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
         mensagem = 'em '+datetime.strptime(mes, "%m").strftime("%B")
+    elif mes == '13' and ano == '13':
+        mensagem = 'em todo o período'
+    elif mes == '13':
+        mensagem = f'em {ano}'
+    elif ano == '13':
+        mensagem = f'em {datetime.strptime(mes, "%m").strftime("%B")} de 2024-2026'
     else:
-        mes_convertido = None
         mensagem = 'nos últimos 30 dias'
+
+    textoPeriodo = 'Últimos 30 dias'
+    if mes != '13' and ano != '13':
+        textoPeriodo = f'{mes_convertido}/{ano}'
+    elif mes == '13' and ano == '13':
+        textoPeriodo = 'Em todo o período'
+    elif mes == '13':
+        textoPeriodo = f'Em {ano}'
+    elif ano == '13':
+        textoPeriodo = f'{mes_convertido}/2024-2026'
 
     despesas = 0
     receitas = 0
 
     cursor = con.cursor()
-    if mes and ano:
+    if mes and ano and mes != '13' and ano != '13':
         cursor.execute('''
             SELECT VALOR FROM DESPESAS 
             WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
         ''', (session.get('id_usuario'), mes, ano))
+    elif mes == '13' and ano == '13':
+        cursor.execute('''
+            SELECT VALOR FROM DESPESAS 
+            WHERE ID_USUARIO = ?
+        ''', (session.get('id_usuario'),))
+    elif mes == '13':
+        cursor.execute('''
+            SELECT VALOR FROM DESPESAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
+        ''', (session.get('id_usuario'), ano))
+    elif ano == '13':
+        cursor.execute('''
+            SELECT VALOR FROM DESPESAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?)
+        ''', (session.get('id_usuario'), mes))
     else:
         cursor.execute('''
             SELECT VALOR FROM DESPESAS 
@@ -105,11 +141,26 @@ def historico():
     cursor.close()
 
     cursor = con.cursor()
-    if mes and ano:
+    if mes and ano and mes != '13' and ano != '13':
         cursor.execute('''
             SELECT VALOR FROM RECEITAS 
             WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = ? AND EXTRACT(YEAR FROM DATA) = ?
         ''', (session.get('id_usuario'), mes, ano))
+    elif mes == '13' and ano == '13':
+        cursor.execute('''
+            SELECT VALOR FROM RECEITAS 
+            WHERE ID_USUARIO = ?
+        ''', (session.get('id_usuario'),))
+    elif mes == '13':
+        cursor.execute('''
+            SELECT VALOR FROM RECEITAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
+        ''', (session.get('id_usuario'), ano))
+    elif ano == '13':
+        cursor.execute('''
+            SELECT VALOR FROM RECEITAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?)
+        ''', (session.get('id_usuario'), mes))
     else:
         cursor.execute('''
             SELECT VALOR FROM RECEITAS 
@@ -119,7 +170,7 @@ def historico():
         receitas += valor[0]
     cursor.close()
 
-    return render_template('historico.html', despesas=despesas, receitas=receitas, mes=mes_convertido, ano=ano, mensagem=mensagem)
+    return render_template('historico.html', despesas=despesas, receitas=receitas, mes=mes_convertido, ano=ano, mensagem=mensagem, textoPeriodo=textoPeriodo)
 
 @app.route('/historicoReceita')
 def historicoReceita():
@@ -127,25 +178,54 @@ def historicoReceita():
     ano = request.args.get('ano', None)
 
     if mes == None:
-        mes = session.get('mes')
-
+        if session.get('mes'):
+            mes = session.get('mes')
+        else:
+            mes = str(datetime.now().month)
     if ano == None:
-        ano = session.get('ano')
+        if session.get('ano'):
+            ano = session.get('ano')
+        else:
+            ano = str(datetime.now().year)
 
     session['mes'] = mes
     session['ano'] = ano
 
-    if mes and ano:
+    mes_convertido = None
+    if mes and ano and mes != '13':
         mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
-    else:
-        mes_convertido = None
+
+    textoPeriodo = 'Últimos 30 dias'
+    if mes != '13' and ano != '13':
+        textoPeriodo = f'{mes_convertido}/{ano}'
+    elif mes == '13' and ano == '13':
+        textoPeriodo = 'Em todo o período'
+    elif mes == '13':
+        textoPeriodo = f'Em {ano}'
+    elif ano == '13':
+        textoPeriodo = f'{mes_convertido}/2024-2026'
 
     cursor = con.cursor()
-    if mes and ano:
+    if mes and ano and mes != '13' and ano != '13':
         cursor.execute('''
             SELECT id_receita, valor, data, fonte FROM RECEITAS WHERE ID_USUARIO = ? 
             AND EXTRACT(MONTH FROM DATA) = ? AND EXTRACT(YEAR FROM DATA) = ? ORDER BY data DESC
         ''', (session.get('id_usuario'), mes, ano))
+    elif mes == '13' and ano == '13':
+        cursor.execute('''
+            SELECT id_receita, valor, data, fonte FROM RECEITAS 
+            WHERE ID_USUARIO = ?
+        ''', (session.get('id_usuario'),))
+    elif mes == '13':
+        cursor.execute('''
+            SELECT id_receita, valor, data, fonte FROM RECEITAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
+        ''', (session.get('id_usuario'), ano))
+    elif ano == '13':
+        cursor.execute('''
+            SELECT id_receita, valor, data, fonte FROM RECEITAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?)
+        ''', (session.get('id_usuario'), mes))
     else:
         cursor.execute('''
             SELECT id_receita, valor, data, fonte FROM RECEITAS 
@@ -155,7 +235,7 @@ def historicoReceita():
     receitas = cursor.fetchall()
     cursor.close()
 
-    return render_template('historicoReceita.html', receitas=receitas, mes=mes_convertido, ano=ano)
+    return render_template('historicoReceita.html', receitas=receitas, mes=mes_convertido, ano=ano, textoPeriodo=textoPeriodo)
 
 
 @app.route('/historicoDespesas')
@@ -164,25 +244,54 @@ def historicoDespesas():
     ano = request.args.get('ano', None)
 
     if mes == None:
-        mes = session.get('mes')
-
+        if session.get('mes'):
+            mes = session.get('mes')
+        else:
+            mes = str(datetime.now().month)
     if ano == None:
-        ano = session.get('ano')
+        if session.get('ano'):
+            ano = session.get('ano')
+        else:
+            ano = str(datetime.now().year)
 
     session['mes'] = mes
     session['ano'] = ano
 
-    if mes and ano:
+    mes_convertido = None
+    if mes and ano and mes != '13':
         mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
-    else:
-        mes_convertido = None
+
+    textoPeriodo = 'Últimos 30 dias'
+    if mes != '13' and ano != '13':
+        textoPeriodo = f'{mes_convertido}/{ano}'
+    elif mes == '13' and ano == '13':
+        textoPeriodo = 'Em todo o período'
+    elif mes == '13':
+        textoPeriodo = f'Em {ano}'
+    elif ano == '13':
+        textoPeriodo = f'{mes_convertido}/2024-2026'
 
     cursor = con.cursor()
-    if mes and ano:
+    if mes and ano and mes != '13' and ano != '13':
         cursor.execute('''
             SELECT id_despesa, valor, data, fonte FROM DESPESAS WHERE ID_USUARIO = ? 
             AND EXTRACT(MONTH FROM DATA) = ? AND EXTRACT(YEAR FROM DATA) = ? ORDER BY data DESC
         ''', (session.get('id_usuario'), mes, ano))
+    elif mes == '13' and ano == '13':
+        cursor.execute('''
+            SELECT id_despesa, valor, data, fonte FROM DESPESAS 
+            WHERE ID_USUARIO = ?
+        ''', (session.get('id_usuario'),))
+    elif mes == '13':
+        cursor.execute('''
+            SELECT id_despesa, valor, data, fonte FROM DESPESAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
+        ''', (session.get('id_usuario'), ano))
+    elif ano == '13':
+        cursor.execute('''
+            SELECT id_despesa, valor, data, fonte FROM DESPESAS 
+            WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?)
+        ''', (session.get('id_usuario'), mes))
     else:
         cursor.execute('''
             SELECT id_despesa, valor, data, fonte FROM DESPESAS 
@@ -192,7 +301,7 @@ def historicoDespesas():
     despesas = cursor.fetchall()
     cursor.close()
 
-    return render_template('historicoDespesas.html', despesas=despesas, mes=mes_convertido, ano=ano)
+    return render_template('historicoDespesas.html', despesas=despesas, mes=mes_convertido, ano=ano, textoPeriodo=textoPeriodo)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -268,15 +377,19 @@ def home():
     cursor.execute('SELECT VALOR FROM DESPESAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
     for valor in cursor.fetchall():
         despesas += valor[0]
-    cursor.close()
 
-    cursor = con.cursor()
     cursor.execute('SELECT VALOR FROM RECEITAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
     for valor in cursor.fetchall():
         receitas += valor[0]
-    cursor.close()
 
-    return render_template('home.html', despesas=despesas, receitas=receitas)
+    cursor.execute('SELECT LIMITE_GRAFICO FROM USUARIO WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
+    limite_teste = cursor.fetchone()
+    if limite_teste:
+        limite = limite_teste[0]
+    else:
+        limite = None
+
+    return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite)
 
 @app.route('/addDespesa', methods=['POST'])
 def addDespesa():
@@ -378,6 +491,17 @@ def filtroHistorico():
     ano = request.args.get('ano')
     print(f"Mes: {mes}, Ano: {ano}")  # Verifique se os parâmetros aparecem no log
     return redirect(url_for('historico', mes=mes, ano=ano))
+
+@app.route('/definirGrafico', methods=['POST'])
+def definirGrafico():
+    limite = request.form.get('limiteInput')
+
+    cursor = con.cursor()
+    cursor.execute('UPDATE USUARIO SET LIMITE_GRAFICO = ? WHERE ID_USUARIO = ?', (limite, session.get('id_usuario')))
+    con.commit()
+    cursor.close()
+
+    return redirect(url_for('home'))
     
 if __name__ == '__main__':
     app.run(debug=True)

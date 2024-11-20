@@ -51,8 +51,6 @@ function abrirFecharMenu() {
 
 
 /* Gráfico de limite de gastos */
-
-var limiteMensal = null;
 var porcentagemLimiteConcluido = 75;
 
 const limiteTexto = document.getElementById('porcentagem');
@@ -62,9 +60,6 @@ const porcentagemTexto = document.getElementById('porcentagem');
 const limiteMensagem = document.getElementById('limiteMsg');
 
 document.addEventListener('DOMContentLoaded', function() {
-    const limiteLocalStorage = localStorage.getItem('limite')
-    limiteMensal = limiteLocalStorage ? parseFloat(limiteLocalStorage) : null;
-
     if (!limiteMensal) {
         limiteTexto.textContent = '?';
         limiteMensagem.textContent = 'Defina seu limite';
@@ -137,7 +132,6 @@ salvarLimiteButton.addEventListener('click', function() {
     if (inputLimite.value && inputLimite.value > 0) {
         limiteMensal = parseFloat(inputLimite.value);
         exibirMensagem(limiteMensal);
-        storageLimite(limiteMensal);
         alterarGraficoLimite();
 
         divDefinirLimite.style.display = 'none';
@@ -215,11 +209,6 @@ setaRight.addEventListener('click', () => {
     divGraficosArray[indDiv].style.display = 'flex';
     divGraficosArray[divGraficosArray.length-1].style.display = 'flex';
 });
-
-/* Função para salvar o limite definido pelo usuario no local storage */
-function storageLimite(valor) {
-    localStorage.setItem('limite', valor)
-}
 
 /* Mostrar tooltip ao passar o mouse sobre o gráfico */
 const toolTip = document.getElementById('tooltipGastos');
