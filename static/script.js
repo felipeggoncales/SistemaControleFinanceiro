@@ -345,17 +345,20 @@ new Chart("myChart", {
   }
 });
 
-//chart js 2
 document.addEventListener("DOMContentLoaded", () => {
     // Pegue os valores de receitas e despesas a partir dos atributos do canvas
     const canvas = document.getElementById("myChart2");
     const receitas = parseFloat(canvas.getAttribute("data-receitas"));
     const despesas = parseFloat(canvas.getAttribute("data-despesas"));
 
-    // Configure o gráfico com os valores dinâmicos
-    var xValues = ["Receita", "Despesa"];
-    var yValues = [receitas, despesas];
-    var barColors = ["green", "red"];
+    // Calcular o valor máximo e o ponto médio para o eixo Y
+    const maxValue = Math.max(receitas, despesas);
+    const midValue = Math.ceil(maxValue / 2);
+
+    // Configure o gráfico com as novas especificações
+    const xValues = ["Receita", "Despesa"];
+    const yValues = [receitas, despesas];
+    const barColors = ["#1ECD6A", "#f13d30"];
 
     new Chart(canvas, {
         type: "bar",
@@ -367,11 +370,35 @@ document.addEventListener("DOMContentLoaded", () => {
             }]
         },
         options: {
-            legend: { display: false },
+            responsive: true,
+            maintainAspectRatio: false, // Permite que o gráfico se ajuste ao tamanho da div
+            scales: {
+                yAxes: [{
+                    gridLines: {
+                        display: false // Remove as linhas que atravessam o gráfico
+                    },
+                    ticks: {
+                        stepSize: midValue, // Define os pontos em 0, metade, e total
+                        max: maxValue,
+                        callback: function(value) {
+                            return value === 0 || value === midValue || value === maxValue ? value : "";
+                        }
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false // Remove as linhas no eixo X
+                    }
+                }]
+            },
+            legend: { display: false }, // Remove a legenda
             title: {
                 display: true,
-                text: "Receitas e Despesas"
+                text: "Receitas e Despesas",
+                fontSize: 16,
+                fontColor: "#333"
             }
         }
     });
 });
+
