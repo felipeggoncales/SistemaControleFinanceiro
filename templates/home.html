@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeuBolso</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" href="../static/img/logo.svg">
     <script src="https://kit.fontawesome.com/ac1aaaa398.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -129,6 +129,9 @@
         {% else %}
             {{ limite }}
         {% endif %};
+
+        var xValues = {{ fontes | tojson }};
+        var yValues = {{ valores | tojson }};
     </script>
     <script src="../static/script.js"></script>
 </body>

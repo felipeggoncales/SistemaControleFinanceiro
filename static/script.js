@@ -162,6 +162,7 @@ function exibirMensagem(mensagem) {
     }, 3000);
 }
 
+
 /* Função para formatar número para o formato do real */
 function formatarNumero(num) {
     const numeroDecimal = parseFloat(num.toString().replace(',', '.'));
@@ -278,15 +279,49 @@ function aplicarPeriodo() {
     setaFiltro.style.transform = 'none';
 }
 
-var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-var yValues = [55, 49, 44, 24, 15];
+// Meu Deus
+document.getElementById('salvarLimite').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    var limite = document.getElementById('limiteInput').value;
+
+    if (limite) {
+        var url = '/definirGrafico?limiteInput=' + encodeURIComponent(limite);
+
+        fetch(url, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                document.getElementById('limiteValor').textContent = limite;
+                document.getElementById('mensagemLimiteSalvo').style.display = 'block';
+                setTimeout(function() {
+                    document.getElementById('mensagemLimiteSalvo').style.display = 'none';
+                }, 3000);
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao salvar limite:', error);
+        });
+    }
+});
+
+document.getElementById('fecharDivLimite').addEventListener('click', function() {
+    document.getElementById('mensagemLimiteSalvo').style.display = 'none';
+});
+// Seremos substituídos por robo, dá não
+
 var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
-];
+    "#1ECD6A",
+    "#159F5C",
+    "#38E8A5",
+    "#1E88CD",
+    "#145B8A"
+  ];
+  
 
 new Chart("myChart", {
   type: "pie",
@@ -302,7 +337,7 @@ new Chart("myChart", {
     maintainAspectRatio: false,
     title: {
       display: true,
-      text: "Gastos no último mês",
+      text: "Gastos esse mês",
       fontColor: "#000000",
       fontSize: 20
     }

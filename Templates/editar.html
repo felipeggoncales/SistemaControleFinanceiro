@@ -55,7 +55,7 @@
     <main class="main-adicionar">
         <div class="container">
             <h2>Editar {{receitaOuDespesa}}</h2>
-            <form method="POST" action="{{ url_for('salvarAlteracoes', id=mensagem[0], tipo=receitaOuDespesa) }}">
+            <form method="POST" action="{{ url_for('salvarAlteracoes', id=mensagem[0], tipo=receitaOuDespesa) }}" class="form-add">
                 <div class="div-input">
                     <p>Fonte</p>
                     <input type="text" placeholder="~" class="add-input" name="fonte" value="{{ mensagem[3] }}" required>

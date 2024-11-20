@@ -389,7 +389,29 @@ def home():
     else:
         limite = None
 
-    return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite)
+    cursor.execute('SELECT fonte, valor FROM DESPESAS WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = EXTRACT(MONTH FROM CURRENT_DATE) ORDER BY valor DESC', (session.get('id_usuario'),))
+    lista = cursor.fetchall()
+
+    top_4 = lista[:4]
+    outros = lista[4:]
+
+    valores = []
+    fontes = []
+    for item in top_4:
+        valores.append(item[1])
+        fontes.append(item[0])
+
+    if outros:
+        valor_5 = 0;
+        for item2 in outros:
+            valor_5 = valor_5 + int(item2[1])
+        valores.append(valor_5)
+        fontes.append("Outros")
+
+    cursor.close()
+
+    return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores)
+
 
 @app.route('/addDespesa', methods=['POST'])
 def addDespesa():
@@ -492,16 +514,20 @@ def filtroHistorico():
     print(f"Mes: {mes}, Ano: {ano}")  # Verifique se os parâmetros aparecem no log
     return redirect(url_for('historico', mes=mes, ano=ano))
 
-@app.route('/definirGrafico', methods=['POST'])
+@app.route('/definirGrafico', methods=['GET'])
 def definirGrafico():
-    limite = request.form.get('limiteInput')
+    limite = request.args.get('limiteInput')
 
-    cursor = con.cursor()
-    cursor.execute('UPDATE USUARIO SET LIMITE_GRAFICO = ? WHERE ID_USUARIO = ?', (limite, session.get('id_usuario')))
-    con.commit()
-    cursor.close()
+    if limite:
+        cursor = con.cursor()
+        cursor.execute('UPDATE USUARIO SET LIMITE_GRAFICO = ? WHERE ID_USUARIO = ?', (limite, session.get('id_usuario')))
+        con.commit()
+        cursor.close()
+        return jsonify({'status': 'success', 'message': 'Limite atualizado com sucesso!'})
 
-    return redirect(url_for('home'))
+    return jsonify({'status': 'error', 'message': 'Limite não informado!'})
     
+
+
 if __name__ == '__main__':
     app.run(debug=True)
