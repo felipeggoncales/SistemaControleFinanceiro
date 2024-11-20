@@ -374,11 +374,11 @@ def home():
     receitas = 0
 
     cursor = con.cursor()
-    cursor.execute('SELECT VALOR FROM DESPESAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
+    cursor.execute('SELECT VALOR FROM DESPESAS WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = EXTRACT(MONTH FROM CURRENT_DATE)', (session.get('id_usuario'),))
     for valor in cursor.fetchall():
         despesas += valor[0]
 
-    cursor.execute('SELECT VALOR FROM RECEITAS WHERE ID_USUARIO = ?', (session.get('id_usuario'),))
+    cursor.execute('SELECT VALOR FROM RECEITAS WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = EXTRACT(MONTH FROM CURRENT_DATE)', (session.get('id_usuario'),))
     for valor in cursor.fetchall():
         receitas += valor[0]
 
