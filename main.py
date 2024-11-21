@@ -3,6 +3,7 @@ from datetime import datetime
 import fdb
 import re
 import locale
+import base64
 
 locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 
@@ -45,6 +46,65 @@ class Despesas:
         self.valor = valor
         self.data = data
         self.fonte = fonte
+
+
+@app.route('/upload-profile-image', methods=['POST'])
+def upload_profile_image_handler():
+    if 'image' not in request.files:
+        return {'success': False, 'error': 'Nenhuma imagem enviada.'}, 400
+
+    image = request.files['image']
+    user_id = session.get('id_usuario')
+
+    if image and user_id:
+        image_blob = image.read()
+
+        cursor = con.cursor()
+        cursor.execute("""
+            UPDATE usuario
+            SET foto_perfil = ?
+            WHERE id_usuario = ?
+        """, (image_blob, user_id))
+        con.commit()
+
+        # Converter a imagem para base64 para exibição no front-end
+        import base64
+        image_base64 = f"data:image/jpeg;base64,{base64.b64encode(image_blob).decode('utf-8')}"
+
+        return {'success': True, 'image_url': image_base64}
+
+    return {'success': False, 'error': 'Erro ao salvar a imagem.'}, 500
+
+@app.route('/remove-profile-image', methods=['POST'])
+def remove_profile_image_handler():
+    user_id = session.get('id_usuario')
+
+    if user_id:
+        cursor = con.cursor()
+        cursor.execute("""
+            UPDATE usuario
+            SET foto_perfil = NULL
+            WHERE id_usuario = ?
+        """, (user_id,))
+        con.commit()
+
+        return {'success': True}
+
+    return {'success': False, 'error': 'Erro ao remover a imagem.'}, 500
+
+@app.route('/profile')
+def profile():
+    user_id = session.get('id_usuario')
+    cursor = con.cursor()
+    cursor.execute("SELECT foto_perfil FROM usuario WHERE id_usuario = ?", (user_id,))
+    foto_perfil = cursor.fetchone()[0]
+
+    user_image_url = None
+    if foto_perfil:
+        import base64
+        user_image_url = f"data:image/jpeg;base64,{base64.b64encode(foto_perfil).decode('utf-8')}"
+
+    return render_template('home.html', user_image_url=user_image_url)
 
 
 @app.route('/')
@@ -446,12 +506,27 @@ def home():
             valores = [1]
             fontes = ['Nada']
 
+        cursor.execute("SELECT foto_perfil FROM usuario WHERE id_usuario = ?", (session.get('id_usuario'),))
+        foto_perfil = cursor.fetchone()[0]
+
+        user_image_url = None
+        if foto_perfil:
+            import base64
+            # Lendo o conteúdo do BlobReader para obter os bytes
+            foto_bytes = foto_perfil.read()  # Esse é o ponto crucial
+            user_image_url = f"data:image/jpeg;base64,{base64.b64encode(foto_bytes).decode('utf-8')}"
+
         cursor.close()
 
+<<<<<<< Updated upstream
         print(valores)
         print(fontes)
 
         return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores)
+=======
+        return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores, user_image_url=user_image_url)
+
+>>>>>>> Stashed changes
     else:
         flash('Sessão não iniciada', 'error')
         return render_template('index.html')

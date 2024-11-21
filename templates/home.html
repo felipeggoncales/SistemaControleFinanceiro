@@ -25,9 +25,17 @@
 
         <div class="div-items-menu">
             <div class="div-user">
-                <i class="fa-solid fa-circle-user"></i>
+                <i class="fa-solid fa-circle-user" id="user-icon"></i>
+                <div id="user-image-div" style="display: {{ 'block' if user_image_url else 'none' }};">
+                    <img id="user-image" src="{{ user_image_url }}" alt="Foto de perfil">
+                    <div id="remove-image">
+                        <img src="../static/img/image-delete.png">
+                    </div>
+                </div>
                 <p>{{session.get('nome')}} {{session.get('sobrenome')}}</p>
-            </div>
+                <!-- Campo de upload de arquivo -->
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+            </div>            
             <nav>
                 <div>
                     <i class="fa-solid fa-wallet"></i>

@@ -697,6 +697,45 @@ input[type="number"] {
     margin: 0 !important;
 }
 
+#user-image-div {
+    border-radius: 50%;
+    height: 5em;
+    width: 5em;
+    position: relative;
+    overflow: hidden;
+    & #remove-image {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1.5em;
+        background-color: rgba(0, 0, 0, 0.2);
+        line-height: 1.5em;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & img {
+            height: 1.5em;
+            width: auto;
+        }
+    }
+    &:hover #remove-image {
+        display: flex;
+    }
+    & #user-image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+
+
+
+
+
 /* Responsivo */
 
 @media (max-width: 1210px) {

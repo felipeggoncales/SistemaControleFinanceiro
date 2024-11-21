@@ -401,3 +401,72 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (userImageDiv.style.display == 'block') {
+        userIcon.style.display = 'none'; // Ocultar o ícone
+    }
+})
+
+
+// Selecionar elementos
+const userIcon = document.getElementById('user-icon');
+const userImage = document.getElementById('user-image');
+const userImageDiv = document.getElementById('user-image-div');
+const fileInput = document.getElementById('file-input');
+const removeButton = document.getElementById('remove-image');
+
+// Evento para abrir o seletor de arquivo ao clicar na imagem ou ícone
+[userIcon, userImage].forEach(element => {
+    element.addEventListener('click', () => {
+        fileInput.click(); // Abre o seletor de arquivo
+    });
+});
+
+// Evento para lidar com a seleção de uma imagem
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        // Enviar a imagem para o backend (Flask)
+        fetch('/upload-profile-image', {
+            method: 'POST',
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    // Atualizar a imagem no front-end
+                    userImage.src = data.image_url; // URL base64 retornada pelo Flask
+                    userImageDiv.style.display = 'block'; // Mostrar a imagem
+                    userIcon.style.display = 'none'; // Ocultar o ícone
+                } else {
+                    alert('Erro ao salvar a imagem. Tente novamente.');
+                }
+            })
+            .catch((error) => {
+                console.error('Erro ao enviar a imagem:', error);
+            });
+    }
+});
+
+removeButton.addEventListener('click', () => {
+    fetch('/remove-profile-image', {
+        method: 'POST',
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                userImageDiv.style.display = 'none';
+                userIcon.style.display = 'block';
+            } else {
+                alert('Erro ao remover a imagem. Tente novamente.');
+            }
+        })
+        .catch((error) => {
+            console.error('Erro ao remover a imagem:', error);
+        });
+});
