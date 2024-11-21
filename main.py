@@ -518,15 +518,7 @@ def home():
 
         cursor.close()
 
-<<<<<<< Updated upstream
-        print(valores)
-        print(fontes)
-
-        return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores)
-=======
         return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores, user_image_url=user_image_url)
-
->>>>>>> Stashed changes
     else:
         flash('Sessão não iniciada', 'error')
         return render_template('index.html')
@@ -687,6 +679,11 @@ def definirGrafico():
     else:
         flash('Sessão não iniciada', 'error')
         return render_template('index.html')
+
+
+@app.route('/editarPerfil')
+def editarPerfil():
+    return render_template('editarPerfil.html')
     
 
 if __name__ == '__main__':
