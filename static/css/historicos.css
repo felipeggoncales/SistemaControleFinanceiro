@@ -377,7 +377,7 @@ section {
     border-radius: 15px;
     border-radius: 20px;
     overflow-x: hidden;
-    max-height: 480px;
+    max-height: 400px;
     & p {
        line-height: 100%; 
     }
