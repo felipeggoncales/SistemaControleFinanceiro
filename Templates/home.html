@@ -25,17 +25,9 @@
 
         <div class="div-items-menu">
             <div class="div-user">
-                <i class="fa-solid fa-circle-user" id="user-icon"></i>
-                <div id="user-image-div" style="display: {{ 'block' if user_image_url else 'none' }};">
-                    <img id="user-image" src="{{ user_image_url }}" alt="Foto de perfil">
-                    <div id="remove-image">
-                        <img src="../static/img/image-delete.png">
-                    </div>
-                </div>
+                <i class="fa-solid fa-circle-user"></i>
                 <p>{{session.get('nome')}} {{session.get('sobrenome')}}</p>
-                <!-- Campo de upload de arquivo -->
-                <input type="file" id="file-input" accept="image/*" style="display: none;">
-            </div>            
+            </div>           
             <nav>
                 <div>
                     <i class="fa-solid fa-wallet"></i>
@@ -52,10 +44,6 @@
                 <div>
                     <i class="fa-solid fa-file"></i>
                     <a href="{{ url_for('historico') }}">Histórico</a>
-                </div>
-                <div>
-                    <i class="fa-solid fa-file"></i>
-                    <a href="{{ url_for('editarPerfil') }}">Perfil</a>
                 </div>
             </nav>
             <a href="{{ url_for('logout') }}"> 

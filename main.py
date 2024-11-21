@@ -506,19 +506,9 @@ def home():
             valores = [1]
             fontes = ['Nada']
 
-        cursor.execute("SELECT foto_perfil FROM usuario WHERE id_usuario = ?", (session.get('id_usuario'),))
-        foto_perfil = cursor.fetchone()[0]
-
-        user_image_url = None
-        if foto_perfil:
-            import base64
-            # Lendo o conteúdo do BlobReader para obter os bytes
-            foto_bytes = foto_perfil.read()  # Esse é o ponto crucial
-            user_image_url = f"data:image/jpeg;base64,{base64.b64encode(foto_bytes).decode('utf-8')}"
-
         cursor.close()
 
-        return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores, user_image_url=user_image_url)
+        return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores)
     else:
         flash('Sessão não iniciada', 'error')
         return render_template('index.html')
@@ -679,12 +669,6 @@ def definirGrafico():
     else:
         flash('Sessão não iniciada', 'error')
         return render_template('index.html')
-
-
-@app.route('/editarPerfil')
-def editarPerfil():
-    return render_template('editarPerfil.html')
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
