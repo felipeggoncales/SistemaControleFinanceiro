@@ -322,7 +322,6 @@ var barColors = [
     "#1E88CD",
     "#145B8A"
   ];
-  
 
 new Chart("myChart", {
   type: "pie",
@@ -395,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title: {
                 display: true,
                 text: "Receitas e Despesas",
-                fontSize: 16,
+                fontSize: 20,
                 fontColor: "#333"
             }
         }
