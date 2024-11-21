@@ -367,41 +367,35 @@ def logout():
     
 @app.route('/addUsuario', methods=['POST'])
 def addUsuario():
-    id_usuario = session.get('id_usuario')
+    nome = request.form['nome']
+    sobrenome = request.form['sobrenome']
+    email = request.form['email']
+    senha = request.form['senha']
 
-    if id_usuario:
-        nome = request.form['nome']
-        sobrenome = request.form['sobrenome']
-        email = request.form['email']
-        senha = request.form['senha']
-
-        cursor = con.cursor()
-        try:
-            cursor.execute('SELECT 1 FROM USUARIO WHERE email = ?', (email,))
-            if cursor.fetchone():
-                limpar_flash()
-                flash('Email já cadastrado.', 'error')
-                return redirect(url_for('abrirUsuario'))
-            if not re.fullmatch(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$', senha):
-                limpar_flash()
-                flash('A senha deve ter ao menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
-                    'error')
-                return redirect(url_for('abrirUsuario'))
-            cursor.execute("INSERT INTO USUARIO (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)",
-                        (nome, sobrenome, email, senha))
-            con.commit()
+    cursor = con.cursor()
+    try:
+        cursor.execute('SELECT 1 FROM USUARIO WHERE email = ?', (email,))
+        if cursor.fetchone():
             limpar_flash()
-            flash('Sua conta foi cadastrada com sucesso.', 'success')
-            return redirect(url_for('index'))
-        except Exception as e:
-            limpar_flash()
-            flash(f'Erro ao cadastrar a conta: {e}', 'error')
+            flash('Email já cadastrado.', 'error')
             return redirect(url_for('abrirUsuario'))
-        finally:
-            cursor.close()
-    else:
-        flash('Sessão não iniciada', 'error')
-        return render_template('index.html')
+        if not re.fullmatch(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$', senha):
+            limpar_flash()
+            flash('A senha deve ter ao menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
+                'error')
+            return redirect(url_for('abrirUsuario'))
+        cursor.execute("INSERT INTO USUARIO (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)",
+                    (nome, sobrenome, email, senha))
+        con.commit()
+        limpar_flash()
+        flash('Sua conta foi cadastrada com sucesso.', 'success')
+        return redirect(url_for('index'))
+    except Exception as e:
+        limpar_flash()
+        flash(f'Erro ao cadastrar a conta: {e}', 'error')
+        return redirect(url_for('abrirUsuario'))
+    finally:
+        cursor.close()
 
 
 @app.route('/home')
