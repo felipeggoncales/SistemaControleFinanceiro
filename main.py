@@ -53,13 +53,8 @@ def index():
 
 @app.route('/abrirUsuario')
 def abrirUsuario():
-    id_usuario = session.get('id_usuario')
+    return render_template('cadastro.html', titulo='Novo usuario')
 
-    if id_usuario:
-        return render_template('cadastro.html', titulo='Novo usuario')
-    else:
-        flash('Sessão não iniciada', 'error')
-        return render_template('index.html')
 
 @app.route('/abrirDespesa')
 def abrirDespesa():
