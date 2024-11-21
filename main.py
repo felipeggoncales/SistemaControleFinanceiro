@@ -214,9 +214,7 @@ def historico():
             
         for valor in cursor.fetchall():
             despesas += valor[0]
-        cursor.close()
 
-        cursor = con.cursor()
         if mes and ano and mes != '13' and ano != '13':
             cursor.execute('''
                 SELECT VALOR FROM RECEITAS 

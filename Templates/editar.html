@@ -25,24 +25,24 @@
             <div class="div-user">
                 <i class="fa-solid fa-circle-user"></i>
                 <p>{{session.get('nome')}} {{session.get('sobrenome')}}</p>
-            </div>
+            </div>           
             <nav>
-                <div>
+                <a href="{{ url_for('home') }}">
                     <i class="fa-solid fa-wallet"></i>
-                    <a href="{{ url_for('home') }}">Home</a>
-                </div>
-                <div>
+                    <p>Home</p>
+                </a>
+                <a href="{{ url_for('abrirReceita') }}">
                     <i class="fa-solid fa-sack-dollar"></i>
-                    <a href="{{ url_for('abrirReceita') }}">Adicionar Receita</a>
-                </div>
-                <div>
+                    <p>Adicionar Receita</p>
+                </a>
+                <a href="{{ url_for('abrirDespesa') }}">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
-                    <a href="{{ url_for('abrirDespesa') }}">Adicionar Despesa</a>
-                </div>
-                <div>
+                    <p>Adicionar Despesa</p>
+                </a>
+                <a href="{{ url_for('historico') }}">
                     <i class="fa-solid fa-file"></i>
-                    <a href="{{ url_for('historico') }}">Histórico</a>
-                </div>
+                    <p>Histórico</p>
+                </a>
             </nav>
             <a href="{{ url_for('logout') }}"> 
                 <div class="div-logout">
@@ -72,20 +72,26 @@
                     </div>
                 </div>
                 <div class="div-salvar-excluir">
-                    <a href="{{ url_for('excluir', id=mensagem[0], tipo=receitaOuDespesa) }}">
-                        <div>
-                            <i class="fa-solid fa-trash-can"></i>
-                            <p>Excluir</p>
-                        </div>
-                    </a>
+                    <div id="excluir-button" onclick="divExcluirFunction()">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <p>Excluir</p>
+                    </div>
                     <button class="botao-adicionar" type="submit">Salvar alterações</button>                 
                 </div>
             </form>
         </div>
     </main>
 
+    <div id="div-confirmar-exclusao">
+        <h3>Deseja realmente excluir?</h3>
+        <div>
+            <p id="excluir-nao" onclick="buttonNaoFechar()">Não</p>
+            <a href="{{ url_for('excluir', id=mensagem[0], tipo=receitaOuDespesa) }}">Sim</a>
+        </div>
+    </div>
+
     <div id="overlay"></div>
 
-    <script src="../static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

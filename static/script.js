@@ -400,3 +400,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+function divExcluirFunction() {
+    const divExcluir = document.getElementById('div-confirmar-exclusao')
+    divExcluir.style.display = 'flex'
+}
+
+function buttonNaoFechar() {
+    const divExcluir = document.getElementById('div-confirmar-exclusao')
+    divExcluir.style.display = 'none'
+}
