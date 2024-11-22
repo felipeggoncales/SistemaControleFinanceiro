@@ -3,7 +3,6 @@ from datetime import datetime
 import fdb
 import re
 import locale
-import base64
 
 locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 
@@ -11,12 +10,10 @@ app = Flask(__name__)
 app.secret_key = 'logisticBanco'
 
 host = 'localhost'
-database = r'C:\Users\Aluno\Documents\GitHub\SistemaControleFinanceiro\BANCO.FDB'
+database = r'C:\Users\felip\OneDrive\Documentos\GitHub\SistemaControleFinanceiro\BANCO.FDB'
 user = 'SYSDBA'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
-
-contagem = 0;
 
 def limpar_flash():
     get_flashed_messages()
