@@ -112,13 +112,13 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    & div {
+    & a {
         display: flex;
         gap: 15px;
         align-items: center;
         justify-content: start;
         cursor: pointer;
-        & i, a {
+        & i, p {
             font-size: 0.75rem;
             color: var(--cor-texto);   
             font-weight: 300;
@@ -129,7 +129,6 @@ nav {
         }
     }
 }
-
 
 .menu-icon {
     display: none;

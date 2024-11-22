@@ -25,24 +25,24 @@
             <div class="div-user">
                 <i class="fa-solid fa-circle-user"></i>
                 <p>{{session.get('nome')}} {{session.get('sobrenome')}}</p>
-            </div>
+            </div>           
             <nav>
-                <div>
+                <a href="{{ url_for('home') }}">
                     <i class="fa-solid fa-wallet"></i>
-                    <a href="{{ url_for('home') }}">Home</a>
-                </div>
-                <div>
+                    <p>Home</p>
+                </a>
+                <a href="{{ url_for('abrirReceita') }}">
                     <i class="fa-solid fa-sack-dollar"></i>
-                    <a href="{{ url_for('abrirReceita') }}">Adicionar Receita</a>
-                </div>
-                <div>
+                    <p>Adicionar Receita</p>
+                </a>
+                <a href="{{ url_for('abrirDespesa') }}">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
-                    <a href="{{ url_for('abrirDespesa') }}">Adicionar Despesa</a>
-                </div>
-                <div>
+                    <p>Adicionar Despesa</p>
+                </a>
+                <a href="{{ url_for('historico') }}">
                     <i class="fa-solid fa-file"></i>
-                    <a href="{{ url_for('historico') }}">Histórico</a>
-                </div>
+                    <p>Histórico</p>
+                </a>
             </nav>
             <a href="{{ url_for('logout') }}"> 
                 <div class="div-logout">
@@ -64,7 +64,7 @@
                     <div class="div-input div-valor">
                         <p>Valor</p>
                         <i>R$</i>
-                        <input type="number" placeholder="~" class="saldo-input add-input" name="valor" required>
+                        <input type="number" placeholder="~" class="saldo-input add-input" name="valor" step="0.01" min="0" required>
                     </div>
                     <div class="div-input">
                         <p>Data</p>
