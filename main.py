@@ -16,11 +16,6 @@ user = 'SYSDBA'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
 
-contagem = 0;
-
-def limpar_flash():
-    get_flashed_messages()
-
 class Usuario:
     def __init__(self, id_usuario, nome, sobrenome, email, senha):
         self.id_usuario = id_usuario
@@ -343,8 +338,6 @@ def login():
     usuario = cursor.fetchone()
 
     if usuario and usuario[2] == senha:
-        limpar_flash()
-        flash('Login realizado com sucesso', 'success')
         session['id_usuario'] = usuario[0]
         cursor.execute("SELECT nome, sobrenome FROM USUARIO WHERE email = ?", (email,))
         resultado = cursor.fetchone()
@@ -362,6 +355,7 @@ def login():
 @app.route('/logout')
 def logout():
     session['id_usuario'] = None
+    flash('Você saiu da sua conta com sucesso', 'success')
     return render_template('index.html')
     
 @app.route('/addUsuario', methods=['POST'])
