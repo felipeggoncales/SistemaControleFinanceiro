@@ -10,13 +10,10 @@ app = Flask(__name__)
 app.secret_key = 'logisticBanco'
 
 host = 'localhost'
-database = r'C:\Users\felip\OneDrive\Documentos\GitHub\SistemaControleFinanceiro\BANCO.FDB'
+database = r'C:\Users\Aluno\Documents\GitHub\SistemaControleFinanceiro\BANCO.FDB'
 user = 'SYSDBA'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
-
-def limpar_flash():
-    get_flashed_messages()
 
 class Usuario:
     def __init__(self, id_usuario, nome, sobrenome, email, senha):
@@ -71,8 +68,8 @@ def abrirReceita():
     if id_usuario:
         return render_template('adicionarReceita.html', titulo='Nova receita')
     else:
-            flash('Sessão não iniciada', 'error')
-            return render_template('index.html')
+        flash('Sessão não iniciada', 'error')
+        return render_template('index.html')
 
 @app.route('/historico')
 def historico():
@@ -340,8 +337,7 @@ def login():
     usuario = cursor.fetchone()
 
     if usuario and usuario[2] == senha:
-        limpar_flash()
-        flash('Login realizado com sucesso', 'success')
+        flash('Login realizado com sucesso!', 'success')
         session['id_usuario'] = usuario[0]
         cursor.execute("SELECT nome, sobrenome FROM USUARIO WHERE email = ?", (email,))
         resultado = cursor.fetchone()
@@ -351,14 +347,14 @@ def login():
             session['sobrenome'] = resultado[1]
             return redirect(url_for('home'))
     else:
-        limpar_flash()
         flash('E-mail ou senha incorretos', 'error')
         cursor.close()
         return redirect(url_for('index'))
     
 @app.route('/logout')
 def logout():
-    session['id_usuario'] = None
+    session.clear()
+    flash('Logout realizado com sucesso!', 'success')
     return render_template('index.html')
     
 @app.route('/addUsuario', methods=['POST'])
@@ -372,22 +368,18 @@ def addUsuario():
     try:
         cursor.execute('SELECT 1 FROM USUARIO WHERE email = ?', (email,))
         if cursor.fetchone():
-            limpar_flash()
             flash('Email já cadastrado.', 'error')
             return redirect(url_for('abrirUsuario'))
         if not re.fullmatch(r'^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$', senha):
-            limpar_flash()
             flash('A senha deve ter ao menos 8 caracteres, uma letra maiúscula, um número e um caractere especial.',
                 'error')
             return redirect(url_for('abrirUsuario'))
         cursor.execute("INSERT INTO USUARIO (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)",
                     (nome, sobrenome, email, senha))
         con.commit()
-        limpar_flash()
         flash('Sua conta foi cadastrada com sucesso.', 'success')
         return redirect(url_for('index'))
     except Exception as e:
-        limpar_flash()
         flash(f'Erro ao cadastrar a conta: {e}', 'error')
         return redirect(url_for('abrirUsuario'))
     finally:
@@ -433,7 +425,7 @@ def home():
                 fontes.append(item[0])
 
             if outros:
-                valor_5 = 0;
+                valor_5 = 0
                 for item2 in outros:
                     valor_5 = valor_5 + int(item2[1])
                 valores.append(valor_5)
@@ -456,25 +448,16 @@ def addDespesa():
 
     if id_usuario:
         if request.method == 'POST':
-            try:
-                valor = float(request.form['valor'])
-                data = request.form['data']
-                fonte = request.form['fonte']
+            valor = float(request.form['valor'])
+            data = request.form['data']
+            fonte = request.form['fonte']
 
-                if valor <= 0:
-                    limpar_flash()
-                    flash('Coloque um valor maior que 0', 'error')
-                else:
-                    cursor = con.cursor()
-                    cursor.execute("INSERT INTO DESPESAS (id_usuario, valor, data, fonte) VALUES (?, ?, ?, ?)",
-                                (session.get('id_usuario'), valor, data, fonte))
-                    con.commit()
-                    cursor.close()
-                    limpar_flash()
-                    flash('Sua despesa foi adicionada com sucesso!', 'success')
-            except ValueError:
-                limpar_flash()
-                flash('O valor informado não é válido. Por favor, insira um número válido.', 'error')
+            cursor = con.cursor()
+            cursor.execute("INSERT INTO DESPESAS (id_usuario, valor, data, fonte) VALUES (?, ?, ?, ?)",
+                        (session.get('id_usuario'), valor, data, fonte))
+            con.commit()
+            cursor.close()
+            flash('Despesa adicionada com sucesso!', 'success')
 
             return redirect(url_for('home'))
     else:
@@ -487,25 +470,16 @@ def addReceita():
 
     if id_usuario:
         if request.method == 'POST':
-            try:
-                valor = float(request.form['valor'])
-                data = request.form['data']
-                fonte = request.form['fonte']
+            valor = float(request.form['valor'])
+            data = request.form['data']
+            fonte = request.form['fonte']
 
-                if valor <= 0:
-                    limpar_flash()
-                    flash('Coloque um valor maior que 0', 'error')
-                else:
-                    cursor = con.cursor()
-                    cursor.execute("INSERT INTO RECEITAS (id_usuario, valor, data, fonte) VALUES (?, ?, ?, ?)",
-                                (session.get('id_usuario'), valor, data, fonte))
-                    con.commit()
-                    cursor.close()
-                    limpar_flash()
-                    flash('Sua receita foi adicionada com sucesso', 'success')
-            except ValueError:
-                limpar_flash()
-                flash('O valor informado não é válido. Por favor, insira um número válido.', 'error')
+            cursor = con.cursor()
+            cursor.execute("INSERT INTO RECEITAS (id_usuario, valor, data, fonte) VALUES (?, ?, ?, ?)",
+                        (session.get('id_usuario'), valor, data, fonte))
+            con.commit()
+            cursor.close()
+            flash('Receita adicionada com sucesso!', 'success')
 
             return redirect(url_for('home'))
     else:
@@ -540,11 +514,13 @@ def excluir(id,tipo):
             cursor.execute('DELETE FROM RECEITAS WHERE ID_RECEITA = ?', (id,))
             con.commit()
             cursor.close()
+            flash('Receita excluída com sucesso!', 'success')
             return redirect(url_for('historicoReceita'))
         elif tipo == 'despesa':
             cursor.execute('DELETE FROM DESPESAS WHERE ID_DESPESA = ?', (id,))
             con.commit()
             cursor.close()
+            flash('Despesa excluída com sucesso!', 'success')
             return redirect(url_for('historicoDespesas'))
     else:
         flash('Sessão não iniciada', 'error')
@@ -564,11 +540,13 @@ def salvarAlteracoes(id,tipo):
             cursor.execute('UPDATE RECEITAS SET FONTE = ?, VALOR = ?, DATA = ? WHERE ID_RECEITA = ?', (newFonte, newValor, newData, id))
             con.commit()
             cursor.close()
+            flash('Receita editada com sucesso!', 'success')
             return redirect(url_for('historicoReceita'))
         elif tipo == 'despesa':
             cursor.execute('UPDATE DESPESAS SET FONTE = ?, VALOR = ?, DATA = ? WHERE ID_DESPESA = ?', (newFonte, newValor, newData, id))
             con.commit()
             cursor.close()
+            flash('Despesa editada com sucesso!', 'success')
             return redirect(url_for('historicoDespesas'))
     else:
         flash('Sessão não iniciada', 'error')

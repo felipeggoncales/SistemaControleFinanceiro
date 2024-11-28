@@ -1,3 +1,17 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const mensagem = document.querySelector('.flash-messages');
+
+    if (mensagem) {
+        console.log('tem mensagem')
+        setTimeout(() => {
+            mensagem.style.display = 'none';
+        }, 3990);
+    } else {
+        console.log('nao tem mensagem')
+    }
+});
+
+
 /* Abrir e fecar Menu */
 
 const linha1 = document.getElementById('linha1');

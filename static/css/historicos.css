@@ -452,6 +452,43 @@ section {
     }
 }
 
+.flash-messages {
+    position: absolute;
+    z-index: 10;
+    top: 20px;
+    right: 20px;
+    background-color: var(--cor-mensagem);
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    padding: 15px 20px;
+    animation: mensagemFlash 4s;
+    & li {
+        line-height: 15px;
+        color: white;
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
+}
+
+@keyframes mensagemFlash {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none !important;
+    }
+}
 
 
 @media (max-width: 1210px) {
@@ -493,6 +530,9 @@ section {
     }
     .container {
         margin: 50px 0;
+    }
+    .flash-messages {
+        top: 110px;
     }
 }
 
