@@ -498,7 +498,7 @@ h1 {
     position: absolute;
     z-index: 10;
     top: 20px;
-    right: 20px;
+    right: 30px;
     background-color: var(--cor-mensagem);
     border-radius: 8px;
     display: none; /* Display */
