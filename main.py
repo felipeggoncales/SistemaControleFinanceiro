@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = 'logisticBanco'
 
 host = 'localhost'
-database = r'C:\Users\Aluno\Documents\GitHub\SistemaControleFinanceiro\BANCO.FDB'
+database = r'C:\Users\felip\OneDrive\Documentos\GitHub\SistemaControleFinanceiro\BANCO.FDB'
 user = 'SYSDBA'
 password = 'sysdba'
 con = fdb.connect(host=host, database=database, user=user, password=password)
@@ -386,20 +386,118 @@ def addUsuario():
         cursor.close()
 
 
+
+
+
+
+
+
+
+
 @app.route('/home')
 def home():
     id_usuario = session.get('id_usuario')
 
     if id_usuario:
+        mes = request.args.get('mes', None)
+        ano = request.args.get('ano', None)
+
+        if mes == None:
+            if session.get('mes'):
+                mes = session.get('mes')
+            else:
+                mes = str(datetime.now().month)
+        if ano == None:
+            if session.get('ano'):
+                ano = session.get('ano')
+            else:
+                ano = str(datetime.now().year)
+
+        session['mes'] = mes
+        session['ano'] = ano    
+
+        mensagem = None
+        mes_convertido = None
+        if mes and ano and mes != '13':
+            mes_convertido = datetime.strptime(mes, "%m").strftime("%b")
+            mensagem = 'em '+datetime.strptime(mes, "%m").strftime("%B")
+        elif mes == '13' and ano == '13':
+            mensagem = 'em todo o período'
+        elif mes == '13':
+            mensagem = f'em {ano}'
+        elif ano == '13':
+            mensagem = f'em {datetime.strptime(mes, "%m").strftime("%B")} de 2024-2026'
+        else:
+            mensagem = 'nos últimos 30 dias'
+
+        textoPeriodo = 'Últimos 30 dias'
+        if mes != '13' and ano != '13':
+            textoPeriodo = f'{mes_convertido}/{ano}'
+        elif mes == '13' and ano == '13':
+            textoPeriodo = 'Em todo o período'
+        elif mes == '13':
+            textoPeriodo = f'Em {ano}'
+        elif ano == '13':
+            textoPeriodo = f'{mes_convertido}/2024-2026'
+
         despesas = 0
         receitas = 0
 
         cursor = con.cursor()
-        cursor.execute('SELECT VALOR FROM DESPESAS WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = EXTRACT(MONTH FROM CURRENT_DATE)', (session.get('id_usuario'),))
+        if mes and ano and mes != '13' and ano != '13':
+            cursor.execute('''
+                SELECT VALOR FROM DESPESAS 
+                WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
+            ''', (session.get('id_usuario'), mes, ano))
+        elif mes == '13' and ano == '13':
+            cursor.execute('''
+                SELECT VALOR FROM DESPESAS 
+                WHERE ID_USUARIO = ?
+            ''', (session.get('id_usuario'),))
+        elif mes == '13':
+            cursor.execute('''
+                SELECT VALOR FROM DESPESAS 
+                WHERE (ID_USUARIO = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
+            ''', (session.get('id_usuario'), ano))
+        elif ano == '13':
+            cursor.execute('''
+                SELECT VALOR FROM DESPESAS 
+                WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?)
+            ''', (session.get('id_usuario'), mes))
+        else:
+            cursor.execute('''
+                SELECT VALOR FROM DESPESAS 
+                WHERE (ID_USUARIO = ?) AND (DATA BETWEEN (CURRENT_DATE - 30) AND CURRENT_DATE)
+            ''', (session.get('id_usuario'),))
+            
         for valor in cursor.fetchall():
             despesas += valor[0]
 
-        cursor.execute('SELECT VALOR FROM RECEITAS WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = EXTRACT(MONTH FROM CURRENT_DATE)', (session.get('id_usuario'),))
+        if mes and ano and mes != '13' and ano != '13':
+            cursor.execute('''
+                SELECT VALOR FROM RECEITAS 
+                WHERE ID_USUARIO = ? AND EXTRACT(MONTH FROM DATA) = ? AND EXTRACT(YEAR FROM DATA) = ?
+            ''', (session.get('id_usuario'), mes, ano))
+        elif mes == '13' and ano == '13':
+            cursor.execute('''
+                SELECT VALOR FROM RECEITAS 
+                WHERE ID_USUARIO = ?
+            ''', (session.get('id_usuario'),))
+        elif mes == '13':
+            cursor.execute('''
+                SELECT VALOR FROM RECEITAS 
+                WHERE (ID_USUARIO = ?) AND (EXTRACT(YEAR FROM DATA) = ?)
+            ''', (session.get('id_usuario'), ano))
+        elif ano == '13':
+            cursor.execute('''
+                SELECT VALOR FROM RECEITAS 
+                WHERE (ID_USUARIO = ?) AND (EXTRACT(MONTH FROM DATA) = ?)
+            ''', (session.get('id_usuario'), mes))
+        else:
+            cursor.execute('''
+                SELECT VALOR FROM RECEITAS 
+                WHERE ID_USUARIO = ? AND (DATA BETWEEN CURRENT_DATE - 30 AND CURRENT_DATE)
+            ''', (session.get('id_usuario'),))
         for valor in cursor.fetchall():
             receitas += valor[0]
 
@@ -436,7 +534,7 @@ def home():
 
         cursor.close()
 
-        return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores)
+        return render_template('home.html', despesas=despesas, receitas=receitas, limite=limite, fontes=fontes, valores=valores, mes=mes_convertido, ano=ano, mensagem=mensagem, textoPeriodo=textoPeriodo)
     else:
         flash('Sessão não iniciada', 'error')
         return render_template('index.html')

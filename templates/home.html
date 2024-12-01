@@ -56,6 +56,39 @@
     </header>
     <main>
         <section>
+            <form class="periodo" action="{{ url_for('home') }}" method="get">
+                <div class="div-mes-ano">
+                    <h2>Período</h2>
+                    <p id="periodoSelecionado">
+                        {{ textoPeriodo }}
+                    </p>                                        
+                </div>
+                <i class="fa-solid fa-chevron-right" id="setaFiltro" onclick="toggleDropdown()"></i>
+                <div id="dropdownPeriodo" class="dropdown">
+                    <select id="mes" name="mes">
+                        <option value="01">Janeiro</option>
+                        <option value="02">Fevereiro</option>
+                        <option value="03">Março</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Maio</option>
+                        <option value="06">Junho</option>
+                        <option value="07">Julho</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                        <option value="13">Todos</option>
+                    </select>
+                    <select id="ano" name="ano">
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="13">Todos</option>
+                    </select>
+                    <button type="submit">Aplicar</button>
+                </div>
+            </form>
             <h1>Dashboard desse mês</h1>
             <div class="div-saldo">
                 <div>
